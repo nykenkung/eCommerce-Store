@@ -1,7 +1,7 @@
 # E-commerceProject
 Usman Naveed - Project Architect
 Megan Lubin - Developer
-seun - Sesigner/Researcher
+Suen Ming Kung - Designer/Researcher
 
 This project is an e-commerce web application that features:
 
