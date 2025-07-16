@@ -14,6 +14,7 @@ The goal is to create a seamless and user-friendly online shopping experience wi
 We will upload a figma for a layout once we know the direction we want to go. 
 
 Flow Chart: 
+
 <img width="353" height="615" alt="Screenshot 2025-07-16 at 6 39 25 PM" src="https://github.com/user-attachments/assets/2144906d-2fcb-4e9c-af6e-df1dcfb51458" />
 
 
