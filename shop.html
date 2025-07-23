@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3140 Ecommerce Project</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
 
   <!-- Header / Navbar -->
   <section id="header">
     <a href="#"><img src="Icons/logo.png" class="logo" alt="" width="400" height="250"></a>
-
     <div>
       <ul id="navbar">
         <li><a class="active" href="index.html">Home</a></li>
@@ -25,7 +20,9 @@
         <li><a href="login.html">Login/Register</a></li>
         <li>
           <div class="cart-container">
-            <a href="#" id="cart-icon"><i class="fa fa-shopping-bag" aria-hidden="true"></i> <span id="cart-count">0</span></a>
+            <a href="#" id="cart-icon" class="cart-hover">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i> <span id="cart-count">0</span>
+            </a>
             <div id="cart-preview" class="cart-preview">
               <h3>Your Cart</h3>
               <div id="cart-items"></div>
@@ -39,26 +36,24 @@
     </div>
   </section>
 
-  <!-- Category Nav -->
-  <nav class="category-nav">
-    <a href="#">VIEW ALL</a>
-    <a href="#">FROM 70% OFF</a>
-    <a href="#">T-SHIRTS</a>
-    <a href="#">SWEATERS</a>
-    <a href="#">CARDIGANS</a>
-    <a href="#">OUTERWEAR</a>
-    <a href="#">HOODIES</a>
-    <a href="#">FILTERS</a>
-  </nav>
+  <!-- Shopping Section -->
+  <div id="shop-section">
+    <nav class="category-nav">
+      <a href="#">VIEW ALL</a>
+      <a href="#">FROM 70% OFF</a>
+      <a href="#">T-SHIRTS</a>
+      <a href="#">SWEATERS</a>
+      <a href="#">CARDIGANS</a>
+      <a href="#">OUTERWEAR</a>
+      <a href="#">HOODIES</a>
+      <a href="#">FILTERS</a>
+    </nav>
 
-  <!-- Product Grid -->
-  <main class="product-grid" id="product-grid">
-    <!-- Products injected by JS -->
-  </main>
+    <main class="product-grid" id="product-grid">
+      <!-- Products will be injected by JavaScript -->
+    </main>
+  </div>
 
-  <!-- Script -->
   <script src="script.js"></script>
-
 </body>
-
 </html>
