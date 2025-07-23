@@ -1,5 +1,6 @@
 <h1 align="center"># E-commerceProject - 3140 Clothing Brand</h1>
-<h2>Click the link to start in new window: <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a></h2>   
+Click the link to start:  
+<a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>  
 
 <b>Project Team Members:</b>  
 <b>Usman Naveed</b> (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect  
