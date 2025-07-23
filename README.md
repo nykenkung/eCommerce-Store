@@ -3,9 +3,9 @@ Click the link to start:
 <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>  
 
 <b>Project Team Members:</b>  
-<b>Usman Naveed</b> (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect  
-<b>Megan Lubin</b> (<a href="https://github.com/CunyMeganLubin" target="_blank">Github</a>) - Developer  
-<b>Suen Ming Kung</b> (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Designer/Researcher  
+<b>Usman Naveed</b> (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Usman/index.html" target="_blank">Introductions</a>  
+<b>Megan Lubin</b> (<a href="https://github.com/CunyMeganLubin" target="_blank">Github</a>) - Developer - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Megan/Megan_Lubin_Introduction.html" target="_blank">Introductions</a>  
+<b>Suen Ming Kung</b> (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Designer/Researcher - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Suen/Suen_Ming_Kung_Introduction.html" target="_blank">Introductions</a>  
 
 This project is an e-commerce web application that features:
 
