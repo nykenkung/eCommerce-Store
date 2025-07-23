@@ -19,8 +19,10 @@ Flow Chart:
 
 
 Template:
-<img width="1412" height="667" alt="Screenshot 2025-07-16 at 6 34 32 PM" src="https://github.com/user-attachments/assets/92628c95-9a94-4f29-93ef-29b8721ba08a" />
-<img width="1283" height="541" alt="Screenshot 2025-07-16 at 6 36 14 PM" src="https://github.com/user-attachments/assets/8dd137a7-720c-4308-adff-f0d8341de800" />
+<img width="2560" height="1404" alt="image" src="https://github.com/user-attachments/assets/72858d94-aeaf-4882-8ba9-2f88431cdbfe" />
+
+<img width="800" height="445" alt="image" src="https://github.com/user-attachments/assets/997d60a8-7358-40c4-9846-d606dfca9974" />
+
 
 
 Repository Structure: 
