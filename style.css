@@ -297,6 +297,8 @@ img {
 #cart-preview:hover {
   display: block;
 }
-
+.cart-container:hover .cart-preview {
+  display: block;
+}
 
   
