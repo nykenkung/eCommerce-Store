@@ -1,3 +1,12 @@
+<pre>
+___________                                                                __________                   __               __   
+\_   _____/           ____  ____   _____   _____   ___________   ____  ____\______   \_______  ____    |__| ____   _____/  |_ 
+ |    __)_   ______ _/ ___\/  _ \ /     \ /     \_/ __ \_  __ \_/ ___\/ __ \|     ___/\_  __ \/  _ \   |  |/ __ \_/ ___\   __\
+ |        \ /_____/ \  \__(  <_> )  Y Y  \  Y Y  \  ___/|  | \/\  \__\  ___/|    |     |  | \(  <_> )  |  \  ___/\  \___|  |  
+/_______  /          \___  >____/|__|_|  /__|_|  /\___  >__|    \___  >___  >____|     |__|   \____/\__|  |\___  >\___  >__|  
+        \/               \/            \/      \/     \/            \/    \/                       \______|    \/     \/      
+</pre>
+
 <h1 align="center"># E-commerceProject - 3140 Clothing Brand</h1>
 Click the link to start:  
 <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>  
@@ -27,7 +36,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 <p align="center"><img width="800" height="445" alt="image" src="https://github.com/user-attachments/assets/997d60a8-7358-40c4-9846-d606dfca9974" /></p>
 
 <h3 align="center">Repository Structure:</h3>
-
+<pre>
 /E-commerceProject  
 │                       # Static files (html, css, js)  
 ├── index.html          # Landing / product listing page  
@@ -50,3 +59,4 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── /JS                 # Backend files  
 ├── /clothing           # Image files  
 └── /font-awesome-4.7.0 # Font files
+</pre>
