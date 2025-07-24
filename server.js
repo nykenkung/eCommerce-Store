@@ -10,7 +10,7 @@ const HOST = '108.54.71.208';
 const users = new Map();
 
 app.use(cors({
-	origin: true,
+	origin: 'https://cunymeganlubin.github.io',
 	credentials: true,
 }));
 app.use(express.json());
