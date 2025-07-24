@@ -45,17 +45,29 @@ form.active { display: block; }
 	gap: 10px;
 	margin-bottom: 20px;
 }
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
 	width: 100%;
 	padding: 10px 15px;
 	font-size: 16px;
 	border: 1.5px solid #ccc;
 	border-radius: 6px;
 	outline: none;
-	transition: border-color 0.3s ease;
+	transition: border-color 0.3s ease, background-color 0.3s ease;
 }
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
 	border-color: #194069;
+}
+input.valid {
+	border-color: green !important;
+	background-color: #e6f5ea !important;
+}
+input.invalid {
+	border-color: red !important;
+	background-color: #ffecec !important;
 }
 button {
 	width: 100%;
@@ -78,7 +90,6 @@ button:hover {
 	color: red;
 	font-weight: 600;
 }
-/* Password recovery section */
 #password-recovery-section {
 	display: none;
 	font-size: 18px;
@@ -115,7 +126,6 @@ button:hover {
 #forgot-password-link {
 	text-align: center;
 }
-/* Eye icon styles */
 .password-wrapper {
 	position: relative;
 }
@@ -229,15 +239,14 @@ forgotPasswordLink.addEventListener('click', (e) => {
 // Handle password recovery email send
 document.getElementById('send-recovery-email').addEventListener('click', (e) => {
 	e.preventDefault();
-
 	const recoveryEmail = document.getElementById('recovery-email');
 	const recoveryMessage = document.getElementById('recovery-message');
-
 	if (recoveryEmail.checkValidity()) {
 		recoveryMessage.textContent = "Recovery instructions sent to " + recoveryEmail.value;
 		recoveryMessage.style.color = 'green';
+	} else {
+		recoveryEmail.reportValidity();
 	}
-	else recoveryEmail.reportValidity();	// Trigger browser's native validation popup
 });
 
 // Toggle show/hide password
@@ -248,6 +257,19 @@ document.querySelectorAll('.toggle-password').forEach(icon => {
 		input.setAttribute('type', isPassword ? 'text' : 'password');
 		icon.classList.toggle('fa-eye');
 		icon.classList.toggle('fa-eye-slash');
+	});
+});
+
+// Real-time validation: green if valid, red if invalid
+document.querySelectorAll('input').forEach(input => {
+	input.addEventListener('input', () => {
+		if (input.checkValidity()) {
+			input.classList.add('valid');
+			input.classList.remove('invalid');
+		} else {
+			input.classList.add('invalid');
+			input.classList.remove('valid');
+		}
 	});
 });
 </script>
