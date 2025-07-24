@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = 3000;
-const HOST = '108.54.71.208';
 
 // In-memory user store
 const users = new Map();
