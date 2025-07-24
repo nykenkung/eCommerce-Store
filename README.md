@@ -12,7 +12,7 @@
            ██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║
            ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
 </pre>
-<h1 align="center"># E-commerceProject - 3140 Clothing Brand</h1>
+<h1 align="center"># E-commerceProject<br>3140 CLOTHING BRAND</h1>
 Click the link to start:  
 <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>  
 
