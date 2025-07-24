@@ -39,7 +39,9 @@ app.post('/login', (req, res) => {
 
   // Set cookie for login status, expires in 1 day
 	res.cookie('loginUser', JSON.stringify({ firstName: user.firstName, lastName: user.lastName }), {
-		httpOnly: false,
+		httpOnly: true,
+		secure: true,        // Required for cross-site cookies on HTTPS
+		sameSite: 'None',    // Required for cross-site cookies
 		maxAge: 24 * 60 * 60 * 1000,
 	});
 
