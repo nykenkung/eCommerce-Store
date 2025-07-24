@@ -1,15 +1,22 @@
 <pre>
-___________                                                                  
-\_   _____/           ____  ____   _____   _____   ___________   ____  ____  
- |    __)_   ______ _/ ___\/  _ \ /     \ /     \_/ __ \_  __ \_/ ___\/ __ \ 
- |        \ /_____/ \  \__(  <_> )  Y Y  \  Y Y  \  ___/|  | \/\  \__\  ___/ 
-/_______  /          \___  >____/|__|_|  /__|_|  /\___  >__|    \___  >___  >
-        \/   __________  \/            \/ __   \/     \/   __       \/    \/  
-             \______   \_______  ____    |__| ____   _____/  |_ 
-              |     ___/\_  __ \/  _ \   |  |/ __ \_/ ___\   __\
-              |    |     |  | \(  <_> )  |  \  ___/\  \___|  |  
-              |____|     |__|   \____/\__|  |\___  >\___  >__|  
-                                     \______|    \/     \/       
+             ██████╗  ██╗██╗  ██╗ ██████╗                       
+             ╚════██╗███║██║  ██║██╔═████╗                      
+              █████╔╝╚██║███████║██║██╔██║                      
+              ╚═══██╗ ██║╚════██║████╔╝██║                      
+             ██████╔╝ ██║     ██║╚██████╔╝                      
+             ╚═════╝  ╚═╝     ╚═╝ ╚═════╝                       
+ ██████╗██╗      ██████╗ ████████╗██╗  ██╗██╗███╗   ██╗ ██████╗ 
+██╔════╝██║     ██╔═══██╗╚══██╔══╝██║  ██║██║████╗  ██║██╔════╝ 
+██║     ██║     ██║   ██║   ██║   ███████║██║██╔██╗ ██║██║  ███╗
+██║     ██║     ██║   ██║   ██║   ██╔══██║██║██║╚██╗██║██║   ██║
+╚██████╗███████╗╚██████╔╝   ██║   ██║  ██║██║██║ ╚████║╚██████╔╝
+ ╚═════╝╚══════╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+                ██████╗ ██████╗  █████╗ ███╗   ██╗██████╗       
+                ██╔══██╗██╔══██╗██╔══██╗████╗  ██║██╔══██╗      
+                ██████╔╝██████╔╝███████║██╔██╗ ██║██║  ██║      
+                ██╔══██╗██╔══██╗██╔══██║██║╚██╗██║██║  ██║      
+                ██████╔╝██║  ██║██║  ██║██║ ╚████║██████╔╝      
+                ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝       
 </pre>
 <h1 align="center"># E-commerceProject - 3140 Clothing Brand</h1>
 Click the link to start:  
@@ -32,12 +39,12 @@ We will upload a figma for a layout once we know the direction we want to go.
 
 <h3 align="center">Flow Chart:</h3>
 
-<p align="center"><img width="353" height="615" alt="Screenshot 2025-07-16 at 6 39 25 PM" src="https://github.com/user-attachments/assets/2144906d-2fcb-4e9c-af6e-df1dcfb51458" /></p>
+<p align="center"><img width="353" height="615" src="https://github.com/user-attachments/assets/2144906d-2fcb-4e9c-af6e-df1dcfb51458" /></p>
 
 <h3 align="center">Template:</h3>
-<p align="center"><img width="2560" height="1404" alt="image" src="https://github.com/user-attachments/assets/72858d94-aeaf-4882-8ba9-2f88431cdbfe" /></p>
+<p align="center"><img width="2560" height="1404" src="https://github.com/user-attachments/assets/72858d94-aeaf-4882-8ba9-2f88431cdbfe" /></p>
 
-<p align="center"><img width="800" height="445" alt="image" src="https://github.com/user-attachments/assets/997d60a8-7358-40c4-9846-d606dfca9974" /></p>
+<p align="center"><img width="800" height="445" src="https://github.com/user-attachments/assets/997d60a8-7358-40c4-9846-d606dfca9974" /></p>
 
 <h3 align="center">Repository Structure:</h3>
 <pre>
@@ -53,14 +60,14 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── styles.css          # Global CSS  
 ├── script.js           # Frontend JavaScript  
 ├── app.js              # Frontend JavaScript  
-├── server.js           # Entry point, server setup  
+├── server.js           # Entry point of Node.js server  
 ├── README.md           # Readme file  
 │  
 │                       # Other Folders  
 ├── /CSS                # CSS files  
 ├── /Icons              # Logo files  
 ├── /Introductions      # Members introduction pages  
-├── /JS                 # Backend files  
+├── /JS                 # Backend JavaScript  
 ├── /clothing           # Image files  
 └── /font-awesome-4.7.0 # Font files
 </pre>
