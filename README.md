@@ -46,8 +46,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 │                            # Static files (html, css, js)  
 ├── index.html               # Landing / product listing page  
 ├── shop.html                # Product detail page  
-├── about.html               # Website detail page  
-├── contact.html             # Contact members page  
+├── donate.html              # Donation page  
+├── contact.html             # Contact page  
 ├── login.html               # Login and sign up page  
 ├── cart.html                # Shopping cart page  
 ├── checkout.html            # Checkout page  
@@ -59,7 +59,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 │                            # Other Folders
 ├────── /CSS                 # CSS files  
 ├────── /Icons               # Logo files  
-├────── /Introductions       # Members introduction pages  
+├────── /Introductions       # Member introduction pages  
 ├────── /JS                  # Backend JavaScript  
 ├────── /clothing            # Image files  
 └────── /font-awesome-4.7.0  # Font files
