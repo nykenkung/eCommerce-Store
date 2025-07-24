@@ -124,15 +124,16 @@ img {
     width: 100%;
     background-size: cover;
     background-position: center;
-    margin-top: 100px; /* gap below header */
+    margin-top: 10px; /* gap below header */
     overflow: hidden;
   }
   /* Elevated Essentials */
-  .hero-heading {
+.hero-heading {
     position: absolute;
     top: 30px; /* controls how far from top */
     left: 50%;
     transform: translateX(-50%);
+    white-space: nowrap;
     color: #6c84a2;
     font-size: 32px;
     font-weight: 700;
@@ -142,13 +143,12 @@ img {
   }
 
   /* Text left of Hero.png */
-  .hero-text {
-    
+.hero-text {
     position: relative;
     z-index: 2;
   
-    margin-left: 350px;
-    margin-top: 420px;
+    margin-left: 100px;
+    margin-top: 250px;
   
     max-width: 400px;
     padding: 25px 30px;
