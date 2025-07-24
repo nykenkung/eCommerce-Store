@@ -183,7 +183,7 @@ button:hover {
 <div id="password-recovery-section">
 <h3>Password Recovery</h3>
 <p>Enter your email address, and we'll send you instructions to reset your password.</p><br>
-<input type="email" id="recovery-email" placeholder="Enter your email" />
+<input type="email" id="recovery-email" placeholder="Enter your email" required />
 <button id="send-recovery-email">Send Recovery Instructions</button>
 <div class="message" id="recovery-message"></div>
 <div style="margin-top: 15px; text-align: center;"><a href="login.html" style="text-decoration: none; color: #6c84a2;">Back to Login</a></div>
@@ -227,16 +227,17 @@ forgotPasswordLink.addEventListener('click', (e) => {
 });
 
 // Handle password recovery email send
-document.getElementById('send-recovery-email').addEventListener('click', () => {
-	const recoveryEmail = document.getElementById('recovery-email').value;
+document.getElementById('send-recovery-email').addEventListener('click', (e) => {
+	e.preventDefault();
+
+	const recoveryEmail = document.getElementById('recovery-email');
 	const recoveryMessage = document.getElementById('recovery-message');
-	if (recoveryEmail) {
-		recoveryMessage.textContent = "Recovery instructions sent to " + recoveryEmail;
+
+	if (recoveryEmail.checkValidity()) {
+		recoveryMessage.textContent = "Recovery instructions sent to " + recoveryEmail.value;
 		recoveryMessage.style.color = 'green';
-	} else {
-		recoveryMessage.textContent = "Please enter a valid email address.";
-		recoveryMessage.style.color = 'red';
 	}
+	else recoveryEmail.reportValidity();	// Trigger browser's native validation popup
 });
 
 // Toggle show/hide password
