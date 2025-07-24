@@ -43,25 +43,24 @@ We will upload a figma for a layout once we know the direction we want to go.
 <h3 align="center">Repository Structure:</h3>
 <pre>
 /E-commerceProject  
-│                       # Static files (html, css, js)  
-├── index.html          # Landing / product listing page  
-├── shop.html           # Product detail page  
-├── about.html          # Website detail page  
-├── contact.html        # Contact members page  
-├── login.html          # Login and sign up page  
-├── cart.html           # Shopping cart page  
-├── checkout.html       # Checkout page  
-├── styles.css          # Global CSS  
-├── script.js           # Frontend JavaScript  
-├── app.js              # Frontend JavaScript  
-├── server.js           # Entry point of Node.js server  
-├── README.md           # Readme file  
-│  
-│                       # Other Folders  
-├── /CSS                # CSS files  
-├── /Icons              # Logo files  
-├── /Introductions      # Members introduction pages  
-├── /JS                 # Backend JavaScript  
-├── /clothing           # Image files  
-└── /font-awesome-4.7.0 # Font files
+│                            # Static files (html, css, js)  
+├── index.html               # Landing / product listing page  
+├── shop.html                # Product detail page  
+├── about.html               # Website detail page  
+├── contact.html             # Contact members page  
+├── login.html               # Login and sign up page  
+├── cart.html                # Shopping cart page  
+├── checkout.html            # Checkout page  
+├── styles.css               # Global CSS  
+├── script.js                # Frontend JavaScript  
+├── app.js                   # Frontend JavaScript  
+├── server.js                # Entry point of Node.js server  
+├── README.md                # Readme file  
+│                            # Other Folders
+├────── /CSS                 # CSS files  
+├────── /Icons               # Logo files  
+├────── /Introductions       # Members introduction pages  
+├────── /JS                  # Backend JavaScript  
+├────── /clothing            # Image files  
+└────── /font-awesome-4.7.0  # Font files
 </pre>
