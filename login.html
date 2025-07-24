@@ -1,31 +1,23 @@
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Login/Register</title>
 <link rel="stylesheet" href="style.css" />
 <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
 <style>
-body, html {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	margin: 0;
-	font-family: 'Garamond', sans-serif;
-}
 main {
-	flex: 1;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	background: #f4f4f4;
-	padding: 40px;
+	padding: 20px;
 }
 .form-container {
 	background: white;
 	padding: 40px 50px;
 	border-radius: 12px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 	width: 400px;
-	max-width: 100%;
+	height: 380px;
 }
 .tabs {
 	display: flex;
@@ -40,25 +32,20 @@ main {
 	color: #6c84a2;
 	border-bottom: 2px solid transparent;
 	padding-bottom: 6px;
-	transition: all 0.3s ease;
+	transition: all 1s ease;
 }
 .tab-btn.active {
 	color: #194069;
 	border-bottom-color: #194069;
 }
 form { display: none; }
-
 form.active { display: block; }
 .form-row {
 	display: flex;
-	gap: 15px;
+	gap: 10px;
 	margin-bottom: 20px;
 }
-.form-row.single { display: block; }
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="text"], input[type="email"], input[type="password"] {
 	width: 100%;
 	padding: 10px 15px;
 	font-size: 16px;
@@ -67,10 +54,9 @@ input[type="password"] {
 	outline: none;
 	transition: border-color 0.3s ease;
 }
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus { border-color: #194069; }
-
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+	border-color: #194069;
+}
 button {
 	width: 100%;
 	background-color: #6c84a2;
@@ -83,33 +69,80 @@ button {
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
-
-button:hover { background-color: #194069; }
-
+button:hover {
+	background-color: #194069;
+}
 .message {
 	margin-top: 15px;
 	text-align: center;
 	color: red;
 	font-weight: 600;
 }
+/* Password recovery section */
+#password-recovery-section {
+	display: none;
+	font-size: 18px;
+	text-align: center;
+}
+#password-recovery-section h3 {
+	font-size: 26px;
+	margin-bottom: 15px;
+}
+#password-recovery-section input {
+	width: 100%;
+	padding: 10px 15px;
+	font-size: 16px;
+	border: 1.5px solid #ccc;
+	border-radius: 6px;
+	outline: none;
+	margin-bottom: 20px;
+}
+#password-recovery-section button {
+	width: 100%;
+	background-color: #6c84a2;
+	color: white;
+	font-size: 18px;
+	font-weight: 600;
+	padding: 12px 0;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+#password-recovery-section button:hover {
+	background-color: #194069;
+}
+#forgot-password-link {
+	text-align: center;
+}
+/* Eye icon styles */
+.password-wrapper {
+	position: relative;
+}
+.password-wrapper i.toggle-password {
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: #999;
+}
 </style>
 </head>
-
 <body>
 <section id="header">
 <a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250"></a>
 <div>
 <ul id="navbar">
-	<li><a href="index.html">Home</a></li>
-	<li><a href="shop.html">Shop</a></li>
-	<li><a href="donate.html">Donate</a></li>
-	<li><a href="contact.html">Contact</a></li>
-	<li><a class="active" href="login.html">Login/Register</a></li>
-	<li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
+<li><a href="index.html">Home</a></li>
+<li><a href="shop.html">Shop</a></li>
+<li><a href="donate.html">Donate</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a class="active" href="login.html">Login/Register</a></li>
+<li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
 </ul>
 </div>
 </section>
-
 <main>
 <div class="form-container">
 <div class="tabs">
@@ -120,37 +153,59 @@ button:hover { background-color: #194069; }
 <!-- LOGIN FORM -->
 <form id="login-form" class="active">
 <div class="form-row single"><input type="email" id="login-email" name="email" placeholder="E-mail" required /></div>
-<div class="form-row single"><input type="password" id="login-password" name="password" placeholder="Password" required /></div>
+<div class="form-row single password-wrapper">
+<input type="password" id="login-password" name="password" placeholder="Password" required />
+<i class="fa fa-eye toggle-password" toggle="#login-password"></i>
+</div>
 <button type="submit">Login</button>
 <div class="message" id="login-message"></div>
+<div id="forgot-password-link">
+<a href="#" id="forgot-password" style="text-decoration: none; color: #6c84a2;">Forgot my password?</a>
+</div>
 </form>
 
 <!-- REGISTER FORM -->
 <form id="register-form">
- <div class="form-row">
+<div class="form-row">
 <input type="text" id="first-name" name="firstName" placeholder="First Name" required />
 <input type="text" id="last-name" name="lastName" placeholder="Last Name" required />
 </div>
 <div class="form-row single"><input type="email" id="register-email" name="email" placeholder="E-mail" required /></div>
-<div class="form-row single"><input type="password" id="register-password" name="password" placeholder="Password" required /></div>
+<div class="form-row single password-wrapper">
+<input type="password" id="register-password" name="password" placeholder="Password" required />
+<i class="fa fa-eye toggle-password" toggle="#register-password"></i>
+</div>
 <button type="submit">Register</button>
 <div class="message" id="register-message"></div>
 </form>
+
+<!-- Password Recovery Section -->
+<div id="password-recovery-section">
+<h3>Password Recovery</h3>
+<p>Enter your email address, and we'll send you instructions to reset your password.</p><br>
+<input type="email" id="recovery-email" placeholder="Enter your email" />
+<button id="send-recovery-email">Send Recovery Instructions</button>
+<div class="message" id="recovery-message"></div>
+<div style="margin-top: 15px; text-align: center;"><a href="login.html" style="text-decoration: none; color: #6c84a2;">Back to Login</a></div>
+</div>
 </div>
 </main>
-
+</body>
 <script>
 // Tab switching
 const loginTab = document.getElementById('login-tab');
 const registerTab = document.getElementById('register-tab');
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
+const forgotPasswordLink = document.getElementById('forgot-password');
+const passwordRecoverySection = document.getElementById('password-recovery-section');
 
 loginTab.addEventListener('click', () => {
 	loginTab.classList.add('active');
 	registerTab.classList.remove('active');
 	loginForm.classList.add('active');
 	registerForm.classList.remove('active');
+	passwordRecoverySection.style.display = 'none';
 });
 
 registerTab.addEventListener('click', () => {
@@ -158,9 +213,42 @@ registerTab.addEventListener('click', () => {
 	loginTab.classList.remove('active');
 	registerForm.classList.add('active');
 	loginForm.classList.remove('active');
+	passwordRecoverySection.style.display = 'none';
 });
 
+// Show password recovery section
+forgotPasswordLink.addEventListener('click', (e) => {
+	e.preventDefault();
+	loginTab.style.display = 'none';
+	registerTab.style.display = 'none';
+	loginForm.style.display = 'none';
+	registerForm.style.display = 'none';
+	passwordRecoverySection.style.display = 'block';
+});
+
+// Handle password recovery email send
+document.getElementById('send-recovery-email').addEventListener('click', () => {
+	const recoveryEmail = document.getElementById('recovery-email').value;
+	const recoveryMessage = document.getElementById('recovery-message');
+	if (recoveryEmail) {
+		recoveryMessage.textContent = "Recovery instructions sent to " + recoveryEmail;
+		recoveryMessage.style.color = 'green';
+	} else {
+		recoveryMessage.textContent = "Please enter a valid email address.";
+		recoveryMessage.style.color = 'red';
+	}
+});
+
+// Toggle show/hide password
+document.querySelectorAll('.toggle-password').forEach(icon => {
+	icon.addEventListener('click', () => {
+		const input = document.querySelector(icon.getAttribute('toggle'));
+		const isPassword = input.getAttribute('type') === 'password';
+		input.setAttribute('type', isPassword ? 'text' : 'password');
+		icon.classList.toggle('fa-eye');
+		icon.classList.toggle('fa-eye-slash');
+	});
+});
 </script>
 <script src="app.js"></script>
-</body>
 </html>
