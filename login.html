@@ -1,30 +1,11 @@
-<!DOCTYPE html>
-<!-- The <!DOCTYPE html> declaration defines this document as an HTML5 document. It tells the browser how to interpret the content and enables standards mode. -->
-
 <html lang="en">
-<!-- The <html> tag is the root of the HTML document. The "lang" attribute specifies that the document is written in English, helping screen readers and search engines understand the language context. -->
-
 <head>
-<!-- The <head> section contains metadata about the document, such as the character encoding, title, links to stylesheets, and other resources needed before rendering the body. -->
-
 <meta charset="UTF-8" />
-<!-- This <meta> tag sets the character encoding of the document to UTF-8, which includes most characters from all languages. It ensures proper rendering of text content. -->
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- This <meta> tag makes the website responsive. It sets the width of the page to follow the screen-width of the device (mobile, tablet, desktop) and sets the initial zoom level to 1.0. -->
-
 <title>Login/Register</title>
-<!-- The <title> tag defines the title of the document that appears in the browser tab. It is also used by search engines. -->
-
 <link rel="stylesheet" href="style.css" />
-<!-- This <link> tag loads an external CSS file ("style.css") for additional styles. It's used to separate content (HTML) from presentation (CSS). -->
-
 <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
-<!-- This <link> tag imports the Font Awesome icon library. It allows the use of scalable vector icons (like the eye icon) with CSS styling support. -->
-
 <style>
-/* The <style> tag allows for embedding internal CSS directly inside the HTML document. This is useful for styles specific to this page. */
-
 main {
 	display: flex;
 	justify-content: center;
@@ -246,25 +227,17 @@ button:hover {
 
 <form id="login-form" class="active">
 <!-- Login form; shown by default. Uses class="active" to be visible initially. -->
-
-<div class="form-row">
-<input type="text" id="first-name-login" name="firstNameLogin" placeholder="First Name" required />
-<input type="text" id="last-name-login" name="lastNameLogin" placeholder="Last Name" required />
-</div>
-
 <div class="form-row single">
 <input type="email" id="login-email" name="email" placeholder="E-mail" required />
 </div>
 
 <div class="form-row single password-wrapper">
 <input type="password" id="login-password" name="password" placeholder="Password" required />
-<i class="fa fa-eye toggle-password" toggle="#login-password"></i>
+<i class="fa fa-eye toggle-password" toggle="#login-password" aria-label="Show password" role="button"></i>
 </div>
 
 <button type="submit">Login</button>
 <!-- Submits the login form. Triggered by user click. -->
-
-<div class="message" id="login-message"></div>
 
 <div id="forgot-password-link">
 <a href="#" id="forgot-password" style="text-decoration: none; color: #6c84a2;">Forgot my password?</a>
@@ -284,8 +257,8 @@ button:hover {
 </div>
 
 <div class="form-row single password-wrapper">
-<input type="password" id="register-password" name="password" placeholder="Password" required />
-<i class="fa fa-eye toggle-password" toggle="#register-password"></i>
+<input type="password" id="register-password" name="password" placeholder="Password" required pattern=".{8,}" title="Password must be at least 8 characters long" />
+<i class="fa fa-eye toggle-password" toggle="#register-password" aria-label="Show password" role="button"></i>
 </div>
 
 <button type="submit">Register</button>
@@ -358,26 +331,6 @@ forgotPasswordLink.addEventListener('click', (e) => {
 	passwordRecoverySection.style.display = 'block';
 });
 
-// Modal feedback logic
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalMessage = document.getElementById('modal-message');
-const modalOkButton = document.getElementById('modal-ok-button');
-
-// Function to show modal with custom title and message
-function showModal(title, message, redirect = false) {
-	modalTitle.textContent = title;
-	modalMessage.textContent = message;
-	modal.style.display = 'block';
-
-	modalOkButton.onclick = () => { modal.style.display = 'none'; };
-}
-
-// Dismiss modal when clicking outside of it
-window.addEventListener('click', (e) => {
-	if (e.target === modal) modal.style.display = 'none';
-});
-
 // Toggle password visibility on eye icon click
 document.querySelectorAll('.toggle-password').forEach(icon => {
 	icon.addEventListener('click', () => {
@@ -402,12 +355,35 @@ document.querySelectorAll('input').forEach(input => {
 	});
 });
 
-// Simulated login submission
-loginForm.addEventListener('submit', (e) => {
+// Send recovery email simulation
+document.getElementById('send-recovery-email').addEventListener('click', (e) => {
 	e.preventDefault();
-	const first = document.getElementById('first-name-login').value.trim() || 'User';
-	const last = document.getElementById('last-name-login').value.trim();
-	showModal(`Dear ${first} ${last}, login successful!`, `Welcome back! We hope you enjoy your excellent online shopping experience.`);
+	const email = document.getElementById('recovery-email');
+	if (email.checkValidity()) {
+		showModal(`Password Recovery Instructions sent to ${email.value}`, `We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`);
+	} else {
+		email.reportValidity();
+	}
+});
+
+// Modal feedback logic
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalMessage = document.getElementById('modal-message');
+const modalOkButton = document.getElementById('modal-ok-button');
+
+// Function to show modal with custom title and message
+function showModal(title, message, redirect = false) {
+	modalTitle.textContent = title;
+	modalMessage.textContent = message;
+	modal.style.display = 'block';
+
+	modalOkButton.onclick = () => { modal.style.display = 'none'; };
+}
+
+// Dismiss modal when clicking outside of it
+window.addEventListener('click', (e) => {
+	if (e.target === modal) modal.style.display = 'none';
 });
 
 // Simulated registration submission
@@ -418,15 +394,23 @@ registerForm.addEventListener('submit', (e) => {
 	showModal(`Dear ${first} ${last}, registration successful!`, `Thank you for registering! We hope you enjoy your excellent online shopping experience.`);
 });
 
-// Send recovery email simulation
-document.getElementById('send-recovery-email').addEventListener('click', (e) => {
+// Fake backend logic for login validation
+loginForm.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const email = document.getElementById('recovery-email');
-	if (email.checkValidity()) {
-		showModal(`Password Recovery Instructions sent to ${email.value}`, `We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`);
-	} else {
-		email.reportValidity();
-	}
+
+	const users = [
+		{ firstName: "Ken", lastName: "Kung", email: "a@a", password: "a" },
+		{ firstName: "Olivia", lastName: "Ni", email: "b@b", password: "b" } ];
+
+	const inputEmail = document.getElementById('login-email').value.trim();
+	const inputPassword = document.getElementById('login-password').value;
+
+	const found = users.find(u => u.email === inputEmail && u.password === inputPassword);
+
+	// Show modal with result
+	showModal(
+		found ? `Dear ${found.firstName} ${found.lastName}, login successful!` : "Login Failed",
+		found ? "Welcome back! We hope you enjoy your excellent online shopping experience." : "The information you entered does not match our records. Please check your details and try again." );
 });
 </script>
 
