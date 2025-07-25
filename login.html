@@ -12,8 +12,6 @@ main {
 	background: #f4f4f4;
 	padding: 20px;
 }
-/* Styles the <main> container as a flexbox that centers its content horizontally, adds a light gray background, and padding around the content. */
-
 .form-container {
 	background: white;
 	padding: 40px 50px;
@@ -22,16 +20,12 @@ main {
 	width: 400px;
 	height: 375px;
 }
-/* Styles the form wrapper box with a white background, rounded corners, padding, subtle drop shadow, and fixed size. */
-
 .tabs {
 	display: flex;
 	margin-bottom: 30px;
 	justify-content: center;
 	gap: 40px;
 }
-/* Arranges the login/register tabs in a horizontal flex layout with spacing between them. */
-
 .tab-btn {
 	cursor: pointer;
 	font-weight: 700;
@@ -41,31 +35,21 @@ main {
 	padding-bottom: 6px;
 	transition: all 1s ease;
 }
-/* Styles individual tab buttons with bold text, font size, padding, and a smooth transition for interactions. */
-
 .tab-btn.active {
 	color: #194069;
 	border-bottom-color: #194069;
 }
-/* When a tab is active, change its text and underline color to dark blue to visually indicate its selection. */
-
 form {
 	display: none;
 }
-/* By default, all <form> elements are hidden using display: none. */
-
 form.active {
 	display: block;
 }
-/* The form with class "active" will be shown on the page. This class is toggled with JavaScript. */
-
 .form-row {
 	display: flex;
 	gap: 10px;
 	margin-bottom: 20px;
 }
-/* Arranges inputs inside .form-row side by side with spacing. Each row has bottom margin for spacing. */
-
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -77,57 +61,42 @@ input[type="password"] {
 	outline: none;
 	transition: border-color 0.3s ease, background-color 0.3s ease;
 }
-/* Applies common styling to all text, email, and password inputs for consistent appearance and interactivity. */
-
 input:focus {
 	border-color: #194069;
 }
-/* Highlights the border of input fields in dark blue when they are focused (clicked or selected). */
-
 input.valid {
 	border-color: green !important;
 	background-color: #e6f5ea !important;
 }
-/* Indicates valid input by turning the border green and adding light green background. "!important" overrides other conflicting styles. */
-
 input.invalid {
 	border-color: red !important;
 	background-color: #ffecec !important;
 }
-/* Indicates invalid input with red border and light red background for user feedback. */
-
 button {
 	width: 100%;
 	background-color: #6c84a2;
 	color: white;
 	font-size: 18px;
 	font-weight: 600;
+	margin-bottom: 5px;
 	padding: 12px 0;
 	border: none;
 	border-radius: 8px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
-/* Styles all buttons with full width, background color, white text, rounded corners, and smooth hover transition. */
-
 button:hover {
 	background-color: #194069;
 }
-/* Changes the background color of buttons when hovered over for visual feedback. */
-
 #password-recovery-section {
 	display: none;
 	font-size: 18px;
 	text-align: center;
 }
-/* Initially hides the password recovery section. It becomes visible when triggered by the "Forgot password?" link. */
-
 #password-recovery-section h3 {
 	font-size: 26px;
 	margin-bottom: 15px;
 }
-/* Styles the header inside the password recovery section. */
-
 #password-recovery-section input {
 	width: 100%;
 	padding: 10px 15px;
@@ -138,18 +107,12 @@ button:hover {
 	margin-top: 15px;
 	margin-bottom: 20px;
 }
-/* Styles the email input field in the password recovery section. */
-
 #forgot-password-link {
 	text-align: center;
 }
-/* Centers the "Forgot password?" link under the login form. */
-
 .password-wrapper {
 	position: relative;
 }
-/* Makes the password wrapper container relative, allowing absolute positioning of the eye icon inside it. */
-
 .password-wrapper i.toggle-password {
 	position: absolute;
 	right: 15px;
@@ -158,8 +121,6 @@ button:hover {
 	cursor: pointer;
 	color: #999;
 }
-/* Positions the eye icon inside the password field to allow toggling visibility (show/hide password). */
-
 .modal {
 	display: none;
 	position: fixed;
@@ -168,8 +129,6 @@ button:hover {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
 }
-/* The modal overlay covers the screen with a semi-transparent background. Hidden by default. Used for displaying feedback. */
-
 .modal-content {
 	background-color: white;
 	margin: 15% auto;
@@ -179,131 +138,83 @@ button:hover {
 	width: 32%;
 	text-align: center;
 }
-/* Styles the content inside the modal. It is centered with padding and a white background. */
-
 #modal-message {
 	margin: 25px 0;
 }
-/* Adds spacing around the message text inside the modal. */
 </style>
 </head>
-
 <body>
-<!-- The <body> tag contains all visible content on the web page. -->
-
 <section id="header">
-<!-- Defines a thematic section of the page used here as a header. -->
-
 <a href="index.html"><img src="Icons/logo.png" class="logo" alt="Website Logo" width="100%" height="250"></a>
-<!-- Clickable logo image that links back to the home page. The alt attribute provides alternate text for screen readers. -->
-
 <nav>
-<!-- The <nav> element defines the navigation links of the website. -->
-
 <ul id="navbar">
-<!-- Unordered list of navigation links shown in the header. -->
 <li><a href="index.html">Home</a></li>
 <li><a href="shop.html">Shop</a></li>
 <li><a href="donate.html">Donate</a></li>
 <li><a href="contact.html">Contact</a></li>
 <li><a class="active" href="login.html">Login/Register</a></li>
 <li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
-<!-- The shopping bag icon represents the cart. It uses Font Awesome icon with accessible hidden text. -->
 </ul>
 </nav>
 </section>
-
 <main>
-<!-- The <main> tag marks the primary content area of the document. -->
-
 <div class="form-container">
-<!-- Wrapper that holds both Login and Register forms. -->
-
 <div class="tabs">
-<!-- Tabs used to switch between Login and Register forms. -->
 <div class="tab-btn active" id="login-tab">Login</div>
 <div class="tab-btn" id="register-tab">Register</div>
 </div>
-
 <form id="login-form" class="active">
-<!-- Login form; shown by default. Uses class="active" to be visible initially. -->
 <div class="form-row single">
 <input type="email" id="login-email" name="email" placeholder="E-mail" required />
 </div>
-
 <div class="form-row single password-wrapper">
 <input type="password" id="login-password" name="password" placeholder="Password" required />
 <i class="fa fa-eye toggle-password" toggle="#login-password" aria-label="Show password" role="button"></i>
 </div>
-
 <button type="submit">Login</button>
-<!-- Submits the login form. Triggered by user click. -->
-
 <div id="forgot-password-link">
 <a href="#" id="forgot-password" style="text-decoration: none; color: #6c84a2;">Forgot my password?</a>
 </div>
 </form>
-
 <form id="register-form">
-<!-- Registration form; hidden initially until tab is clicked. -->
-
 <div class="form-row">
 <input type="text" id="first-name" name="firstName" placeholder="First Name" required />
 <input type="text" id="last-name" name="lastName" placeholder="Last Name" required />
 </div>
-
 <div class="form-row single">
 <input type="email" id="register-email" name="email" placeholder="E-mail" required />
 </div>
-
 <div class="form-row single password-wrapper">
 <input type="password" id="register-password" name="password" placeholder="Password" required pattern=".{8,}" title="Password must be at least 8 characters long" />
 <i class="fa fa-eye toggle-password" toggle="#register-password" aria-label="Show password" role="button"></i>
 </div>
-
 <button type="submit">Register</button>
-<!-- Submits the registration form when clicked. -->
-
 <div class="message" id="register-message"></div>
 </form>
-
 <div id="password-recovery-section">
-<!-- Hidden section that appears when "Forgot password" is clicked. -->
-
 <h3>Password Recovery</h3>
 <p>Enter your email address, and we'll send you instructions to reset your password.</p>
 <input type="email" id="recovery-email" placeholder="Enter your email" required />
 <button id="send-recovery-email" type="button">Send Recovery Instructions</button>
 <div class="message" id="recovery-message"></div>
-<div style="margin-top: 15px;">
-<a href="login.html" style="text-decoration: none; color: #6c84a2; font-size: 16px;">Back to Login</a>
-</div>
+<div><a href="login.html" style="text-decoration: none; color: #6c84a2; font-size: 16px;">Back to Login</a></div>
 </div>
 </div>
 </main>
-
 <div id="modal" class="modal" role="dialog" aria-modal="true" tabindex="-1">
-<!-- Modal container used for displaying feedback messages (e.g., login success). -->
-
 <div class="modal-content">
 <h3 id="modal-title"></h3>
 <p id="modal-message"></p>
 <button id="modal-ok-button" type="button">OK</button>
 </div>
 </div>
-
 <script>
-<!-- JavaScript section starts. Script controls tab switching, form validation, modal display, etc. -->
-
-// Get references to tab buttons and forms
 const loginTab = document.getElementById('login-tab');
 const registerTab = document.getElementById('register-tab');
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const forgotPasswordLink = document.getElementById('forgot-password');
 const passwordRecoverySection = document.getElementById('password-recovery-section');
-
-// Handle click on Login tab
 loginTab.addEventListener('click', () => {
 	loginTab.classList.add('active');
 	registerTab.classList.remove('active');
@@ -311,8 +222,6 @@ loginTab.addEventListener('click', () => {
 	registerForm.classList.remove('active');
 	passwordRecoverySection.style.display = 'none';
 });
-
-// Handle click on Register tab
 registerTab.addEventListener('click', () => {
 	registerTab.classList.add('active');
 	loginTab.classList.remove('active');
@@ -320,8 +229,6 @@ registerTab.addEventListener('click', () => {
 	loginForm.classList.remove('active');
 	passwordRecoverySection.style.display = 'none';
 });
-
-// Handle "Forgot my password?" click
 forgotPasswordLink.addEventListener('click', (e) => {
 	e.preventDefault();
 	loginTab.style.display = 'none';
@@ -330,8 +237,6 @@ forgotPasswordLink.addEventListener('click', (e) => {
 	registerForm.style.display = 'none';
 	passwordRecoverySection.style.display = 'block';
 });
-
-// Toggle password visibility on eye icon click
 document.querySelectorAll('.toggle-password').forEach(icon => {
 	icon.addEventListener('click', () => {
 		const input = document.querySelector(icon.getAttribute('toggle'));
@@ -341,8 +246,6 @@ document.querySelectorAll('.toggle-password').forEach(icon => {
 		icon.classList.toggle('fa-eye-slash');
 	});
 });
-
-// Live input validation with green/red feedback
 document.querySelectorAll('input').forEach(input => {
 	input.addEventListener('input', () => {
 		if (input.checkValidity()) {
@@ -354,8 +257,6 @@ document.querySelectorAll('input').forEach(input => {
 		}
 	});
 });
-
-// Send recovery email simulation
 document.getElementById('send-recovery-email').addEventListener('click', (e) => {
 	e.preventDefault();
 	const email = document.getElementById('recovery-email');
@@ -365,56 +266,40 @@ document.getElementById('send-recovery-email').addEventListener('click', (e) => 
 		email.reportValidity();
 	}
 });
-
-// Modal feedback logic
 const modal = document.getElementById('modal');
 const modalTitle = document.getElementById('modal-title');
 const modalMessage = document.getElementById('modal-message');
 const modalOkButton = document.getElementById('modal-ok-button');
-
-// Function to show modal with custom title and message
 function showModal(title, message, redirect = false) {
 	modalTitle.textContent = title;
 	modalMessage.textContent = message;
 	modal.style.display = 'block';
-
 	modalOkButton.onclick = () => { modal.style.display = 'none'; };
 }
-
-// Dismiss modal when clicking outside of it
 window.addEventListener('click', (e) => {
 	if (e.target === modal) modal.style.display = 'none';
 });
-
-// Simulated registration submission
 registerForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 	const first = document.getElementById('first-name').value.trim() || 'New';
 	const last = document.getElementById('last-name').value.trim();
 	showModal(`Dear ${first} ${last}, registration successful!`, `Thank you for registering! We hope you enjoy your excellent online shopping experience.`);
 });
-
-// Fake backend logic for login validation
 loginForm.addEventListener('submit', (e) => {
 	e.preventDefault();
-
 	const users = [
 		{ firstName: "Ken", lastName: "Kung", email: "a@a", password: "a" },
-		{ firstName: "Olivia", lastName: "Ni", email: "b@b", password: "b" } ];
-
+		{ firstName: "Olivia", lastName: "Ni", email: "b@b", password: "b" }
+	];
 	const inputEmail = document.getElementById('login-email').value.trim();
 	const inputPassword = document.getElementById('login-password').value;
-
 	const found = users.find(u => u.email === inputEmail && u.password === inputPassword);
-
-	// Show modal with result
 	showModal(
 		found ? `Dear ${found.firstName} ${found.lastName}, login successful!` : "Login Failed",
-		found ? "Welcome back! We hope you enjoy your excellent online shopping experience." : "The information you entered does not match our records. Please check your details and try again." );
+		found ? "Welcome back! We hope you enjoy your excellent online shopping experience." : "The information you entered does not match our records. Please check your details and try again."
+	);
 });
 </script>
-
 <script src="app-test.js"></script>
-<!-- Loads external JavaScript file named "app-test.js" for any additional features or logic not defined inline. -->
 </body>
 </html>
