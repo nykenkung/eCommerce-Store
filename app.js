@@ -1,24 +1,54 @@
-window.addEventListener("load", () => {
-	alert("\nMessage from 3140 Clothing Brand:\n\nDon't forget to login for exclusive promotion!\n\nSign in to claim your promotional offer today!");
-});
+document.addEventListener('DOMContentLoaded', () => {
+	const BASE_URL = 'https://108.54.71.208:3000';
+	const loginForm = document.getElementById('login-form');
+	const registerForm = document.getElementById('register-form');
+	let justLoggedIn = false;
 
-document.getElementById("register-form").addEventListener("submit", function (e) {
-	e.preventDefault(); // Prevent page reload
+	const handleForm = async (endpoint, form) => {
+		const data = Object.fromEntries(new FormData(form).entries());
 
-	// Handle Register Form
-	const firstName = document.getElementById("first-name").value.trim();
-	const lastName = document.getElementById("last-name").value.trim();
-	if (firstName && lastName) alert(`Thank you for registration, ${firstName} ${lastName}!`);
-	else alert("Please enter your full name to register.");
-});
+		try {
+			const res = await fetch(`${BASE_URL}/${endpoint}`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include',
+				body: JSON.stringify(data),
+			});
 
-// Handle Login Form
-document.getElementById("login-form").addEventListener("submit", function (e) {
-	e.preventDefault(); // Prevent page reload
+			const result = await res.json();
 
-	const email = document.getElementById("login-email").value.trim();
-	const password = document.getElementById("login-password").value.trim();
+			if (res.ok) {
+				if (endpoint === 'login') {
+					alert(`Welcome back, ${result.firstName} ${result.lastName}!`);
+					justLoggedIn = true;
+				} else {
+					alert(`Dear ${result.firstName} ${result.lastName},\nThank you for registering! You can now log in!`);
+				}
+				form.reset();
+			} else {
+				alert(result.message || 'Something went wrong!');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			alert('Server error!');
+		}
+	};
 
-	if (email && password) alert("Login successfully, welcome back!");
-	else alert("Please enter both email and password.");
+	loginForm.addEventListener('submit', async e => {
+		e.preventDefault();
+		await handleForm('login', loginForm);
+	});
+
+	registerForm.addEventListener('submit', async e => {
+		e.preventDefault();
+		await handleForm('register', registerForm);
+	});
+
+	// Welcome message from cookie
+	fetch(`${BASE_URL}/welcome`, { credentials: 'include' })
+		.then(res => res.json())
+		.then(data => {
+			if (data.message && !justLoggedIn) alert(data.message);
+		})
+		.catch(() => {});
 });
