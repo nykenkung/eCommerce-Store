@@ -1,295 +1,408 @@
-<html>
+<!DOCTYPE html>
+<!-- This declares the document type and version of HTML being used. HTML5 is the current standard. -->
+<html lang="en">
+<!-- The root element of the HTML document. The 'lang' attribute specifies the language as English. -->
 <head>
-<meta charset="UTF-8"> <!-- This specifies the character encoding for the document. UTF-8 supports many languages and characters. -->
-<title>Login/Register</title> <!-- The title tag defines the title of the web page, which appears in the browser tab. -->
-<link rel="stylesheet" href="style.css" /> <!-- Links to an external CSS file, style.css, which controls the visual presentation of the page. -->
-<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" /> <!-- Links to the Font Awesome icon library to use various icons like the shopping bag icon. -->
+<meta charset="UTF-8">
+<!-- Specifies the character encoding for the document. UTF-8 supports most characters in all known human languages. -->
+
+<title>Login/Register</title>
+<!-- Sets the title of the web page. This appears in the browser tab. -->
+
+<link rel="stylesheet" href="style.css" />
+<!-- Links to an external CSS file (style.css) for styling the page. Allows separation of content (HTML) and style (CSS). -->
+
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+<!-- Links to the Font Awesome library, version 4.7.0. This library provides vector icons and social logos. -->
+
 <style>
-main {					/* Main container style that holds the entire content */
-	display: flex;			/* Flexbox allows the items inside the container to be arranged flexibly, making layout more adaptable. */
-	justify-content: center;	/* Centers the content horizontally within the flex container. */
-	background: #f4f4f4;		/* Sets the background color of the page to light grey. */
-	padding: 20px;			/* Adds padding inside the container, creating space around the content. */
+/* Embedded CSS styles that apply directly to this HTML page. Starts with CSS rules for layout and appearance. */
+main {
+	display: flex; /* Enables Flexbox layout model to align child elements horizontally or vertically */
+	justify-content: center; /* Horizontally centers the content within the container */
+	background: #f4f4f4; /* Light gray background for contrast */
+	padding: 20px; /* Adds space inside the container */
 }
 
-.form-container {					/* Container for the forms (Login/Register) */
-	background: white;				/* Sets the background color of the form container to white. */
-	padding: 40px 50px;				/* Adds padding inside the container, creating space around the form. */
-	border-radius: 12px;				/* Rounds the corners of the form container. */
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);	/* Adds a subtle shadow around the form for a soft, elevated effect. */
-	width: 400px;					/* Sets a fixed width for the form container. */
-	height: 370px;					/* Sets a fixed height for the form container. */
+.form-container {
+	background: white; /* Sets background color to white */
+	padding: 40px 50px; /* Adds top/bottom and left/right padding */
+	border-radius: 12px; /* Rounds the corners of the form box */
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Adds soft shadow */
+	width: 400px; /* Fixed width for form */
+	height: 370px; /* Fixed height */
 }
 
-.tabs {					/* Styles for the tab buttons (Login/Register) */
-	display: flex;			/* Flexbox is used to arrange the tabs horizontally. */
-	margin-bottom: 30px;		/* Adds space below the tab buttons. */
-	justify-content: center;	/* Centers the tabs horizontally within the container. */
-	gap: 40px;			/* Adds space between the tabs. */
+.tabs {
+	display: flex; /* Lays out tab buttons in a row */
+	margin-bottom: 30px; /* Adds space below tabs */
+	justify-content: center; /* Center-aligns tab buttons */
+	gap: 40px; /* Adds space between tabs */
 }
 
-.tab-btn {					/* Style for each tab button */
-	cursor: pointer;			/* Makes the tab buttons clickable by changing the cursor to a pointer. */
-	font-weight: 700;			/* Makes the text inside the tab button bold. */
-	font-size: 20px;			/* Sets the font size for the tab button text. */
-	color: #6c84a2;				/* Sets the color of the tab button text to a greyish-blue. */
-	border-bottom: 2px solid transparent;	/* Adds a transparent bottom border, which becomes visible when the tab is active. */
-	padding-bottom: 6px;			/* Adds space between the text and the bottom border. */
-	transition: all 1s ease;		/* Adds smooth transitions when the tab button's styles change. */
+.tab-btn {
+	cursor: pointer; /* Changes cursor to pointer on hover */
+	font-weight: 700; /* Makes text bold */
+	font-size: 20px; /* Sets font size */
+	color: #6c84a2; /* Sets initial text color */
+	border-bottom: 2px solid transparent; /* Invisible bottom border for spacing/effect */
+	padding-bottom: 6px; /* Adds padding below text */
+	transition: all 1s ease; /* Smooth transition for style changes */
 }
 
-
-.tab-btn.active {			/* Active tab button (when clicked) */
-	color: #194069;			/* Changes the text color to a darker blue when the tab is active. */
-	border-bottom-color: #194069;	/* Adds a solid bottom border of dark blue to indicate the active tab. */
+.tab-btn.active {
+	color: #194069; /* Darker color when active */
+	border-bottom-color: #194069; /* Highlights the active tab */
 }
 
-form {display: none;}		/* Hides the form initially. */
-
-form.active {display: block;}	/* Displays the active form. */
-
-.form-row {			/* Row styling for the form inputs */
-	display: flex;		/* Arranges form elements (inputs) horizontally. */
-	gap: 10px;		/* Adds space between the form inputs. */
-	margin-bottom: 20px;	/* Adds space below the form row. */
+form {
+	display: none; /* Hides all forms by default */
 }
 
-/* Styling for input fields */
+form.active {
+	display: block; /* Shows only the currently active form */
+}
+
+.form-row {
+	display: flex; /* Lays input fields in a row */
+	gap: 10px; /* Adds spacing between inputs */
+	margin-bottom: 20px; /* Adds spacing below the row */
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-	width: 100%;			/* Makes the input fields take up the full width of the container. */
-	padding: 10px 15px;		/* Adds padding inside the input fields for better readability. */
-	font-size: 16px;		/* Sets the font size for text inside the input fields. */
-	border: 1.5px solid #ccc;	/* Adds a light grey border to the input fields. */
-	border-radius: 6px;		/* Rounds the corners of the input fields. */
-	outline: none;			/* Removes the default outline around input fields when focused. */
-	transition: border-color 0.3s ease, background-color 0.3s ease;	/* Smooth transition for border and background color when input is focused. */
+	width: 100%; /* Input takes full available width */
+	padding: 10px 15px; /* Inner spacing for comfort */
+	font-size: 16px; /* Font size for readability */
+	border: 1.5px solid #ccc; /* Gray border */
+	border-radius: 6px; /* Rounded corners */
+	outline: none; /* Removes default browser outline on focus */
+	transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth style changes */
 }
 
-/* Styling for focused input fields */
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="password"]:focus {border-color: #194069;}	/* Changes the border color to dark blue when the input is focused. */
-
-input.valid {					/* Styling for valid input fields */
-	border-color: green !important;		/* Forces the border color to green when the input is valid. */
-	background-color: #e6f5ea !important;	/* Sets a light green background color for valid inputs. */
+input[type="password"]:focus {
+	border-color: #194069; /* Highlight border on focus */
 }
 
-input.invalid {					/* Styling for invalid input fields */
-	border-color: red !important;		/* Forces the border color to red when the input is invalid. */
-	background-color: #ffecec !important;	/* Sets a light red background color for invalid inputs. */
+input.valid {
+	border-color: green !important; /* Green border if valid */
+	background-color: #e6f5ea !important; /* Light green background */
 }
 
-button {					/* Styling for the submit button */
-	width: 100%;				/* Makes the button take up the full width of the form. */
-	background-color: #6c84a2;		/* Sets the background color of the button to greyish-blue. */
-	color: white;				/* Sets the text color of the button to white. */
-	font-size: 18px;			/* Sets the font size for the button text. */
-	font-weight: 600;			/* Makes the button text bold. */
-	padding: 12px 0;			/* Adds padding inside the button. */
-	border: none;				/* Removes the default border of the button. */
-	border-radius: 8px;			/* Rounds the corners of the button. */
-	cursor: pointer;			/* Changes the cursor to a pointer when hovering over the button. */
-	transition: background-color 0.3s ease;	/* Smooth transition for the background color change when hovering over the button. */
+input.invalid {
+	border-color: red !important; /* Red border if invalid */
+	background-color: #ffecec !important; /* Light red background */
 }
 
-/* Button hover effect */
-button:hover {background-color: #194069;}	/* Changes the button's background color to dark blue when hovered. */
-
-.message {			/* Styling for error message */
-	margin-top: 15px;	/* Adds space above the error message. */
-	text-align: center;	/* Centers the error message horizontally. */
-	color: red;		/* Sets the error message text color to red. */
-	font-weight: 600;	/* Makes the error message text bold. */
+button {
+	width: 100%; /* Button spans full container */
+	background-color: #6c84a2; /* Default background */
+	color: white; /* White text */
+	font-size: 18px; /* Large text */
+	font-weight: 600; /* Bold */
+	padding: 12px 0; /* Top/bottom padding */
+	border: none; /* Removes default border */
+	border-radius: 8px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-
-#password-recovery-section {	/* Password recovery section styling */
-	display: none;		/* Hides the password recovery section initially. */
-	font-size: 18px;	/* Sets the font size for the text inside the recovery section. */
-	text-align: center;	/* Centers the content in the password recovery section. */
+button:hover {
+	background-color: #194069; /* Darker on hover */
 }
 
-#password-recovery-section h3 {	/* Heading inside password recovery section */
-	font-size: 26px;	/* Sets a larger font size for the heading. */
-	margin-bottom: 15px;	/* Adds space below the heading. */
+.message {
+	margin-top: 15px; /* Spacing from button */
+	text-align: center; /* Centers text */
+	color: red; /* Error messages in red */
+	font-weight: 600; /* Bold */
 }
 
-
-#password-recovery-section input {	/* Styling for input fields inside password recovery section */
-	width: 100%;			/* Makes the input field take up the full width of the recovery section. */
-	padding: 10px 15px;		/* Adds padding inside the input field. */
-	font-size: 16px;		/* Sets the font size for the input field text. */
-	border: 1.5px solid #ccc;	/* Adds a light grey border to the input field. */
-	border-radius: 6px;		/* Rounds the corners of the input field. */
-	outline: none;			/* Removes the default outline on focus. */
-	margin-top: 15px;		/* Adds space above the input field. */
-	margin-bottom: 20px;		/* Adds space below the input field. */
+#password-recovery-section {
+	display: none; /* Hidden by default */
+	font-size: 18px; /* Font size for readability */
+	text-align: center; /* Center-align text */
 }
 
-#password-recovery-section button {	/* Styling for buttons inside the password recovery section */
-	width: 100%;			/* Makes the button take up the full width of the section. */
-	background-color: #6c84a2;	/* Sets the background color of the button. */
-	color: white;			/* Sets the text color to white. */
-	font-size: 18px;		/* Sets the font size for the button text. */
-	font-weight: 600;		/* Makes the button text bold. */
-	padding: 12px 0;		/* Adds padding inside the button. */
-	border: none;			/* Removes the default border. */
-	border-radius: 8px;		/* Rounds the corners of the button. */
-	cursor: pointer;		/* Changes the cursor to a pointer when hovering over the button. */
-	transition: background-color 0.3s ease;	/* Adds smooth transition for the button's background color on hover. */
+#password-recovery-section h3 {
+	font-size: 26px; /* Larger heading */
+	margin-bottom: 15px; /* Space below heading */
 }
 
-/* Hover effect for password recovery button */
-#password-recovery-section button:hover {background-color: #194069;}	/* Changes the background color to dark blue when hovered. */
+#password-recovery-section input {
+	width: 100%;
+	padding: 10px 15px;
+	font-size: 16px;
+	border: 1.5px solid #ccc;
+	border-radius: 6px;
+	outline: none;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
 
-/* Styling for the "forgot password" link */
-#forgot-password-link {text-align: center;}	/* Centers the forgot password link horizontally. */
+#password-recovery-section button {
+	width: 100%;
+	background-color: #6c84a2;
+	color: white;
+	font-size: 18px;
+	font-weight: 600;
+	padding: 12px 0;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
 
-/* Styling for the password wrapper and icon */
-.password-wrapper {position: relative;}	/* Allows absolute positioning of the password toggle icon. */
+#password-recovery-section button:hover {
+	background-color: #194069;
+}
 
-.password-wrapper i.toggle-password {	/* Toggle password icon styling */
-	position: absolute;		/* Positions the icon absolutely within the wrapper. */
-	right: 15px;			/* Positions the icon 15px from the right of the input field. */
-	top: 50%;			/* Vertically centers the icon inside the input field. */
-	transform: translateY(-50%);	/* Offsets the icon slightly to truly center it vertically. */
-	cursor: pointer;		/* Changes the cursor to a pointer when hovering over the icon. */
-	color: #999;			/* Sets the icon color to a light grey. */
+#forgot-password-link {
+	text-align: center; /* Aligns forgot link to center */
+}
+
+.password-wrapper {
+	position: relative; /* Sets positioning context for eye icon */
+}
+
+.password-wrapper i.toggle-password {
+	position: absolute; /* Places icon over input */
+	right: 15px; /* Moves it to right side */
+	top: 50%; /* Vertical center */
+	transform: translateY(-50%); /* Fine-tune vertical position */
+	cursor: pointer; /* Pointer cursor */
+	color: #999; /* Gray icon color */
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stays in place */
+	top: 0; /* Start from top */
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent dark background */
+}
+
+.modal-content {
+	background-color: white; /* Modal box is white */
+	margin: 15% auto; /* Centered vertically */
+	padding: 20px; /* Inner padding */
+	border: 1px solid #888; /* Light border */
+	border-radius: 15px; /* Rounded corners */
+	width: 32%; /* Modal width */
+	text-align: center; /* Center text inside modal */
+}
+
+#recovery-full-message {
+	margin: 15px 0; /* Spacing around message */
 }
 </style>
 </head>
+
 <body>
+<!-- BODY contains all the visible content on the page -->
+
 <section id="header">
-<a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250"></a> <!-- Logo image that links back to the home page. -->
-<div>
+<!-- Top navigation section for logo and navbar -->
+<a href="index.html"><img src="Icons/logo.png" class="logo" alt="Website Logo" width="100%" height="250"></a>
+<!-- Clickable logo image that links to the homepage -->
+
+<nav>
+<!-- Navigation bar container -->
 <ul id="navbar">
-<li><a href="index.html">Home</a></li>		<!-- Link to the home page. -->
-<li><a href="shop.html">Shop</a></li>		<!-- Link to the shop page. -->
-<li><a href="donate.html">Donate</a></li>	<!-- Link to the donate page. -->
-<li><a href="contact.html">Contact</a></li>	<!-- Link to the contact page. -->
-<li><a class="active" href="login.html">Login/Register</a></li>	<!-- Link to the login/register page, highlighted as active. -->
-<li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>	<!-- Shopping bag icon linking to the cart page. -->
+<!-- Unordered list for navigation links -->
+<li><a href="index.html">Home</a></li>
+<!-- Navigates to the home page -->
+<li><a href="shop.html">Shop</a></li>
+<!-- Navigates to the shop page -->
+<li><a href="donate.html">Donate</a></li>
+<!-- Navigates to the donation page -->
+<li><a href="contact.html">Contact</a></li>
+<!-- Navigates to the contact page -->
+<li><a class="active" href="login.html">Login/Register</a></li>
+<!-- Currently active page, highlighted -->
+<li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
+<!-- Shopping cart icon using Font Awesome -->
 </ul>
-</div>
+</nav>
 </section>
 
-<!-- Main content section containing forms for Login, Register, and Password Recovery -->
 <main>
+<!-- Main section containing the form UI -->
 <div class="form-container">
+<!-- Container for forms and tabs -->
+
 <div class="tabs">
-<div class="tab-btn active" id="login-tab">Login</div>	<!-- Login tab, initially active. -->
-<div class="tab-btn" id="register-tab">Register</div>	<!-- Register tab. -->
+<!-- Tab buttons for switching between Login and Register -->
+<div class="tab-btn active" id="login-tab">Login</div>
+<!-- Login tab (active by default) -->
+<div class="tab-btn" id="register-tab">Register</div>
+<!-- Register tab -->
 </div>
 
-<!-- LOGIN FORM -->
 <form id="login-form" class="active">
-<div class="form-row single"><input type="email" id="login-email" name="email" placeholder="E-mail" required /></div>
-<div class="form-row single password-wrapper">
-<input type="password" id="login-password" name="password" placeholder="Password" required />
-<i class="fa fa-eye toggle-password" toggle="#login-password"></i>	<!-- Icon to toggle password visibility. -->
+<!-- Login form, visible by default -->
+<div class="form-row single">
+<label for="login-email" style="display:none;">Email</label>
+<!-- Hidden label for accessibility -->
+<input type="email" id="login-email" name="email" placeholder="E-mail" required />
+<!-- Email input -->
 </div>
+
+<div class="form-row single password-wrapper">
+<!-- Password field with show/hide toggle -->
+<input type="password" id="login-password" name="password" placeholder="Password" required />
+<i class="fa fa-eye toggle-password" toggle="#login-password" aria-label="Toggle password visibility"></i>
+</div>
+
 <button type="submit">Login</button>
-<div class="message" id="login-message"></div>	<!-- Message container for login form errors. -->
-<div id="forgot-password-link"><a href="#" id="forgot-password" style="text-decoration: none; color: #6c84a2;">Forgot my password?</a></div>	<!-- Link to trigger password recovery. -->
+<!-- Submit login -->
+
+<div class="message" id="login-message"></div>
+<!-- Area to display login errors/messages -->
+
+<div id="forgot-password-link">
+<a href="#" id="forgot-password" style="text-decoration: none; color: #6c84a2;">Forgot my password?</a>
+<!-- Link to show password recovery -->
+</div>
 </form>
 
-<!-- REGISTER FORM -->
 <form id="register-form">
+<!-- Registration form -->
 <div class="form-row">
 <input type="text" id="first-name" name="firstName" placeholder="First Name" required />
 <input type="text" id="last-name" name="lastName" placeholder="Last Name" required />
 </div>
-<div class="form-row single"><input type="email" id="register-email" name="email" placeholder="E-mail" required /></div>
+
+<div class="form-row single">
+<input type="email" id="register-email" name="email" placeholder="E-mail" required />
+</div>
+
 <div class="form-row single password-wrapper">
 <input type="password" id="register-password" name="password" placeholder="Password" required />
-<i class="fa fa-eye toggle-password" toggle="#register-password"></i>	<!-- Icon to toggle password visibility. -->
+<i class="fa fa-eye toggle-password" toggle="#register-password" aria-label="Toggle password visibility"></i>
 </div>
+
 <button type="submit">Register</button>
-<div class="message" id="register-message"></div> <!-- Message container for registration form errors. -->
+<div class="message" id="register-message"></div>
 </form>
 
-<!-- Password Recovery Section -->
 <div id="password-recovery-section">
+<!-- Password recovery form -->
 <h3>Password Recovery</h3>
 <p>Enter your email address, and we'll send you instructions to reset your password.</p>
 <input type="email" id="recovery-email" placeholder="Enter your email" required />
-<button id="send-recovery-email">Send Recovery Instructions</button>
-<div class="message" id="recovery-message"></div>	<!-- Message container for password recovery status. -->
-<div style="margin-top: 15px; text-align: center;"><a href="login.html" style="text-decoration: none; color: #6c84a2; font-size: 16px;">Back to Login</a></div>	<!-- Link to return to the login page. -->
+<button id="send-recovery-email" type="button">Send Recovery Instructions</button>
+<div class="message" id="recovery-message"></div>
+<div style="margin-top: 15px; text-align: center;">
+<a href="login.html" style="text-decoration: none; color: #6c84a2; font-size: 16px;">Back to Login</a>
+</div>
 </div>
 </div>
 </main>
-</body>
+
+<div id="recovery-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="recovery-email-message" tabindex="-1">
+<!-- Modal overlay that appears after password recovery email is sent -->
+<div class="modal-content">
+<h3>Password Recovery Instructions</h3>
+<h3 id="recovery-email-message" role="alert"></h3>
+<p id="recovery-full-message">We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.</p>
+<button id="ok-button" type="button">OK</button>
+</div>
+</div>
 
 <script>
-// Tab switching functionality
-const loginTab = document.getElementById('login-tab');					// Get login tab element
-const registerTab = document.getElementById('register-tab');				// Get register tab element
-const loginForm = document.getElementById('login-form');				// Get login form
-const registerForm = document.getElementById('register-form');				// Get register form
-const forgotPasswordLink = document.getElementById('forgot-password');			// Get forgot password link
-const passwordRecoverySection = document.getElementById('password-recovery-section');	// Get password recovery section
+// JavaScript functionality for tab switching, password visibility, form validation, and modal behavior
 
-loginTab.addEventListener('click', () => {		// Switch to login tab
-	loginTab.classList.add('active');		// Make login tab active
-	registerTab.classList.remove('active');		// Deactivate register tab
-	loginForm.classList.add('active');		// Show login form
-	registerForm.classList.remove('active');	// Hide register form
-	passwordRecoverySection.style.display = 'none';	// Hide password recovery section
+// Tab switching logic
+const loginTab = document.getElementById('login-tab');
+const registerTab = document.getElementById('register-tab');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const forgotPasswordLink = document.getElementById('forgot-password');
+const passwordRecoverySection = document.getElementById('password-recovery-section');
+
+loginTab.addEventListener('click', () => {
+	loginTab.classList.add('active');
+	registerTab.classList.remove('active');
+	loginForm.classList.add('active');
+	registerForm.classList.remove('active');
+	passwordRecoverySection.style.display = 'none';
 });
 
-registerTab.addEventListener('click', () => {		// Switch to register tab
-	registerTab.classList.add('active');		// Make register tab active
-	loginTab.classList.remove('active');		// Deactivate login tab
-	registerForm.classList.add('active');		// Show register form
-	loginForm.classList.remove('active');		// Hide login form
-	passwordRecoverySection.style.display = 'none';	// Hide password recovery section
+registerTab.addEventListener('click', () => {
+	registerTab.classList.add('active');
+	loginTab.classList.remove('active');
+	registerForm.classList.add('active');
+	loginForm.classList.remove('active');
+	passwordRecoverySection.style.display = 'none';
 });
 
-
-forgotPasswordLink.addEventListener('click', (e) => {		// Show password recovery section when the link is clicked
-	e.preventDefault();					// Prevent the default link action
-	loginTab.style.display = 'none';			// Hide login tab
-	registerTab.style.display = 'none';			// Hide register tab
-	loginForm.style.display = 'none';			// Hide login form
-	registerForm.style.display = 'none';			// Hide register form
-	passwordRecoverySection.style.display = 'block';	// Show password recovery section
+// Show recovery section
+forgotPasswordLink.addEventListener('click', (e) => {
+	e.preventDefault();
+	loginTab.style.display = 'none';
+	registerTab.style.display = 'none';
+	loginForm.style.display = 'none';
+	registerForm.style.display = 'none';
+	passwordRecoverySection.style.display = 'block';
 });
 
-document.getElementById('send-recovery-email').addEventListener('click', (e) => {			// Handle sending password recovery email
-	e.preventDefault(); // Prevent the default form submission
-	const recoveryEmail = document.getElementById('recovery-email');				// Get the recovery email input
-	const recoveryMessage = document.getElementById('recovery-message');				// Get the message container
-	if (recoveryEmail.checkValidity()) {								// Check if email is valid
-		recoveryMessage.textContent = "Recovery instructions sent to " + recoveryEmail.value;	// Show success message
-		recoveryMessage.style.color = 'green';							// Set message color to green
-	} else recoveryEmail.reportValidity();								// Show browser validation error if email is invalid
+// Send recovery email (simulated)
+document.getElementById('send-recovery-email').addEventListener('click', (e) => {
+	e.preventDefault();
+	const recoveryEmail = document.getElementById('recovery-email');
+	if (recoveryEmail.checkValidity()) {
+		document.getElementById('recovery-email-message').textContent = "Sent to " + recoveryEmail.value;
+		document.getElementById('recovery-modal').style.display = 'block';
+	} else {
+		recoveryEmail.reportValidity();
+	}
 });
 
-document.querySelectorAll('.toggle-password').forEach(icon => {				// Toggle password visibility
+// Dismiss modal via OK button
+document.getElementById('ok-button').addEventListener('click', () => {
+	document.getElementById('recovery-modal').style.display = 'none';
+	window.location.href = "login.html";
+});
+
+// Dismiss modal by clicking outside
+window.addEventListener('click', (e) => {
+	const modal = document.getElementById('recovery-modal');
+	if (e.target === modal) {
+		modal.style.display = 'none';
+	}
+});
+
+// Password visibility toggle logic
+document.querySelectorAll('.toggle-password').forEach(icon => {
 	icon.addEventListener('click', () => {
-		const input = document.querySelector(icon.getAttribute('toggle'));	// Get the password input field
-		const isPassword = input.getAttribute('type') === 'password';		// Check if the input type is password
-		input.setAttribute('type', isPassword ? 'text' : 'password');		// Toggle the input type between password and text
-		icon.classList.toggle('fa-eye');					// Toggle the icon between eye and eye-slash
+		const input = document.querySelector(icon.getAttribute('toggle'));
+		const isPassword = input.getAttribute('type') === 'password';
+		input.setAttribute('type', isPassword ? 'text' : 'password');
+		icon.classList.toggle('fa-eye');
 		icon.classList.toggle('fa-eye-slash');
 	});
 });
 
-document.querySelectorAll('input').forEach(input => {		// Real-time input validation for valid and invalid fields
+// Real-time validation with visual feedback
+document.querySelectorAll('input').forEach(input => {
 	input.addEventListener('input', () => {
-		if (input.checkValidity()) {			// Check if input is valid
-			input.classList.add('valid');		// Add valid class to change the border and background color
-			input.classList.remove('invalid');	// Remove invalid class
+		if (input.checkValidity()) {
+			input.classList.add('valid');
+			input.classList.remove('invalid');
 		} else {
-			input.classList.add('invalid');		// Add invalid class to change the border and background color
-			input.classList.remove('valid');	// Remove valid class
+			input.classList.add('invalid');
+			input.classList.remove('valid');
 		}
 	});
 });
 </script>
-<script src="app.js"></script>	<!-- External JavaScript file that may contain additional functionality -->
+
+<script src="app.js"></script>
+<!-- Link to external JavaScript file (app.js). This should be loaded last to ensure the DOM is ready. -->
+</body>
 </html>
