@@ -186,7 +186,14 @@ img {
   border-bottom: 1px solid #eee;
   font-size: 14px;
 }
-
+/* feature section styling */
+#feature .fe-box {
+  width: 180px;
+  text-align: center;
+  padding: 25px 15px;
+  box-shadow: 20px 20px 34px rgba(0,0,0,0.03);
+  border: 1px solid #cce7d0;
+}
 #shop-section .category-nav a {
   text-decoration: none;
   color: #222;
