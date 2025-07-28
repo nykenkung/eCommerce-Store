@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donate - Support Our Student Project</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+=======
+  <meta charset="UTF-8">
+  <title>Donate for Store Credit or Charity</title>
+  <link rel="stylesheet" href="style.css">
+>>>>>>> fcc53a76b7642860b28297e88e58b238bdd47a9c
 </head>
-
 <body>
 
+<<<<<<< HEAD
     <!-- Header Section -->
     <section id="header">
         <a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250"></a>
@@ -76,8 +81,116 @@
     <footer style="text-align: center; padding: 20px; background: #eee; margin-top: 40px;">
         <p>&copy; 2025 CISC 3140 Project – Built with ❤️ by student developers for education.</p>
     </footer>
+=======
+  <!-- Header / Navbar -->
+  <section id="header">
+    <a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250"></a>
+    <div>
+      <ul id="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a class="active" href="donate.html">Donate</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login/Register</a></li>
+      </ul>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Donation Form Section -->
+  <section class="section-p1" style="max-width: 700px; margin: auto;">
+    <h2 style="text-align:center; margin-bottom: 20px;">Submit Your Clothing Donation</h2>
+
+    <form id="donation-form" style="display: flex; flex-direction: column; gap: 15px;" enctype="multipart/form-data">
+      
+      <label>
+        Purpose:
+        <select name="purpose" required style="padding: 8px; width: 100%;">
+          <option value="">-- Select Purpose --</option>
+          <option value="Store Credit">Submit for Store Credit</option>
+          <option value="Charity">Donate to Charity</option>
+        </select>
+      </label>
+
+      <label>
+        Clothing Category:
+        <select name="category" required style="padding: 8px; width: 100%;">
+          <option value="">-- Select Category --</option>
+          <option value="T-SHIRTS">T-Shirts</option>
+          <option value="SWEATERS">Sweaters</option>
+          <option value="CARDIGANS">Cardigans</option>
+          <option value="OUTERWEAR">Outerwear</option>
+          <option value="HOODIES">Hoodies</option>
+          <option value="PANTS">Pants</option>
+        </select>
+      </label>
+
+      <label>
+        Clothing Condition:
+        <select name="condition" required style="padding: 8px; width: 100%;">
+          <option value="">-- Select Condition --</option>
+          <option value="Like New">Like New</option>
+          <option value="Gently Used">Gently Used</option>
+          <option value="Acceptable">Acceptable</option>
+        </select>
+      </label>
+
+      <label>
+        Brand (optional):
+        <input type="text" name="brand" style="padding: 8px; width: 100%;">
+      </label>
+
+      <label>
+        Size:
+        <input type="text" name="size" required style="padding: 8px; width: 100%;">
+      </label>
+
+      <label>
+        Age of Item:
+        <select name="age" required style="padding: 8px; width: 100%;">
+          <option value="">-- Select Age --</option>
+          <option value="<1 year">&lt; 1 year</option>
+          <option value="1-2 years">1–2 years</option>
+          <option value="3+ years">3+ years</option>
+        </select>
+      </label>
+
+      <label>
+        Item Description:
+        <textarea name="description" rows="4" required style="padding: 8px; width: 100%;"></textarea>
+      </label>
+
+      <label>
+        Upload Item Photo:
+        <input type="file" name="photo" accept="image/*" required style="padding: 8px; width: 100%;">
+      </label>
+
+      <label style="font-size: 14px;">
+        <input type="checkbox" name="terms" required>
+        I agree that this item is subject to verification and may or may not qualify for credit or charity acceptance.
+      </label>
+
+      <p style="font-size: 14px; color: #555;">
+        Donations for store credit may receive up to <strong>$5 per item</strong> depending on category, brand, and condition.
+      </p>
+
+      <button type="submit" style="padding: 10px 20px; background-color:#6c84a2; color:white; border:none; border-radius:5px; font-size: 16px;">
+        Submit Donation
+      </button>
+    </form>
+  </section>
+
+  <script>
+    document.getElementById('donation-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const purpose = this.purpose.value;
+      const message = purpose === 'Charity'
+        ? "Thank you for donating to charity! Your item has been submitted."
+        : "Thank you! Your donation for store credit is under review.";
+      alert(message);
+      this.reset();
+    });
+  </script>
+>>>>>>> fcc53a76b7642860b28297e88e58b238bdd47a9c
+
 </body>
-
 </html>
