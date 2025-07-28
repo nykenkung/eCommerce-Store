@@ -185,7 +185,7 @@ button:hover {
 <input type="email" id="register-email" name="email" placeholder="E-mail" required />
 </div>
 <div class="form-row single password-wrapper">
-<input type="password" id="register-password" name="password" placeholder="Password" required pattern=".{8,}" title="Password must be at least 8 characters long" />
+<input type="password" id="register-password" name="password" placeholder="Password" required />
 <i class="fa fa-eye toggle-password" toggle="#register-password" aria-label="Show password" role="button"></i>
 </div>
 <button type="submit">Register</button>
@@ -261,7 +261,7 @@ document.getElementById('send-recovery-email').addEventListener('click', (e) => 
 	e.preventDefault();
 	const email = document.getElementById('recovery-email');
 	if (email.checkValidity()) {
-		showModal(`Password Recovery Instructions sent to ${email.value}`, `We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`);
+		showModal(`Password Recovery Instructions sent to ${email.value}, We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`);
 	} else {
 		email.reportValidity();
 	}
@@ -285,6 +285,7 @@ registerForm.addEventListener('submit', (e) => {
 	const last = document.getElementById('last-name').value.trim();
 	showModal(`Dear ${first} ${last}, registration successful!`, `Thank you for registering! We hope you enjoy your excellent online shopping experience.`);
 });
+// Fake user for local test
 loginForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 	const users = [
@@ -295,11 +296,11 @@ loginForm.addEventListener('submit', (e) => {
 	const inputPassword = document.getElementById('login-password').value;
 	const found = users.find(u => u.email === inputEmail && u.password === inputPassword);
 	showModal(
-		found ? `Dear ${found.firstName} ${found.lastName}, login successful!` : "Login Failed",
-		found ? "Welcome back! We hope you enjoy your excellent online shopping experience." : "The information you entered does not match our records. Please check your details and try again."
+		found ? `Dear ${found.firstName} ${found.lastName}, login successful!` : `Login Failed`,
+		found ? `Welcome back! We hope you enjoy your excellent online shopping experience.` : `The information you entered does not match our records. Please check your details and try again.`
 	);
 });
 </script>
-<script src="app.js"></script>
+<!-- <script src="app.js"></script> -->
 </body>
 </html>
