@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3140 Ecommerce Project</title>
+    <title>Donate - Support Our Student Project</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
+    <!-- Header Section -->
     <section id="header">
-        <a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250"></a>
-
+        <a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250"></a>
         <div>
             <ul id="navbar">
-                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="shop.html">Shop</a></li>
-                <li><a href="donate.html">Donate</a></li>
+                <li><a class="active" href="donate.html">Donate</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login/Register</a></li>
                 <li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
@@ -27,7 +27,55 @@
         </div>
     </section>
 
+    <!-- Donate Section -->
+    <section id="donate-page" style="padding: 40px;">
+        <h2 style="text-align: center; margin-bottom: 20px;">Support Our Student Project</h2>
 
+        <p style="font-size: 18px; color: #333; text-align: center; margin-bottom: 40px;">
+            Your contribution will help fund the development and growth of this project, which is built by students with passion and dedication. We believe in making a difference by supporting education and innovation. With your generous donation, we can enhance the experience, improve the technology, and continue creating valuable learning resources for others.
+        </p>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 40px;">
+
+            <!-- Donation Form -->
+            <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                <h3>Make a Donation</h3>
+                <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+                    <label for="first-name" style="color: #6c84a2">First Name:</label>
+                    <input type="text" id="first-name" name="first-name" required placeholder="Enter your first name">
+
+                    <label for="last-name" style="color: #6c84a2">Last Name:</label>
+                    <input type="text" id="last-name" name="last-name" required placeholder="Enter your last name">
+
+                    <label for="email" style="color: #6c84a2">Email Address:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+
+                    <button type="submit" style="width: 100%; background-color: #6c84a2; color: white; font-size: 18px; font-weight: 600; margin-bottom: 5px; padding: 12px 0; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease" onmouseover="this.style.backgroundColor='#194069'" onmouseout="this.style.backgroundColor='#6c84a2'">Donate Now</button>
+                </form>
+            </div>
+
+            <!-- FAQ Section -->
+            <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                <h3>Frequently Asked Questions</h3>
+                <h4>What is this project about?</h4>
+                <p>This project is part of a student-led e-commerce development initiative. We aim to create a platform for students to learn, innovate, and apply their knowledge in a real-world context. Your support helps fund the continuous development of this project.</p>
+
+                <h4>Why should I donate?</h4>
+                <p>Your donation goes directly into supporting the growth of the project. It helps fund resources, hosting, tools, and other essential elements that contribute to the ongoing development of the platform.</p>
+
+                <h4>How can I be sure my donation is being used wisely?</h4>
+                <p>We are fully transparent about how donations are spent. We are committed to using every dollar efficiently to improve the user experience, enhance the platform, and provide future opportunities for student projects.</p>
+
+                <h4>What is the shopping return policy?</h4>
+                <p>We offer a 30-day return policy for most products. If you are not satisfied with your purchase, please reach out to us, and we will assist you with the return process.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer style="text-align: center; padding: 20px; background: #eee; margin-top: 40px;">
+        <p>&copy; 2025 CISC 3140 Project – Built with ❤️ by student developers for education.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
