@@ -52,3 +52,41 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 		.catch(() => {});
 });
+
+// === Live Chat Support ===
+const socket = io('http://localhost:3000'); // Change if deploying
+
+const chatBox = document.getElementById('chat-box');
+const input = document.getElementById('chat-input');
+
+function appendMessage(sender, message) {
+  if (chatBox) {
+    const msg = document.createElement('div');
+    msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+}
+
+if (socket && input && chatBox) {
+  socket.on('connect', () => {
+    appendMessage('System', 'Connected to support');
+  });
+
+  socket.on('botMessage', (message) => {
+    appendMessage('Support', message);
+  });
+
+  window.sendMessage = function () {
+    const message = input.value.trim();
+    if (message) {
+      appendMessage('You', message);
+      socket.emit('customerMessage', message);
+      input.value = '';
+    }
+  };
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+}
