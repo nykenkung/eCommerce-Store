@@ -65,6 +65,14 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3027.9148480363265!2d-73.95492337397835!3d40.631759821405694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b0e68bf8bc1%3A0x487ac68137fac784!2sBrooklyn%20College!5e0!3m2!1sen!2sus!4v1753732489210!5m2!1sen!2sus" width="500" height="260" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
+
+    <!-- Chat Box -->
+    <div id="chat-container" style="margin-top: 60px;">
+      <h3>Live Support Chat</h3>
+      <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; width: 100%; max-width: 500px; height: 250px; overflow-y: scroll; background: #f9f9f9;"></div>
+      <input type="text" id="chat-input" placeholder="Type your message..." style="width: 80%; padding: 10px;">
+      <button onclick="sendMessage()" style="padding: 10px 15px;">Send</button>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -72,6 +80,7 @@
     <p>&copy; 2025 CISC 3140 Project – Built with ❤️ by student developers for education.</p>
   </footer>
 
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script src="script.js"></script>
 </body>
 
