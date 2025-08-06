@@ -5,7 +5,7 @@ const productList = [
     "price": 20.32,
     "original": 67.72,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #2",
@@ -13,7 +13,7 @@ const productList = [
     "price": 39.3,
     "original": 87.34,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #3",
@@ -21,7 +21,7 @@ const productList = [
     "price": 29.19,
     "original": 69.51,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #4",
@@ -29,7 +29,7 @@ const productList = [
     "price": 18.98,
     "original": 45.2,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #5",
@@ -37,7 +37,7 @@ const productList = [
     "price": 29.57,
     "original": 89.6,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #6",
@@ -45,7 +45,7 @@ const productList = [
     "price": 34.84,
     "original": 82.95,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #7",
@@ -53,7 +53,7 @@ const productList = [
     "price": 23.55,
     "original": 71.35,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #8",
@@ -61,7 +61,7 @@ const productList = [
     "price": 21.18,
     "original": 70.59,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #9",
@@ -69,7 +69,7 @@ const productList = [
     "price": 25.51,
     "original": 72.88,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #10",
@@ -77,7 +77,7 @@ const productList = [
     "price": 18.56,
     "original": 53.02,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #11",
@@ -85,7 +85,7 @@ const productList = [
     "price": 36.47,
     "original": 86.83,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #12",
@@ -93,7 +93,7 @@ const productList = [
     "price": 27.11,
     "original": 67.77,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #13",
@@ -109,7 +109,7 @@ const productList = [
     "price": 14.43,
     "original": 41.23,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #15",
@@ -125,7 +125,7 @@ const productList = [
     "price": 17.03,
     "original": 42.57,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #17",
@@ -133,7 +133,7 @@ const productList = [
     "price": 16.74,
     "original": 47.84,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #18",
@@ -141,7 +141,7 @@ const productList = [
     "price": 33.91,
     "original": 84.77,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #19",
@@ -149,7 +149,7 @@ const productList = [
     "price": 35.91,
     "original": 85.51,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #20",
@@ -165,7 +165,7 @@ const productList = [
     "price": 16.14,
     "original": 40.35,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #22",
@@ -173,7 +173,7 @@ const productList = [
     "price": 21.48,
     "original": 61.36,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #23",
@@ -189,7 +189,7 @@ const productList = [
     "price": 22.27,
     "original": 67.47,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #25",
@@ -197,7 +197,7 @@ const productList = [
     "price": 24.08,
     "original": 53.52,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #26",
@@ -205,7 +205,7 @@ const productList = [
     "price": 23.72,
     "original": 71.87,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #27",
@@ -229,7 +229,7 @@ const productList = [
     "price": 21.39,
     "original": 64.81,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #30",
@@ -245,7 +245,7 @@ const productList = [
     "price": 17.67,
     "original": 58.91,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #32",
@@ -261,7 +261,7 @@ const productList = [
     "price": 16.87,
     "original": 51.13,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #34",
@@ -269,7 +269,7 @@ const productList = [
     "price": 16.06,
     "original": 40.14,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #35",
@@ -277,7 +277,7 @@ const productList = [
     "price": 26.79,
     "original": 66.97,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #36",
@@ -285,7 +285,7 @@ const productList = [
     "price": 13.21,
     "original": 44.04,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #37",
@@ -301,7 +301,7 @@ const productList = [
     "price": 24.19,
     "original": 57.59,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #39",
@@ -309,7 +309,7 @@ const productList = [
     "price": 31.44,
     "original": 78.59,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #40",
@@ -317,7 +317,7 @@ const productList = [
     "price": 20.98,
     "original": 49.95,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #41",
@@ -325,7 +325,7 @@ const productList = [
     "price": 16.0,
     "original": 45.72,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #42",
@@ -341,7 +341,7 @@ const productList = [
     "price": 24.09,
     "original": 72.99,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #44",
@@ -349,7 +349,7 @@ const productList = [
     "price": 16.23,
     "original": 49.18,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #45",
@@ -357,7 +357,7 @@ const productList = [
     "price": 29.24,
     "original": 69.62,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #46",
@@ -365,7 +365,7 @@ const productList = [
     "price": 19.92,
     "original": 66.39,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #47",
@@ -373,7 +373,7 @@ const productList = [
     "price": 27.96,
     "original": 66.56,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #48",
@@ -381,7 +381,7 @@ const productList = [
     "price": 14.5,
     "original": 48.33,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #49",
@@ -389,7 +389,7 @@ const productList = [
     "price": 25.33,
     "original": 60.3,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #50",
@@ -397,7 +397,7 @@ const productList = [
     "price": 19.53,
     "original": 46.5,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #51",
@@ -405,7 +405,7 @@ const productList = [
     "price": 35.64,
     "original": 79.19,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #52",
@@ -413,7 +413,7 @@ const productList = [
     "price": 23.87,
     "original": 72.33,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #53",
@@ -421,7 +421,7 @@ const productList = [
     "price": 26.25,
     "original": 75.01,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #54",
@@ -429,7 +429,7 @@ const productList = [
     "price": 24.97,
     "original": 75.68,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #55",
@@ -437,7 +437,7 @@ const productList = [
     "price": 14.35,
     "original": 43.48,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #56",
@@ -453,7 +453,7 @@ const productList = [
     "price": 20.84,
     "original": 63.14,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #58",
@@ -461,7 +461,7 @@ const productList = [
     "price": 16.76,
     "original": 47.88,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #59",
@@ -469,7 +469,7 @@ const productList = [
     "price": 23.53,
     "original": 52.3,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #60",
@@ -477,7 +477,7 @@ const productList = [
     "price": 29.45,
     "original": 65.44,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #61",
@@ -485,7 +485,7 @@ const productList = [
     "price": 24.71,
     "original": 58.83,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #62",
@@ -493,7 +493,7 @@ const productList = [
     "price": 21.29,
     "original": 53.23,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #63",
@@ -509,7 +509,7 @@ const productList = [
     "price": 28.15,
     "original": 80.42,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #65",
@@ -517,7 +517,7 @@ const productList = [
     "price": 17.91,
     "original": 54.28,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #66",
@@ -533,7 +533,7 @@ const productList = [
     "price": 21.44,
     "original": 47.64,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #68",
@@ -541,7 +541,7 @@ const productList = [
     "price": 19.0,
     "original": 47.5,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #69",
@@ -549,7 +549,7 @@ const productList = [
     "price": 33.11,
     "original": 73.58,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #70",
@@ -557,7 +557,7 @@ const productList = [
     "price": 33.86,
     "original": 80.61,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #71",
@@ -581,7 +581,7 @@ const productList = [
     "price": 23.26,
     "original": 66.45,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #74",
@@ -597,7 +597,7 @@ const productList = [
     "price": 32.53,
     "original": 81.33,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #76",
@@ -605,7 +605,7 @@ const productList = [
     "price": 19.12,
     "original": 47.8,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #77",
@@ -621,7 +621,7 @@ const productList = [
     "price": 28.65,
     "original": 68.21,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Basic Sweatpants #79",
@@ -645,7 +645,7 @@ const productList = [
     "price": 30.56,
     "original": 72.75,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #82",
@@ -653,7 +653,7 @@ const productList = [
     "price": 26.99,
     "original": 67.48,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #83",
@@ -661,7 +661,7 @@ const productList = [
     "price": 25.55,
     "original": 56.77,
     "discount": "-55%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #84",
@@ -685,7 +685,7 @@ const productList = [
     "price": 15.82,
     "original": 45.19,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #87",
@@ -693,7 +693,7 @@ const productList = [
     "price": 26.52,
     "original": 75.77,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #88",
@@ -701,7 +701,7 @@ const productList = [
     "price": 15.97,
     "original": 53.24,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #89",
@@ -709,7 +709,7 @@ const productList = [
     "price": 36.09,
     "original": 85.92,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #90",
@@ -717,7 +717,7 @@ const productList = [
     "price": 21.9,
     "original": 52.14,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #91",
@@ -725,7 +725,7 @@ const productList = [
     "price": 15.94,
     "original": 48.29,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Cardigan Knitwear #92",
@@ -733,7 +733,7 @@ const productList = [
     "price": 14.8,
     "original": 44.84,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Denim Outerwear #93",
@@ -741,7 +741,7 @@ const productList = [
     "price": 14.5,
     "original": 43.95,
     "discount": "-67%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #94",
@@ -749,7 +749,7 @@ const productList = [
     "price": 13.07,
     "original": 43.57,
     "discount": "-70%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Baggy Fit Jeans #95",
@@ -765,7 +765,7 @@ const productList = [
     "price": 17.46,
     "original": 43.64,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #97",
@@ -773,7 +773,7 @@ const productList = [
     "price": 21.64,
     "original": 61.82,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Pullover Sweater #98",
@@ -781,7 +781,7 @@ const productList = [
     "price": 30.86,
     "original": 88.17,
     "discount": "-65%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Casual T-Shirt #99",
@@ -789,7 +789,7 @@ const productList = [
     "price": 25.67,
     "original": 61.11,
     "discount": "-57%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   },
   {
     "name": "Oversized Hoodie #100",
@@ -797,7 +797,7 @@ const productList = [
     "price": 22.17,
     "original": 55.43,
     "discount": "-60%",
-    "img": "..clothing/shirt.jpg"
+    "img": "clothing/shirt.jpg"
   }
   
   
