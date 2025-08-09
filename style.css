@@ -239,7 +239,7 @@ img {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  background-image: url("icons/banners/newsbanner.png");
+  background-image: url("Icons/banners/newsbanner.png");
   background-repeat:no repeat;
   background-position: 20% 30%;
   background-color: rgb(254, 254, 254);
