@@ -40,7 +40,7 @@ P {
 }
 
 .section-p1 {
-    padding: 40px 80px;
+    padding: 30px 80px;
 }
 
 .section-m1 {
@@ -116,10 +116,12 @@ body {
     justify-content: center;
     padding: 0 20px;
 }
-.logo {
-    margin-left: 0;
-    padding-left: 0;
-    display: block;       
+ .logo {
+    max-width: 320px; /* make smaller */
+    height: auto;
+    display: block;
+    margin-top: -25px;  /* move up */
+    margin-left: -40px; /* move left */
   }
   
 
@@ -200,6 +202,7 @@ img {
   font-size: 14px;
 }
 /* feature section styling */
+
 #feature .fe-box {
   width: 180px;
   text-align: center;
@@ -233,6 +236,8 @@ img {
   justify-content: space-between;
   flex-wrap: wrap
 }
+
+/* newsletter styling */
 
 #newsletter {
   display: flex;
@@ -297,6 +302,65 @@ img {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+/* footer styling */
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+footer .col .logo {
+  max-width: 140px;
+  height: auto;
+  display: block;
+  max-width: 180px;
+  margin-top: -60px; /* moves logo up */
+}
+
+footer .col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  
+}
+
+footer h4 {
+  font-size: 14px;
+  padding-bottom: 20px
+}
+footer p {
+  font-size: 13px;
+  margin: 0 0 8px 0;
+}
+
+footer a {
+  font-size: 13px;
+  text-decoration: none;
+  color: #222;
+  margin: 0 0 8px 0;
+}
+
+footer.section-p1 .col h4 {
+  font-size: 18px; 
+  margin-bottom: 12px; 
+}
+
+footer.section-p1 .col a,
+footer.section-p1 .col p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+.payment-img {
+  max-width: 250px;  /* keep it smaller */
+  height: auto;
+  display: block;
+  margin-top: -60px;   
+}
+
+
 
 #shop-section .category-nav a {
   text-decoration: none;
