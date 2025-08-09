@@ -27,7 +27,8 @@ h3 {
 
 h4 {
     font-weight: 700;
-    font-size: 12px;
+    font-size: 16px;
+    margin-bottom: 12px;
     color:#194069
 
 }
@@ -147,7 +148,7 @@ img {
     position: relative;
     z-index: 2;
   
-    margin-left: 100px;
+    margin-left: 150px;
     margin-top: 250px;
   
     max-width: 400px;
@@ -192,7 +193,78 @@ img {
   text-align: center;
   padding: 25px 15px;
   box-shadow: 20px 20px 34px rgba(0,0,0,0.03);
-  border: 1px solid #cce7d0;
+  border: 1px solid #bac1bb;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+#feature .fe-box:hover {
+  box-shadow: 10px 10px 54px rgba(70, 62, 221, 0.01);
+}
+
+#feature .fe-box h6 {
+  display: inline-block;
+  padding: 9px 8px 6px 8px;
+  line-height: 1;
+  border-radius: 4px;
+  color:#f3f4f6;
+  background-color: #6c84a2 
+}
+
+#feature .fe-box img {
+  width: 100%;
+  margin-bottom: 2px;
+}
+#feature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
+
+#newsletter {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  background-image: url("icons/banners/newsbanner.png");
+  background-repeat:no repeat;
+  background-position: 20% 30%;
+  background-color: rgb(254, 254, 254);
+  background-size:150%;
+  padding: 30px;
+}
+#newsletter h4 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #223274;
+
+
+}
+#newsletter P {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.468);
+}
+
+#newsletter P span{
+ 
+  color: rgba(227, 153, 6, 0.985);
+}
+#newsletter input {
+  height: 3.125rem;
+  padding: 0 1.25rem;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: none;
+}
+
+#newsletter button {
+  background-color:#194069
+  color #fff;
+  white-space: nowrap;
 }
 #shop-section .category-nav a {
   text-decoration: none;
