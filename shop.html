@@ -1,81 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>3140 Ecommerce Project</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Product - 3140 Active Wear</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+	</head>
+	<body>
+		<!-- Header Section -->
+		<section id="header">
+			<a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250" /></a>
+			<div>
+				<ul id="navbar">
+					<li><a class="active" href="index.html">Home</a></li>
+					<li><a href="shop.html">Shop</a></li>
+					<li><a href="donate.html">Donate</a></li>
+					<li><a href="contact.html">Contact</a></li>
+					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
+					<li>
+						<div class="cart-container">
+							<a href="#" id="cart-icon" class="cart-hover">
+								<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+								<span id="cart-count">0</span>
+							</a>
+							<div id="cart-preview" class="cart-preview">
+								<h3>Your Cart</h3>
+								<div id="cart-items"></div>
+								<div class="cart-total">
+									<strong>Total:</strong>
+									$
+									<span id="cart-total">0.00</span>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
 
-  <!-- Header / Navbar -->
-  <section id="header">
-    <a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250"></a>
-    <div>
-      <ul id="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a class="active" href="shop.html">Shop</a></li>
-        <li><a href="donate.html">Donate</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="login.html">Login/Register</a></li>
-        <li>
-          <div class="cart-container">
-            <a href="#" id="cart-icon" class="cart-hover">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i> <span id="cart-count">0</span>
-            </a>
-            <div id="cart-preview" class="cart-preview">
-              <h3>Your Cart</h3>
-              <div id="cart-items"></div>
-              <div class="cart-total">
-                <strong>Total:</strong> $<span id="cart-total">0.00</span>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
+		<!-- Shopping Section -->
+		<div id="shop-section">
+			<!-- Search Bar -->
+			<div style="padding: 20px 40px">
+				<input type="text" id="search-bar" placeholder="Search items..." style="padding: 8px; width: 100%; max-width: 400px" />
+			</div>
 
-  <!-- Shopping Section -->
-  <div id="shop-section">
+			<!-- Category Filter -->
+			<nav class="category-nav">
+				<a href="#">VIEW ALL</a>
+				<a href="#">FROM 70% OFF</a>
+				<a href="#">T-SHIRTS</a>
+				<a href="#">SWEATERS</a>
+				<a href="#">CARDIGANS</a>
+				<a href="#">OUTERWEAR</a>
+				<a href="#">HOODIES</a>
+				<a href="#">PANTS</a>
+			</nav>
 
-    <!-- Search Bar -->
-    <div style="padding: 20px 40px;">
-      <input type="text" id="search-bar" placeholder="Search items..." style="padding: 8px; width: 100%; max-width: 400px;">
-    </div>
-
-    <!-- Category Filter -->
-    <nav class="category-nav">
-      <a href="#">VIEW ALL</a>
-      <a href="#">FROM 70% OFF</a>
-      <a href="#">T-SHIRTS</a>
-      <a href="#">SWEATERS</a>
-      <a href="#">CARDIGANS</a>
-      <a href="#">OUTERWEAR</a>
-      <a href="#">HOODIES</a>
-      <a href="#">PANTS</a>
-    </nav>
-
-    <main class="product-grid" id="product-grid">
-      <!-- Products will be injected by JavaScript -->
-    </main>
-  </div>
-  <footer style="
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    background: #eee;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-">
-    <p style="margin: 0;">
-        &copy; 2025 CISC 3140 Project – Built with ❤️ by student developers for education.
-    </p>
-</footer>
-    
-
-  <script src="JS/script.js"></script>
-</body>
+			<main class="product-grid" id="product-grid">
+				<!-- Products will be injected by JavaScript -->
+			</main>
+		</div>
+		<script src="app.js"></script>
+		<script src="script.js"></script>
+	</body>
 </html>
