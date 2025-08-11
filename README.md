@@ -145,8 +145,8 @@ start powershell -Command "<MongoDB installation directory>\bin\mongod.exe --dbp
 mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
 ### 11) To launch backend server by Node.js, Nodemon for monitoring change or ESLint analysis tool
-```npm start``` is equivalent to ```node JS/server.js```
-```npm run dev``` is equivalent to ```nodemon JS/server.js```
+```npm start``` is equivalent to ```node JS/server.js```  
+```npm run dev``` is equivalent to ```nodemon JS/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint JS```
 ### 12) Now you can open local page index.html, but some features like to access file through local browser (e.g. ***products.json***) is prohibited. Then you can create a mini HTTPS server by single one line in Python
 ```
@@ -169,8 +169,8 @@ HTTP Status 409 (Conflict, register with existed username)
 
 ### 18) After register on Render.com, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
 ```
-MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"```
+MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
 ### 19) Finally, deploy completed and open the page ***index.html*** on local or frontend HTTPS server to connect frontend program ***JS\app.js*** to backend ***JS\server.js***
 
-### 20) Remember, never share your ***.env*** file or admin password to others.
+### 20) Remember, never share your ***.env*** file, admin password to others, or upload your non-encrypted password online.
