@@ -164,7 +164,9 @@ HTTP Status 409 (Conflict, register with existed username)
 ### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. Render.com).
 
 ### 16) Second, MongoDB Atlas online account is also recommended, a free account can run one cluster at anytime. You will get the MongoDB cloud URL
-```MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"```
+```
+MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
+```
 ### 17) Go to "Network Access" to input IP address from Render.com in order to allow backend server access to MongoDB database
 
 ### 18) After register on Render.com, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
