@@ -1,7 +1,7 @@
 // All codes wrapped in one DOMContentLoaded listener.
 document.addEventListener("DOMContentLoaded", () => {
 	const config = {
-		apiBaseUrl: "https://e-commerceproject-x4gr.onrender.com:3000",
+		apiBaseUrl: "https://e-commerceproject-x4gr.onrender.com",
 	}
 
 	// --- DOM Element References ---
