@@ -96,7 +96,8 @@ app.post("/register", async (req, res) => {
 		})
 		await newUser.save()
 
-		res.status(201).json({ message: `Dear ${user.firstName} ${user.lastName}, your registration is successful. Please log in!` })
+		// Corrected line: Use `newUser` instead of `user`
+		res.status(201).json({ message: `Dear ${newUser.firstName} ${newUser.lastName}, your registration is successful. Please log in!` })
 	} catch (error) {
 		console.error("Registration server error:", error)
 		res.status(500).json({ message: "Server error during registration!" })
