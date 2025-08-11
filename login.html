@@ -146,6 +146,7 @@
 					</div>
 					<button type="submit">Login</button>
 					<div class="message" id="login-message"></div>
+					<br />
 					<div id="forgot-password-link">
 						<a href="#" id="forgot-password" style="text-decoration: none; color: #6c84a2">Forgot my password?</a>
 					</div>
@@ -175,6 +176,7 @@
 					<input type="email" id="recovery-email" placeholder="Enter your email" required />
 					<button id="send-recovery-email" type="button">Send Recovery Instructions</button>
 					<div class="message" id="recovery-message"></div>
+					<br />
 					<div><a href="login.html" style="text-decoration: none; color: #6c84a2; font-size: 16px">Back to Login</a></div>
 				</div>
 			</div>
@@ -219,15 +221,6 @@
 				})
 			})
 
-			document.getElementById("send-recovery-email").addEventListener("click", (e) => {
-				e.preventDefault()
-				const email = document.getElementById("recovery-email")
-				if (email.checkValidity()) {
-					showModal(`Password Recovery Instructions sent to ${email.value}`, `We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`)
-				} else {
-					email.reportValidity()
-				}
-			})
 			document.querySelectorAll(".toggle-password").forEach((icon) => {
 				icon.addEventListener("click", () => {
 					const input = document.querySelector(icon.getAttribute("toggle"))
