@@ -162,9 +162,21 @@ app.get("/logout", (req, res) => {
 	}
 })
 
-// --- Start the Server ---
+/* --- HTTP ---
 app.listen(PORT, () => {
 	console.log(`Backend Server is now running on http://127.0.0.1:${PORT}`)
+	console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL}`)
+	console.log(`Accessing MongoDB on: ${process.env.MONGO_URI}`)
+}) --- */
+
+const https = require("https")
+const fs = require("fs")
+const httpsOptions = {
+	key: fs.readFileSync("server.key"),
+	cert: fs.readFileSync("server.cert")
+}
+https.createServer(httpsOptions, app).listen(PORT, () => {
+	console.log(`Backend Server is now running on https://127.0.0.1:${PORT}`)
 	console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL}`)
 	console.log(`Accessing MongoDB on: ${process.env.MONGO_URI}`)
 })
