@@ -144,7 +144,6 @@ button {
 	color: white;
 	font-size: 18px;
 	font-weight: 600;
-	margin-top: 10px;
 	padding: 12px 0;
 	border: none;
 	border-radius: 8px;
@@ -267,21 +266,16 @@ button:hover {
 }
 #newsletter .form {
 	display: flex;
-	width: 30%;
+	width: 50%;
 	align-items: center;
 	margin-right: 45px;
 }
 #newsletter input {
-	flex: 1;
 	height: 3.1rem;
-	padding: 0 1.25rem;
 	font-size: 14px;
-	width: 100%;
-	border: 1px solid transparent;
-	border-radius: 4px 0 0 4px;
-	outline: none;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
+	border: 1px solid #ccc;
+	width: 1000px;
+	border-radius: 6px 0 0 6px;
 }
 #newsletter button {
 	height: 3.1rem; /* match input height */
@@ -290,7 +284,6 @@ button:hover {
 	color: white;
 	white-space: nowrap;
 	border: none;
-	border-radius: 0 4px 4px 0;
 	cursor: pointer;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
