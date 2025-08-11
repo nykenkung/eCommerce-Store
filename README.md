@@ -100,7 +100,7 @@ git clone https://github.com/CunyMeganLubin/E-commerceProject.git
 ```
 cd /d C:\GitHub\E-commerceProject
 ```
-### 3)  Generate the SSL certificate key files for local HTTPS (Make sure openssl.exe installed directory set to PATH variable)
+### 3)  Generate the SSL certificate key files for local HTTPS (Make sure ***openssl.exe*** installed directory set to PATH variable)
 ```
 openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.cert
 ```
@@ -124,11 +124,11 @@ npm init -y
 npm install
 (Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser cors dotenv
 ```
-### 7) To use the powerful static code analysis tool ESLint, install by Node.js
+### 7) To use the powerful static code analysis tool ESLint, installed by Node.js
 ```
 npx eslint --init
 ```
-### 8) To use ESLint properly, modify the configuration file ***eslint.config.mjs*** to add support of "required" and "env"
+### 8) To use ESLint properly, modify the configuration file ***eslint.config.mjs*** to add support of "required" and "env" in code
 ```
 import js from "@eslint/js";
 import globals from "globals";
@@ -148,11 +148,11 @@ mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```npm start``` is equivalent to ```node JS/server.js```  
 ```npm run dev``` is equivalent to ```nodemon JS/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint JS```
-### 12) Now you can open local page index.html, but some features like to access file through local browser (e.g. ***products.json***) is prohibited. Then you can create a mini HTTPS server by single one line in Python
+### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. ***products.json***) is prohibited. Then you can create a mini HTTPS server by single one line in Python
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
-### 13) After open the webpage by Chrome, push F12 to open Developer Tools and click Network=>Console to monitor server responses, there are various of result
+### 13) After open the web page by Chrome, push F12 to open Developer Tools and click Network=>Console to monitor server responses, there are various of result
 ```
 HTTP Status 200 (OK)
 HTTP Status 201 (Created, register or new order)
@@ -161,7 +161,7 @@ HTTP Status 409 (Conflict, register with existed username)
 ```
 ### 14) In Developer Tools, and click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. Render.com).
+### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. Render.com)
 
 ### 16) Second, MongoDB Atlas online account is also requested, a free account can run one cluster at anytime. You will get the MongoDB cloud URL
 ```
@@ -185,4 +185,4 @@ Change to
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 20) Remember, never share your ***.env*** file, admin password to others, or upload your non-encrypted password online.
+### 20) Remember, never share your ***.env*** file, admin password to others, or upload your non-encrypted password online
