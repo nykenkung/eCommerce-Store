@@ -179,7 +179,7 @@ MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-co
 ```
 ### 19) Render finished deploy, go to modify frontend program ***JS\app.js*** and tell where is Render backend URL
 ```
-apiBaseUrl: "http://127.0.0.1:3000"
+apiBaseUrl: "https://127.0.0.1:3000"
 ```
 Change to
 ```
