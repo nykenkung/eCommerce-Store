@@ -219,9 +219,9 @@ button:hover {
 #feature .fe-box:hover {
 	box-shadow: 10px 10px 54px rgba(70, 62, 221, 0.01);
 }
-#feature .fe-box h6 {
-	display: inline-block;
+#feature .fe-box h5 {
 	padding: 9px 8px 6px 8px;
+	height: 45px;
 	line-height: 1;
 	border-radius: 4px;
 	color: #f3f4f6;
@@ -268,11 +268,12 @@ button:hover {
 	display: flex;
 	width: 50%;
 	align-items: center;
-	margin-right: 45px;
+	margin-right: 50px;
 }
 #newsletter input {
 	height: 3.1rem;
-	font-size: 14px;
+	padding: 20px;
+	font-size: 18px;
 	border: 1px solid #ccc;
 	width: 1000px;
 	border-radius: 6px 0 0 6px;
@@ -296,11 +297,9 @@ footer {
 	justify-content: space-between;
 }
 footer .col .logo {
-	max-width: 140px;
-	height: auto;
-	display: block;
 	max-width: 180px;
 	margin-top: -60px; /* moves logo up */
+	margin-left: -20px;
 }
 footer .col {
 	display: flex;
