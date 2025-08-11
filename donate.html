@@ -1,93 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate - Support Our Student Project</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Donate - Support Our Student Project For Charity and Store Credits</title>
+		<link rel="stylesheet" href="CSS/style.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	</head>
+	<body>
+		<!-- Header Section -->
+		<section id="header">
+			<a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250" /></a>
+			<div>
+				<ul id="navbar">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="shop.html">Shop</a></li>
+					<li><a class="active" href="donate.html">Donate</a></li>
+					<li><a href="contact.html">Contact</a></li>
+					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
+					<li>
+						<a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+					</li>
+				</ul>
+			</div>
+		</section>
 
-  <!-- Header Section -->
-  <section id="header">
-    <a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250"></a>
-    <div>
-      <ul id="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a class="active" href="donate.html">Donate</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="login.html">Login/Register</a></li>
-        <li><a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
-      </ul>
-    </div>
-  </section>
+		<!-- Donate Section -->
+		<section id="donate-page" style="padding: 40px">
+			<h2 style="text-align: center; margin-bottom: 20px">Support Our Student Project</h2>
+			<p style="font-size: 18px; text-align: center; margin-bottom: 40px">Your contribution will help fund the development and growth of this project, which is built by students with passion and dedication. We believe in making a difference by supporting education and innovation. With your generous donation, we can enhance the experience, improve the technology, and continue creating valuable learning resources for others.</p>
+			<div style="display: flex; flex-wrap: wrap; justify-content: space-around">
+				<!-- FAQ Section -->
+				<div style="flex: 1; min-width: 300px; max-width: 500px">
+					<h3>Frequently Asked Questions</h3>
+					<br />
+					<br />
+					<h3>What is this project about?</h3>
+					<p>This project is part of a student-led e-commerce development initiative. We aim to create a platform for students to learn, innovate, and apply their knowledge in a real-world context. Your support helps fund the continuous development of this project.</p>
+					<br />
+					<h3>Why should I donate?</h3>
+					<p>Your donation goes directly into supporting the growth of the project. It helps fund resources, hosting, tools, and other essential elements that contribute to the ongoing development of the platform.</p>
+					<br />
+					<h3>How can I be sure my donation is being used wisely?</h3>
+					<p>We are fully transparent about how donations are spent. We are committed to using every dollar efficiently to improve the user experience, enhance the platform, and provide future opportunities for student projects.</p>
+					<br />
+					<h3>What is the shopping return policy?</h3>
+					<p>We offer a 30-day return policy for most products. If you are not satisfied with your purchase, please reach out to us, and we will assist you with the return process.</p>
+				</div>
 
-  <!-- Donate Section -->
-  <section id="donate-page" style="padding: 40px;">
-    <h2 style="text-align: center; margin-bottom: 20px;">Support Our Student Project</h2>
+				<!-- Donation Form -->
+				<div style="flex: 1; max-width: 500px">
+					<h3>Submit Your Clothing Donation</h3>
+					<br />
+					<form id="donation-form" style="display: flex; flex-direction: column; gap: 15px" enctype="multipart/form-data">
+						<div style="display: flex; gap: 16px">
+							<div>
+								<label for="first-name" style="color: #6c84a2">First Name:</label>
+								<br />
+								<input type="text" id="first-name" name="first-name" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; width: 240px" placeholder="Enter your first name" />
+							</div>
 
-    <p style="font-size: 18px; color: #333; text-align: center; margin-bottom: 40px;">
-      Your contribution will help fund the development and growth of this project, which is built by students with passion and dedication. We believe in making a difference by supporting education and innovation.
-    </p>
+							<div>
+								<label for="last-name" style="color: #6c84a2">Last Name:</label>
+								<br />
+								<input type="text" id="last-name" name="last-name" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; width: 240px" placeholder="Enter your last name" />
+							</div>
+						</div>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 40px;">
+						<label for="email" style="color: #6c84a2">Email Address (Required)</label>
+						<input type="email" id="email" name="email" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px" required placeholder="Enter your email" />
 
-      <!-- Donation Form -->
-      <div style="flex: 1; min-width: 300px; max-width: 500px;">
-        <h3>Make a Donation</h3>
-        <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
-          <label for="first-name" style="color: #6c84a2">First Name:</label>
-          <input type="text" id="first-name" name="first-name" required placeholder="Enter your first name">
+						<label for="purpose" style="color: #6c84a2">Purpose:</label>
+						<select name="purpose" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px">
+							<option value="">-- Select Purpose --</option>
+							<option value="Store Credit">Submit for Store Credit</option>
+							<option value="Charity">Donate to Charity</option>
+						</select>
 
-          <label for="last-name" style="color: #6c84a2">Last Name:</label>
-          <input type="text" id="last-name" name="last-name" required placeholder="Enter your last name">
+						<label for="category" style="color: #6c84a2">Clothing Category:</label>
+						<select name="category" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px">
+							<option value="">-- Select Category --</option>
+							<option value="T-SHIRTS">T-Shirts</option>
+							<option value="SWEATERS">Sweaters</option>
+							<option value="CARDIGANS">Cardigans</option>
+							<option value="OUTERWEAR">Outerwear</option>
+							<option value="HOODIES">Hoodies</option>
+							<option value="PANTS">Pants</option>
+						</select>
 
-          <label for="email" style="color: #6c84a2">Email Address:</label>
-          <input type="email" id="email" name="email" required placeholder="Enter your email"><br>
+						<label for="condition" style="color: #6c84a2">Clothing Condition:</label>
+						<select name="condition" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px">
+							<option value="">-- Select Condition --</option>
+							<option value="Like New">Like New</option>
+							<option value="Gently Used">Gently Used</option>
+							<option value="Acceptable">Acceptable</option>
+						</select>
 
-          <button type="submit" style="width: 100%; background-color: #6c84a2; color: white; font-size: 18px; font-weight: 600; margin-bottom: 5px; padding: 12px 0; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease"
-            onmouseover="this.style.backgroundColor='#194069'" onmouseout="this.style.backgroundColor='#6c84a2'">
-            Donate Now
-          </button>
-        </form>
-      </div>
+						<label for="brand" style="color: #6c84a2">Brand:</label>
+						<input type="text" name="brand" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px" placeholder="Enter brand of cloth" />
 
-      <!-- FAQ Section -->
-      <div style="flex: 1; min-width: 300px; max-width: 500px;">
-        <h2>Frequently Asked Questions</h2>
-        <h3>What is this project about?</h3>
-        <p>This project is part of a student-led e-commerce development initiative. We aim to create a platform for students to learn, innovate, and apply their knowledge in a real-world context.</p>
+						<label for="size" style="color: #6c84a2">Size:</label>
+						<input type="text" name="size" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px" placeholder="Enter size of cloth" />
 
-        <h3>Why should I donate?</h3>
-        <p>Your donation goes directly into supporting the growth of the project—tools, hosting, resources, and learning opportunities.</p>
+						<label for="age" style="color: #6c84a2">Age of Item:</label>
+						<select name="age" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px">
+							<option value="">-- Select Age --</option>
+							<option value="<1 year">&lt; 1 year</option>
+							<option value="1-2 years">1–2 years</option>
+							<option value="3+ years">3+ years</option>
+						</select>
 
-        <h3>How can I be sure my donation is being used wisely?</h3>
-        <p>We are fully transparent about how donations are spent and are committed to efficient, educational use of funds.</p>
+						<label for="description" style="color: #6c84a2">Item Description:</label>
+						<textarea name="description" rows="4" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px" placeholder="Enter description of cloth"></textarea>
 
-        <h3>What is the shopping return policy?</h3>
-        <p>We offer a 30-day return policy for most products. Contact us if you're unsatisfied, and we’ll guide you through the process.</p>
-      </div>
-    </div>
-  </section>
+						<label for="photo" style="color: #6c84a2">Upload Item Photo:</label>
+						<input type="file" name="photo" accept="image/*" z` />
 
-  <!-- Footer Section -->
-  <footer style="
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    background: #eee;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-">
-    <p style="margin: 0;">
-        &copy; 2025 CISC 3140 Project – Built with ❤️ by student developers for education.
-    </p>
-</footer>
+						<p style="font-size: 14px">
+							<input type="checkbox" name="terms" required />
+							(Required) I agree that this item is subject to verification and may or may not qualify for credit or charity acceptance.
+						</p>
 
-</body>
+						<p style="font-size: 14px">
+							<input type="checkbox" name="donate" />
+							Donations for store credit may receive up to
+							<strong>$5 per item</strong>
+							depending on category, brand, and condition.
+						</p>
+
+						<button type="submit" style="width: 100%; background-color: #6c84a2; color: white; font-size: 18px; font-weight: 600; margin-bottom: 5px; padding: 12px 0; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease" onmouseover="this.style.backgroundColor='#194069'" onmouseout="this.style.backgroundColor='#6c84a2'">Submit Donation</button>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<footer style="padding: 20px; background: #eee; justify-content: center">
+			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
+		</footer>
+		<script>
+			document.getElementById("donation-form").addEventListener("submit", function (e) {
+				e.preventDefault()
+				const purpose = this.purpose.value
+				const message = purpose === "Charity" ? "Thank you for donating to charity! Your item has been submitted." : "Thank you! Your donation for store credit is under review."
+				alert(message)
+				this.reset()
+			})
+		</script>
+		<script src="JS/app.js"></script>
+	</body>
 </html>
