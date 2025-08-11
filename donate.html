@@ -18,7 +18,21 @@
 					<li><a href="contact.html">Contact</a></li>
 					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
 					<li>
-						<a href="cart.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+						<div class="cart-container">
+							<a href="cart.html" id="cart-icon" class="cart-hover">
+								<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+								<span id="cart-count">0</span>
+							</a>
+							<div id="cart-preview" class="cart-preview">
+								<h3>Your Cart</h3>
+								<div id="cart-items"></div>
+								<div class="cart-total">
+									<strong>Total:</strong>
+									$
+									<span id="cart-total">0.00</span>
+								</div>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -152,5 +166,6 @@
 			})
 		</script>
 		<script src="JS/app.js"></script>
+		<script src="JS/cart.js"></script>
 	</body>
 </html>
