@@ -73,22 +73,6 @@
 				border-color: red !important;
 				background-color: #ffecec !important;
 			}
-			button {
-				width: 100%;
-				background-color: #6c84a2;
-				color: white;
-				font-size: 18px;
-				font-weight: 600;
-				margin-top: 10px;
-				padding: 12px 0;
-				border: none;
-				border-radius: 8px;
-				cursor: pointer;
-				transition: background-color 0.3s ease;
-			}
-			button:hover {
-				background-color: #194069;
-			}
 			#password-recovery-section {
 				display: none;
 				font-size: 18px;
@@ -123,37 +107,6 @@
 				cursor: pointer;
 				color: #999;
 			}
-			.modal {
-				display: none;
-				position: fixed;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(0, 0, 0, 0.4);
-			}
-			.modal-content {
-				background-color: white;
-				margin: 15% auto;
-				padding: 20px;
-				border: 1px solid #888;
-				border-radius: 15px;
-				width: 32%;
-				text-align: center;
-			}
-			#modal-message {
-				margin: 25px 0;
-			}
-			.message {
-				text-align: center;
-				margin-top: 15px;
-				font-size: 14px;
-			}
-			.message.success {
-				color: green;
-			}
-			.message.error {
-				color: red;
-			}
 		</style>
 	</head>
 	<body>
@@ -173,7 +126,6 @@
 				</ul>
 			</nav>
 		</section>
-
 		<main>
 			<div class="form-container">
 				<div class="tabs">
@@ -227,11 +179,9 @@
 				</div>
 			</div>
 		</main>
-
 		<footer style="padding: 20px; background: #eee; justify-content: center">
 			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
 		</footer>
-
 		<div id="modal" class="modal" role="dialog" aria-modal="true" tabindex="-1">
 			<div class="modal-content">
 				<h3 id="modal-title"></h3>
@@ -239,7 +189,6 @@
 				<button id="modal-ok-button" type="button">OK</button>
 			</div>
 		</div>
-
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {
 				const loginTab = document.getElementById("login-tab")
@@ -270,6 +219,15 @@
 				})
 			})
 
+			document.getElementById("send-recovery-email").addEventListener("click", (e) => {
+				e.preventDefault()
+				const email = document.getElementById("recovery-email")
+				if (email.checkValidity()) {
+					showModal(`Password Recovery Instructions sent to ${email.value}`, `We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`)
+				} else {
+					email.reportValidity()
+				}
+			})
 			document.querySelectorAll(".toggle-password").forEach((icon) => {
 				icon.addEventListener("click", () => {
 					const input = document.querySelector(icon.getAttribute("toggle"))
@@ -279,7 +237,6 @@
 					icon.classList.toggle("fa-eye-slash")
 				})
 			})
-
 			document.querySelectorAll("input").forEach((input) => {
 				input.addEventListener("input", () => {
 					if (input.checkValidity()) {
@@ -290,31 +247,6 @@
 						input.classList.remove("valid")
 					}
 				})
-			})
-			document.getElementById("send-recovery-email").addEventListener("click", (e) => {
-				e.preventDefault()
-				const email = document.getElementById("recovery-email")
-				if (email.checkValidity()) {
-					showModal(`Password Recovery Instructions sent to ${email.value}`, `We just sent you an email with password recovery instructions. Please check your inbox to reset your password and login your account. If you don't see the email, be sure to check your spam folder.`)
-				} else {
-					email.reportValidity()
-				}
-			})
-
-			const modal = document.getElementById("modal")
-			const modalTitle = document.getElementById("modal-title")
-			const modalMessage = document.getElementById("modal-message")
-			const modalOkButton = document.getElementById("modal-ok-button")
-			function showModal(title, message, redirect = false) {
-				modalTitle.textContent = title
-				modalMessage.textContent = message
-				modal.style.display = "block"
-				modalOkButton.onclick = () => {
-					modal.style.display = "none"
-				}
-			}
-			window.addEventListener("click", (e) => {
-				if (e.target === modal) modal.style.display = "none"
 			})
 		</script>
 		<script src="JS/app.js"></script>
