@@ -5,20 +5,55 @@
 		<title>Welcome to 3140 Active Wear</title>
 		<link rel="stylesheet" href="CSS/style.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+		<style>
+			/* --- New Welcome Banner Styling (Embedded in HTML) --- */
+			#welcome-banner {
+				position: fixed;
+				width: 100%;
+				z-index: 9999;
+				background: linear-gradient(to right, #f9e8e2, #f0f8ff);
+				color: #194069;
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+				padding: 15px 40px;
+				font-family: "Garamond", sans-serif;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				transform: translateY(-100%); /* Initially hidden above the screen */
+				transition: transform 2s ease-out; /* Smooth slide animation */
+			}
+			#welcome-banner.active {
+				transform: translateY(0); /* Slides it down into view */
+			}
+			/* Specific styling for the button inside the banner */
+			#welcome-banner button {
+				width: auto;
+				margin: 0;
+				padding: 8px 25px;
+				font-size: 14px;
+				background-color: #6c84a2;
+				color: white;
+				border: none;
+				border-radius: 8px;
+				cursor: pointer;
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+				transition: background-color 0.3s ease;
+			}
+			#welcome-banner button:hover {
+				background-color: #194069;
+			}
+		</style>
 	</head>
 	<body>
-		<!-- Fade-In Welcome Banner -->
-		<div id="welcome-banner" style="position: fixed; top: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(to right, #f9e8e2, #f0f8ff); color: #194069; padding: 20px 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); font-family: 'Garamond', sans-serif; font-size: 16px; text-align: center; z-index: 9999; opacity: 0; transition: opacity 1s ease; max-width: 90%">
-			<strong style="font-size: 18px">🎉 Welcome to 3140 ACTIVE WEAR! 🎉</strong>
-			<br />
-			<br />
-			<span style="font-size: 15px">Please login for exclusive promotion! Don't forget to sign in to claim your promotional offer!</span>
-			<br />
-			<br />
-			<button onclick="closeBanner()" style="padding: 8px 20px; font-size: 14px; background-color: #6c84a2; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease">OK</button>
+		<div id="welcome-banner">
+			<div class="banner-content">
+				<strong style="font-size: 18px; margin-left: 150px">🎉 Welcome to 3140 ACTIVE WEAR! 🎉</strong>
+				<span style="font-size: 15px; margin-left: 20px">Please login for exclusive promotion! Don't forget to sign in to claim your promotional offer!</span>
+			</div>
+			<button onclick="closeBanner()">OK</button>
 		</div>
 
-		<!-- Header Section -->
 		<section id="header">
 			<a href="index.html"><img src="Icons/logo.png" class="logo" alt="" width="100%" height="250" /></a>
 			<div>
@@ -35,7 +70,6 @@
 			</div>
 		</section>
 
-		<!-- Hero Section -->
 		<section id="hero">
 			<h1 class="hero-heading">Affordable Essentials for Everyday Athletes.</h1>
 			<div class="hero-text">
@@ -148,21 +182,26 @@
 				<button id="modal-ok-button" type="button">OK</button>
 			</div>
 		</div>
-		<!-- JavaScript for Banner -->
+
 		<script>
-			window.addEventListener("DOMContentLoaded", () => {
-				const banner = document.getElementById("welcome-banner")
-				setTimeout(() => {
-					banner.style.opacity = "1"
-				}, 300)
-			})
+			// --- Welcome Banner Logic ---
 			function closeBanner() {
 				const banner = document.getElementById("welcome-banner")
-				banner.style.opacity = "0"
-				setTimeout(() => {
-					banner.style.display = "none"
-				}, 1000)
+				// Remove the 'active' class to trigger the slide-up animation
+				banner.classList.remove("active")
 			}
+
+			// When the page content is fully loaded, slide the banner down
+			window.addEventListener("DOMContentLoaded", () => {
+				const banner = document.getElementById("welcome-banner")
+				// Use a small timeout to ensure the initial render is complete before animating
+				setTimeout(() => {
+					banner.classList.add("active")
+				})
+				bannerTimer = setTimeout(() => {
+					closeBanner()
+				}, 5000)
+			})
 		</script>
 		<script src="JS/app.js"></script>
 	</body>
