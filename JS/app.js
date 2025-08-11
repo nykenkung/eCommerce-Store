@@ -124,17 +124,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const handleLogout = async (event) => {
 		event.preventDefault()
+		// Show the initial confirmation modal.
 		showModal("Confirm Logout?", "Are you sure you want to log out?")
+
+		// Define the action for the confirmation modal's "OK" button.
 		modalOkButton.onclick = async () => {
 			try {
-				await fetch(`${config.apiBaseUrl}/logout`, {
+				// Send the logout request to the server.
+				const response = await fetch(`${config.apiBaseUrl}/logout`, {
 					credentials: "include",
 				})
-				updateUIToLoggedOutState()
-				window.location.reload()
+				// Get the JSON response from the server.
+				const result = await response.json()
+
+				if (response.ok) {
+					// On successful logout, show the server's message in a new modal.
+					showModal("Logout Successful", result.message)
+					// Now, set the "OK" button's action to reload the page.
+					modalOkButton.onclick = () => {
+						window.location.reload()
+					}
+				} else {
+					// If the server responded with an error, display that error.
+					showModal("Logout Failed", result.message || "An error occurred during logout!")
+				}
 			} catch (error) {
 				console.error("Logout Error:", error)
-				showModal("Logout Failed", "An error occurred during logout. Please try again!")
+				showModal("Connection Error", "Could not connect to the server. Please try again later!")
 			}
 		}
 	}

@@ -13,7 +13,10 @@ const PORT = process.env.PORT || 3000
 // --- Middleware ---
 // Configure CORS to allow requests from the frontend origin and to handle credentials (cookies).
 const corsOptions = {
-	origin: process.env.ORIGIN_URL, // e.g., 'http://127.0.0.1:5500'
+	origin: (origin, callback) => {
+		callback(null, true)
+	}, // Always approve the CORS request from any local
+	// origin: process.env.ORIGIN_URL,	// Only allow CORS request from specific URL
 	credentials: true,
 }
 app.use(cors(corsOptions))
@@ -55,7 +58,7 @@ app.get("/check-auth", async (req, res) => {
 		res.status(200).json({ loggedIn: false })
 	} catch (error) {
 		console.error("Auth check error:", error)
-		res.status(500).json({ message: "Server error during auth check." })
+		res.status(500).json({ message: "Server error during authorization check!" })
 	}
 })
 
@@ -68,16 +71,16 @@ app.post("/register", async (req, res) => {
 
 		// --- Validation ---
 		if (!firstName || !lastName || !email || !password) {
-			return res.status(400).json({ message: "All fields are required." })
+			return res.status(400).json({ message: "All fields are required!" })
 		}
-		if (password.length < 8) {
-			return res.status(400).json({ message: "Password must be at least 8 characters long." })
+		if (password.length < 4) {
+			return res.status(400).json({ message: "Password must be at least 4 characters long!" })
 		}
 
 		// Check if a user with the given email already exists.
 		const existingUser = await User.findOne({ email })
 		if (existingUser) {
-			return res.status(409).json({ message: "An account with this email already exists." })
+			return res.status(409).json({ message: "An account with this email already exists!" })
 		}
 
 		// Hash the password before saving it to the database.
@@ -93,10 +96,10 @@ app.post("/register", async (req, res) => {
 		})
 		await newUser.save()
 
-		res.status(201).json({ message: "Registration successful! Please log in." })
+		res.status(201).json({ message: `Dear ${user.firstName} ${user.lastName}, your registration is successful. Please log in!` })
 	} catch (error) {
 		console.error("Registration server error:", error)
-		res.status(500).json({ message: "Server error during registration." })
+		res.status(500).json({ message: "Server error during registration!" })
 	}
 })
 
@@ -108,19 +111,19 @@ app.post("/login", async (req, res) => {
 		const { email, password } = req.body
 
 		if (!email || !password) {
-			return res.status(400).json({ message: "Email and password are required." })
+			return res.status(400).json({ message: "Email and password are required!" })
 		}
 
 		// Find the user by email.
 		const user = await User.findOne({ email })
 		if (!user) {
-			return res.status(401).json({ message: "Invalid credentials." })
+			return res.status(401).json({ message: `The user ${email} could not be found!` })
 		}
 
 		// Compare the provided password with the hashed password in the database.
 		const isMatch = await bcrypt.compare(password, user.password)
 		if (!isMatch) {
-			return res.status(401).json({ message: "Invalid credentials." })
+			return res.status(401).json({ message: "Wrong Password entered!" })
 		}
 
 		// If credentials are valid, set the cookie.
@@ -131,12 +134,11 @@ app.post("/login", async (req, res) => {
 			sameSite: "None", // Required for cross-origin cookie setting.
 			maxAge: 24 * 60 * 60 * 1000, // Expires in 1 day.
 		})
-
-		console.log("Cookie should be set for user:", user.firstName)
-		res.status(200).json({ message: `Welcome back, ${user.firstName}!` })
+		console.log("Cookie should be set for user:", user.firstName, " ", user.lastName)
+		res.status(200).json({ message: `Welcome back, ${user.firstName} ${user.lastName}!` })
 	} catch (error) {
 		console.error("Login server error:", error)
-		res.status(500).json({ message: "Server error during login." })
+		res.status(500).json({ message: "Server error during login!" })
 	}
 })
 
@@ -144,13 +146,19 @@ app.post("/login", async (req, res) => {
  * @desc    Handle user logout by clearing the cookie.
  * @access  Public */
 app.get("/logout", (req, res) => {
-	// To clear a cookie, you must provide the same options with which it was set.
-	res.clearCookie("loggedIn", {
-		httpOnly: true,
-		secure: true,
-		sameSite: "None",
-	})
-	res.status(200).json({ message: "Successfully logged out." })
+	try {
+		// To clear a cookie, you must provide the same options with which it was set.
+		res.clearCookie("loggedIn", {
+			httpOnly: true,
+			secure: true,
+			sameSite: "None",
+		})
+		// Respond with a success message in JSON format.
+		res.status(200).json({ message: "You have been successfully logged out!" })
+	} catch (error) {
+		console.error("Logout error:", error)
+		res.status(500).json({ message: "Server error during logout!" })
+	}
 })
 
 // --- Start the Server ---
