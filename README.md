@@ -163,7 +163,11 @@ HTTP Status 409 (Conflict, register with existed username)
 
 ### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. Render.com).
 
-### 16) Second, MongoDB Atlas online account is also recommended, a free account can run one cluster at anytime. You will get the MongoDB cloud URL
+### 16) Second, MongoDB Atlas online account is also requested, a free account can run one cluster at anytime. You will get the MongoDB cloud URL
+```
+MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
+```
+Change to
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
@@ -173,6 +177,12 @@ MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-co
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) Finally, deploy completed and open the page ***index.html*** on local or frontend HTTPS server to connect frontend program ***JS\app.js*** to backend ***JS\server.js***
-
+### 19) Render finished deploy, go to modify frontend program ***JS\app.js*** and tell where is Render backend URL
+```
+apiBaseUrl: "http://127.0.0.1:3000"
+```
+Change to
+```
+apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
+```
 ### 20) Remember, never share your ***.env*** file, admin password to others, or upload your non-encrypted password online.
