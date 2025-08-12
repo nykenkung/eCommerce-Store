@@ -125,7 +125,7 @@ npm init -y
 npm install
 (Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser cors dotenv
 ```
-### 7) To use the powerful static code analysis tool ESLint, installed by Node.js
+### 7) To use the powerful static code analysis tool ***ESLint*** installed by Node.js
 ```
 npx eslint --init
 ```
@@ -145,7 +145,7 @@ start powershell -Command "<MongoDB installation directory>\bin\mongod.exe --dbp
 ```
 mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
-### 11) To launch backend server by Node.js, Nodemon for monitoring change or ESLint analysis tool
+### 11) To launch backend server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
 ```npm start``` is equivalent to ```node JS/server.js```  
 ```npm run dev``` is equivalent to ```nodemon JS/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint JS```
@@ -162,28 +162,31 @@ HTTP Status 409 (Conflict, register with existed username)
 ```
 ### 14) In Developer Tools, and click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. Render.com)
+### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. ***Render.com***)
 
-### 16) Second, MongoDB Atlas online account is also requested, a free account can run one cluster at anytime. You will get the MongoDB cloud URL
+### 16) Second, ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***"
 ```
 MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
 ```
-Change to
+Change to new MongoDB address
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 17) Go to "Network Access" to input IP address from Render.com in order to allow backend server access to MongoDB database
+### 17) Third, in your ***MongoDB Atlas*** account, select Overview=>Secuity=>Network Access to add IP Address to connect to your cluster from ***Render.com*** in order to allow backend server access to MongoDB database
+```
+Add new IP Address: xxx.xxx.xxx.xxx/xxx
+```
 
-### 18) After register on Render.com, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
+### 18) After register on ***Render.com***, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) Render finished deploy, go to modify frontend program ***JS\app.js*** and tell where is Render backend URL
+### 19) Render finished deploy, go to modify frontend program ***JS\app.js*** and tell where is ***Render.com*** backend URL
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
 ```
-Change to
+Change to new backend address
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 20) Remember, never share your ***.env*** file, admin password to others, or upload your non-encrypted password online
+### 20) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online including Github repository
