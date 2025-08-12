@@ -54,10 +54,8 @@ P {
 	transition: 0.3s ease;
 }
 #navbar li a:hover,
-#navbar li a.active {
-}
-#navbar li a.active::after,
-#navbar li a:hover::after {
+#navbar li a.active { }
+#navbar li a.active::after, #navbar li a:hover::after {
 	content: "";
 	width: 30%;
 	transform: translateX(-50%);
@@ -149,7 +147,7 @@ button {
 	font-size: 18px;
 	font-weight: 600;
 	padding: 12px 0;
-	border: none;
+	border: 1px solid #ccc;
 	border-radius: 8px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
@@ -362,11 +360,9 @@ footer.section-p1 .col p {
 	height: auto;
 }
 #shop-section .product-title {
-	font-size: 14px;
 	margin: 10px 0 5px;
 }
 #shop-section .price {
-	font-size: 13px;
 	margin-bottom: 10px;
 }
 #shop-section .original-price {
@@ -384,9 +380,9 @@ footer.section-p1 .col p {
 	font-weight: bold;
 }
 #shop-section button.add-to-cart {
-	margin: 10px auto;
+	height: 30px;
 	padding: 5px 10px;
-	font-size: 13px;
+	font-size: 14px;
 	cursor: pointer;
 }
 #shop-section .quantity-controls {
@@ -397,7 +393,11 @@ footer.section-p1 .col p {
 	margin-top: 5px;
 }
 #shop-section .quantity-controls button {
+	width: 30px;
+	height: 30px;
 	padding: 2px 6px;
+	margin-left: 5px;
+	margin-right: 5px;
 	font-size: 14px;
 	cursor: pointer;
 }
@@ -581,13 +581,6 @@ footer.section-p1 .col p {
 	width: 30px;
 	height: 30px;
 	padding: 2px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-#cart-page .quantity-controls-cart button:hover {
-	background-color: #e9ecef;
 }
 
 /* --- Cart Summary Section --- */
