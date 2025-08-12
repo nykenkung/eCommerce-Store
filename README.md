@@ -162,7 +162,7 @@ HTTP Status 409 (Conflict, register with existed username)
 ```
 ### 14) In Developer Tools, and click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 15) If you want to run this repository online, first a Node.js and Express supported hosting website is required (e.g. ***Render.com***)
+### 15) If you want to run this repository online, using both ***Node.js*** and ***Express*** features supported hosting website is required (e.g. ***Render.com***)
 
 ### 16) Second, ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***"
 ```
