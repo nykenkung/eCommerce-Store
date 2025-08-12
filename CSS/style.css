@@ -10,6 +10,8 @@ h1 {
 	color: #194069;
 }
 h2 {
+	text-align: center;
+	margin-bottom: 30px;
 	font-size: 46px;
 	line-height: 54px;
 	color: #194069;
@@ -32,7 +34,7 @@ P {
 }
 
 .section-p1 {
-	padding: 30px 80px;
+	padding: 40px 80px;
 }
 
 .section-m1 {
@@ -462,7 +464,6 @@ footer.section-p1 .col p {
 	/* Add a smooth transition for the fade and transform effects */
 	transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-
 /* Links inside the dropdown */
 .dropdown-content a {
 	color: #194069;
@@ -492,4 +493,155 @@ footer.section-p1 .col p {
 /* Hide the active/hover underline from the main "Contact" trigger */
 #navbar .dropdown > a.dropbtn::after {
 	content: none;
+}
+
+/* --- Cart Page Styling --- */
+#cart-page {
+	overflow-x: auto; /* Ensures table is responsive on small screens */
+}
+#cart-page table {
+	width: 100%;
+	border-collapse: separate; /* Changed from collapse */
+	border-spacing: 0; /* Added to remove space between cells */
+	table-layout: fixed;
+	white-space: nowrap;
+	border: 1px solid #e9ecef;
+	border-radius: 8px; /* This will now be applied */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	overflow: hidden; /* Added to clip internal elements to the rounded corners */
+}
+#cart-page table img {
+	width: 80px; /* Slightly larger images */
+	border-radius: 6px;
+}
+/* --- Table Column Widths --- */
+#cart-page table td:nth-child(1) {
+	width: 100px;
+	text-align: center;
+}
+#cart-page table td:nth-child(2) {
+	width: 120px;
+	text-align: center;
+}
+#cart-page table td:nth-child(3) {
+	width: 280px;
+	text-align: left;
+	white-space: normal;
+} /* Allow product name to wrap */
+#cart-page table td:nth-child(4),
+#cart-page table td:nth-child(5),
+#cart-page table td:nth-child(6) {
+	width: 150px;
+	text-align: center;
+}
+#cart-page table thead {
+	border-bottom: 2px solid #dee2e6;
+}
+#cart-page table thead td {
+	font-weight: 700;
+	font-size: 14px;
+	padding: 20px 15px;
+	color: #194069;
+}
+#cart-page table tbody tr {
+	border-bottom: 1px solid #e9ecef;
+}
+#cart-page table tbody tr:last-child {
+	border-bottom: none;
+}
+#cart-page table tbody td {
+	padding: 20px 15px;
+	vertical-align: middle;
+	font-size: 16px;
+	color: #194069;
+}
+/* --- Action and Quantity Buttons --- */
+#cart-page .remove-btn {
+	color: #dc3545;
+	background: transparent;
+	border: 1px solid #dc3545;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	line-height: 28px;
+	padding: 0;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+#cart-page .remove-btn:hover {
+	background-color: #dc3545;
+	color: white;
+}
+#cart-page .quantity-controls-cart {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+}
+#cart-page .quantity-controls-cart button {
+	width: 30px;
+	height: 30px;
+	padding: 2px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+#cart-page .quantity-controls-cart button:hover {
+	background-color: #e9ecef;
+}
+
+/* --- Cart Summary Section --- */
+#cart-summary-section {
+	display: flex;
+	justify-content: flex-end; /* Align summary to the right */
+	margin-top: 40px;
+}
+#cart-summary {
+	width: 100%;
+	max-width: 450px;
+	padding: 25px;
+	border: 1px solid #e9ecef;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	color: #194069;
+}
+
+#cart-summary h3 {
+	margin-bottom: 25px;
+	font-size: 20px;
+	color: #194069;
+	border-bottom: 2px solid #dee2e6;
+	padding-bottom: 10px;
+}
+
+#cart-summary .summary-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 18px;
+	font-size: 16px;
+}
+
+#cart-summary hr {
+	margin: 10px 0 20px;
+	border: 0;
+	border-top: 1px solid #e9ecef;
+}
+
+#cart-summary .checkout-btn {
+	width: 100%;
+	padding: 15px;
+	font-size: 18px;
+	font-weight: 600;
+	background-color: #6c84a2;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#cart-summary .checkout-btn:hover {
+	background-color: #194069;
 }
