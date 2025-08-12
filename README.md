@@ -70,7 +70,11 @@ We will upload a figma for a layout once we know the direction we want to go.
 │
 ├──────┬── /JS               # JS Folder
 │      ├────── app.js        # Frontend JavaScript, stored backend apiBaseUrl (default: apiBaseUrl: "https://127.0.0.1:4000")
-│      ├────── cart.js       # Cart Logic JavaScript
+│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event that fetches products.json
+│      ├────── cart.js       # Contains functions changeQty, renderFullCart to render cart table
+│      ├────── checkout.js	 # Contains functions renderOrderSummary, placeOrder, setupCheckoutPageListeners for checkout process
+│      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie, to render order history table
+│      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for search and filtering
 │      └────── server.js     # Entry point of Node.js backend server
 │
 ├──────┬── /server           # Live Chat folder
