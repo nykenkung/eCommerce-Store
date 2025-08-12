@@ -63,10 +63,35 @@ function placeOrder() {
 		orderDate: new Date().toISOString(),
 	}
 
-	setCookie("orderHistory", JSON.stringify(order), 30)
+	// --- CORRECTED LOGIC ---
+	// 1. Get existing history from the cookie.
+	// NOTE: This assumes getCookie() is available, as defined in cart-core.js.
+	const historyCookie = getCookie("orderHistory")
+	let orderHistory = []
+
+	// 2. If history exists, parse it into our array.
+	if (historyCookie) {
+		try {
+			orderHistory = JSON.parse(historyCookie)
+			// Ensure it's an array, in case of old/bad data
+			if (!Array.isArray(orderHistory)) {
+				orderHistory = []
+			}
+		} catch (e) {
+			console.error("Could not parse order history cookie:", e)
+			orderHistory = [] // Reset if cookie is corrupt
+		}
+	}
+
+	// 3. Add the new order to the start of the history array.
+	orderHistory.unshift(order)
+
+	// 4. Save the updated array back to the cookie.
+	setCookie("orderHistory", JSON.stringify(orderHistory), 30)
+
 	setCookie("shoppingCart", "", -1) // Clear the shopping cart
 	alert("Your order has been placed successfully!")
-	window.location.href = "index.html"
+	window.location.href = "order.html" // Redirect to order history to see the new order
 }
 
 function setupCheckoutPageListeners() {
