@@ -173,7 +173,7 @@ const https = require("https")
 const fs = require("fs")
 const httpsOptions = {
 	key: fs.readFileSync("server.key"),
-	cert: fs.readFileSync("server.cert")
+	cert: fs.readFileSync("server.cert"),
 }
 https.createServer(httpsOptions, app).listen(PORT, () => {
 	console.log(`Backend Server is now running on https://127.0.0.1:${PORT}`)

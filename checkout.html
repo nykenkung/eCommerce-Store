@@ -24,10 +24,27 @@
 					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
 					<li>
 						<div class="cart-container">
-							<a class="active" href="cart.html" id="cart-icon">
+							<a href="cart.html" id="cart-icon">
 								<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 								<span id="cart-count">0</span>
 							</a>
+							<div id="cart-preview" class="cart-preview">
+								<h3>My Shopping Cart</h3>
+								<div id="cart-items"></div>
+								<div class="cart-total">
+									<strong>Total:</strong>
+									$
+									<span id="cart-total">0.00</span>
+								</div>
+								<div style="margin-top: 20px; text-align: center">
+									<a href="cart.html" class="button-link">My Shopping Cart</a>
+									<a href="checkout.html" class="button-link">Proceed to Checkout</a>
+									<br />
+									<br />
+									<br />
+									<a href="order.html" class="button-link">My Order History</a>
+								</div>
+							</div>
 						</div>
 					</li>
 				</ul>
@@ -256,7 +273,7 @@
 			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
 		</footer>
 		<script src="JS/app.js"></script>
-		<script src="JS/cart-code.js"></script>
+		<script src="JS/cart-core.js"></script>
 		<script src="JS/checkout.js"></script>
 	</body>
 </html>
