@@ -436,3 +436,60 @@ footer.section-p1 .col p {
 .cart-container:hover .cart-preview {
 	display: block;
 }
+
+/* Dropdown Menu Styling */
+/* The container <li> - needed to position the dropdown content */
+#navbar .dropdown {
+	position: relative;
+	display: inline-block;
+}
+/* Dropdown Content (Hidden by Default with transition) */
+.dropdown-content {
+	/* Use opacity for a fade effect */
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 200px; /* You can adjust the width as needed */
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 101;
+	list-style-type: none;
+	padding: 10px 0;
+	border-radius: 4px;
+	/* Center the dropdown menu below the link */
+	left: 50%;
+	transform: translateX(-50%);
+	/* Add a smooth transition for the fade and transform effects */
+	transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: #194069;
+	padding: 10px 20px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+	font-size: 20px;
+}
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+	opacity: 1;
+	visibility: visible;
+}
+/* Reset padding for list items inside the dropdown */
+.dropdown-content li {
+	padding: 0;
+}
+/* Remove the active/hover underline from dropdown links */
+.dropdown-content a::after {
+	content: none !important;
+}
+/* Hide the active/hover underline from the main "Contact" trigger */
+#navbar .dropdown > a.dropbtn::after {
+	content: none;
+}
