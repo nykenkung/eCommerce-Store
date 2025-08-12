@@ -181,7 +181,7 @@ Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) Render finished deploy, go to modify frontend program ***JS\app.js*** and tell where is ***Render.com*** backend URL
+### 19) After Render.com finished deploying, copy the backend server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** backend URL
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
 ```
