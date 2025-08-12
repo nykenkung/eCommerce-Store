@@ -8,6 +8,7 @@
 h1 {
 	font-size: 50px;
 	line-height: 64px;
+	color: #194069;
 }
 h2 {
 	text-align: center;
@@ -54,8 +55,11 @@ P {
 	transition: 0.3s ease;
 }
 #navbar li a:hover,
-#navbar li a.active { }
-#navbar li a.active::after, #navbar li a:hover::after {
+#navbar li a.active {
+	color: #194069;
+}
+#navbar li a.active::after,
+#navbar li a:hover::after {
 	content: "";
 	width: 30%;
 	transform: translateX(-50%);
