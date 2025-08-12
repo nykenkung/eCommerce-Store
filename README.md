@@ -181,7 +181,6 @@ MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-co
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-
 ### 18) After register on ***Render.com***, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
@@ -194,4 +193,6 @@ Change to new backend address
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 20) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online including Github repository
+### 20) To view the MongoDB database collections created by web application, go to your ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
+
+### 21) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online including Github repository
