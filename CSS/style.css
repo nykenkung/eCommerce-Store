@@ -2,29 +2,28 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-family: "Garamond", sans-serif;
+	color: #194069;
 }
 
 h1 {
 	font-size: 50px;
 	line-height: 64px;
-	color: #194069;
 }
 h2 {
 	text-align: center;
 	margin-bottom: 30px;
 	font-size: 46px;
 	line-height: 54px;
-	color: #194069;
 }
 h3 {
+	text-align: center;
+	margin-bottom: 20px;
 	font-size: 20px;
-	color: #194069;
 }
 h4 {
 	font-weight: 700;
 	font-size: 16px;
 	margin-bottom: 12px;
-	color: #194069;
 }
 
 P {
@@ -56,7 +55,6 @@ P {
 }
 #navbar li a:hover,
 #navbar li a.active {
-	color: #194069;
 }
 #navbar li a.active::after,
 #navbar li a:hover::after {
@@ -68,6 +66,10 @@ P {
 	position: absolute;
 	bottom: -4px;
 	left: 50%;
+}
+#navbar .button-link {
+	color: white;
+	font-size: 18px;
 }
 
 /* flex box styling */
@@ -158,14 +160,13 @@ button:hover {
 .button-link {
 	background-color: #6c84a2;
 	color: white;
-	text-decoration: none;
 	padding: 10px 24px;
 	font-size: 16px;
 	border-radius: 8px;
-	width: 200px;
 	cursor: pointer;
-	display: inline-block;
 	transition: background-color 0.3s ease;
+	margin-bottom: 10px;
+	display: block;
 }
 .button-link:hover {
 	background-color: #194069;
@@ -466,7 +467,6 @@ footer.section-p1 .col p {
 }
 /* Links inside the dropdown */
 .dropdown-content a {
-	color: #194069;
 	padding: 10px 20px;
 	text-decoration: none;
 	display: block;
@@ -541,7 +541,6 @@ footer.section-p1 .col p {
 	font-weight: 700;
 	font-size: 14px;
 	padding: 20px 15px;
-	color: #194069;
 }
 #cart-page table tbody tr {
 	border-bottom: 1px solid #e9ecef;
@@ -553,7 +552,6 @@ footer.section-p1 .col p {
 	padding: 20px 15px;
 	vertical-align: middle;
 	font-size: 16px;
-	color: #194069;
 }
 /* --- Action and Quantity Buttons --- */
 #cart-page .remove-btn {
@@ -605,30 +603,24 @@ footer.section-p1 .col p {
 	border: 1px solid #e9ecef;
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-	color: #194069;
 }
-
 #cart-summary h3 {
 	margin-bottom: 25px;
 	font-size: 20px;
-	color: #194069;
 	border-bottom: 2px solid #dee2e6;
 	padding-bottom: 10px;
 }
-
 #cart-summary .summary-row {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 18px;
 	font-size: 16px;
 }
-
 #cart-summary hr {
 	margin: 10px 0 20px;
 	border: 0;
 	border-top: 1px solid #e9ecef;
 }
-
 #cart-summary .checkout-btn {
 	width: 100%;
 	padding: 15px;
@@ -641,7 +633,6 @@ footer.section-p1 .col p {
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
-
 #cart-summary .checkout-btn:hover {
 	background-color: #194069;
 }
