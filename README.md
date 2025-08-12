@@ -153,6 +153,7 @@ mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
+Then it will automatically open the browser and start with ```https://127.0.0.1:4000```
 ### 13) After open the web page by Chrome, push F12 to open Developer Tools and click Network=>Console to monitor server responses, there are various of result
 ```
 HTTP Status 200 (OK)
