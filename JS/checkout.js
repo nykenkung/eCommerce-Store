@@ -38,8 +38,39 @@ function renderOrderSummary() {
 }
 
 function placeOrder() {
+	// Get Existing Order History
+	const historyCookie = getCookie("orderHistory")
+	let orderHistory = []
+
+	if (historyCookie) {
+		try {
+			orderHistory = JSON.parse(historyCookie)
+			if (!Array.isArray(orderHistory)) {
+				orderHistory = [] // Ensure it's an array
+			}
+		} catch (e) {
+			console.error("Could not parse order history cookie:", e)
+			orderHistory = []
+		}
+	}
+
+	// Generate the next Order Number
+	let newOrderNumber = 1 // Default to 1 for the first order
+	if (orderHistory.length > 0) {
+		// If history exists, get the number from the most recent order and add 1
+		const lastOrder = orderHistory[0]
+		// Ensure lastOrder.orderNumber is treated as a number before incrementing
+		const lastOrderNumber = parseInt(lastOrder.orderNumber, 10) || 0
+		newOrderNumber = lastOrderNumber + 1
+	}
+
+	// Format the new order number to be 8 digits with leading zeros
+	const formattedOrderNumber = String(newOrderNumber).padStart(8, "0")
+
+	// Create the Order Object with the new formatted number
 	const isSameAsShipping = document.getElementById("sameAsShipping").checked
 	const order = {
+		orderNumber: formattedOrderNumber, // Use the formatted 5-digit order number
 		firstName: document.getElementById("first-name").value,
 		lastName: document.getElementById("last-name").value,
 		email: document.getElementById("email").value,
@@ -63,43 +94,24 @@ function placeOrder() {
 		orderDate: new Date().toISOString(),
 	}
 
-	// --- CORRECTED LOGIC ---
-	// 1. Get existing history from the cookie.
-	// NOTE: This assumes getCookie() is available, as defined in cart-core.js.
-	const historyCookie = getCookie("orderHistory")
-	let orderHistory = []
-
-	// 2. If history exists, parse it into our array.
-	if (historyCookie) {
-		try {
-			orderHistory = JSON.parse(historyCookie)
-			// Ensure it's an array, in case of old/bad data
-			if (!Array.isArray(orderHistory)) {
-				orderHistory = []
-			}
-		} catch (e) {
-			console.error("Could not parse order history cookie:", e)
-			orderHistory = [] // Reset if cookie is corrupt
-		}
-	}
-
-	// 3. Add the new order to the start of the history array.
+	// Add new order and save back to cookie
 	orderHistory.unshift(order)
-
-	// 4. Save the updated array back to the cookie.
 	setCookie("orderHistory", JSON.stringify(orderHistory), 30)
 
 	setCookie("shoppingCart", "", -1) // Clear the shopping cart
 	alert("Your order has been placed successfully!")
-	window.location.href = "order.html" // Redirect to order history to see the new order
+	window.location.href = "order.html"
 }
 
 function setupCheckoutPageListeners() {
 	const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
-	const mailingAddressFields = document.getElementById("mailingAddressFields")
+	const mailingAddressFields = document.getElementById("mailingAddressFields") // Corrected ID
 	if (sameAsShippingCheckbox) {
 		sameAsShippingCheckbox.addEventListener("change", function () {
-			mailingAddressFields.style.display = this.checked ? "none" : "block"
+			// Corrected ID used here
+			if (mailingAddressFields) {
+				mailingAddressFields.style.display = this.checked ? "none" : "block"
+			}
 		})
 	}
 
@@ -111,7 +123,9 @@ function setupCheckoutPageListeners() {
 			tabs.forEach((t) => t.classList.remove("active"))
 			tab.classList.add("active")
 			tabContents.forEach((content) => content.classList.remove("active"))
-			target.classList.add("active")
+			if (target) {
+				target.classList.add("active")
+			}
 		})
 	})
 }

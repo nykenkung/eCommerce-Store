@@ -88,7 +88,7 @@ function renderOrderHistory() {
 				</div>
 				<div>
 					<span class="header-label">ORDER #</span>
-					<span>${order.orderNumber || "N/A"}</span>
+					<span>${order.orderNumber}</span>
 				</div>
 			</div>
 			<div class="order-body">
