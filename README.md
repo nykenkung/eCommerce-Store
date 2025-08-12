@@ -50,7 +50,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── index.html               # Landing front page
 ├── shop.html                # Product detail page
 ├── donate.html              # Donate clothing page
-├── contact.html             # Contact page
+├── contact.html             # Contact us page
+├── about.html               # About us page
 ├── login.html               # Login/register/password recovery page
 ├── cart.html                # Shopping cart page
 ├── checkout.html            # Checkout page
