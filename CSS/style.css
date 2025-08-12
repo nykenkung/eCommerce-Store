@@ -712,12 +712,16 @@ ul.payment-tabs {
 	border-bottom: 1px solid #e0e0e0;
 }
 ul.payment-tabs li.tab-link {
-	padding: 15px 20px;
+	width: 20%; /* Each of the 5 tabs will take up 20% of the width */
+	padding: 15px 10px; /* Adjusted padding for better fit */
 	cursor: pointer;
 	text-align: center;
 	font-weight: 600;
 	color: #6c84a2;
 	transition: background-color 0.3s, color 0.3s;
+	white-space: nowrap; /* Keep content on one line */
+	overflow: hidden; /* Hide overflow if content is too long */
+	text-overflow: ellipsis; /* Add ... if content overflows */
 }
 ul.payment-tabs li.tab-link:hover {
 	background-color: #e9e9e9;

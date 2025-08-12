@@ -21,7 +21,7 @@
 							<li><a href="about.html">About us</a></li>
 						</ul>
 					</li>
-					<li><a class="active" href="login.html" id="login-logout-link">Login/Register</a></li>
+					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
 					<li>
 						<div class="cart-container">
 							<a class="active" href="cart.html" id="cart-icon">
@@ -255,155 +255,8 @@
 		<footer style="padding: 20px; background: #eee; justify-content: center">
 			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
 		</footer>
-
-		<script>
-			let productList = []
-			const cart = {}
-
-			function getCookie(name) {
-				const nameEQ = name + "="
-				const ca = document.cookie.split(";")
-				for (let i = 0; i < ca.length; i++) {
-					let c = ca[i]
-					while (c.charAt(0) === " ") c = c.substring(1, c.length)
-					if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
-				}
-				return null
-			}
-
-			function setCookie(name, value, days) {
-				let expires = ""
-				if (days) {
-					const date = new Date()
-					date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-					expires = "; expires=" + date.toUTCString()
-				}
-				document.cookie = name + "=" + (value || "") + expires + "; path=/"
-			}
-
-			function loadCartFromCookie() {
-				const savedCart = getCookie("shoppingCart")
-				if (savedCart) {
-					const parsedCart = JSON.parse(savedCart)
-					Object.assign(cart, parsedCart)
-				}
-			}
-
-			function renderOrderSummary() {
-				const container = document.getElementById("summary-items")
-				const subtotalDisplay = document.getElementById("summary-subtotal")
-				const totalDisplay = document.getElementById("summary-grand-total")
-				const cartCountEl = document.getElementById("cart-count")
-
-				if (!container) return
-
-				let total = 0
-				let totalItems = 0
-				container.innerHTML = ""
-				const cartKeys = Object.keys(cart)
-
-				if (cartKeys.length === 0) {
-					container.innerHTML = "<p>Your cart is empty.</p>"
-					return
-				}
-
-				cartKeys.forEach((index) => {
-					const item = productList[index]
-					if (!item) return
-					const qty = cart[index]
-					const subtotal = qty * item.price
-					total += subtotal
-					totalItems += qty
-
-					const div = document.createElement("div")
-					div.className = "summary-item"
-					div.innerHTML = `
-						<img src="${item.img}" alt="${item.name}">
-						<div>
-							<span>${item.name}</span>
-							<span>Qty: ${qty}</span>
-						</div>
-						<strong>$${subtotal.toFixed(2)}</strong>
-					`
-					container.appendChild(div)
-				})
-
-				subtotalDisplay.textContent = `$${total.toFixed(2)}`
-				totalDisplay.textContent = `$${total.toFixed(2)}`
-				if (cartCountEl) {
-					cartCountEl.textContent = totalItems
-				}
-			}
-
-			function placeOrder() {
-				const isSameAsShipping = document.getElementById("sameAsShipping").checked
-				const order = {
-					firstName: document.getElementById("first-name").value,
-					lastName: document.getElementById("last-name").value,
-					email: document.getElementById("email").value,
-					phone: document.getElementById("phone").value,
-					shippingAddress: {
-						address: document.getElementById("address").value,
-						city: document.getElementById("city").value,
-						state: document.getElementById("state").value,
-						zipCode: document.getElementById("zip-code").value,
-					},
-					billingAddress: isSameAsShipping
-						? "Same as shipping"
-						: {
-								address: document.getElementById("mail-address").value,
-								city: document.getElementById("mail-city").value,
-								state: document.getElementById("mail-state").value,
-								zipCode: document.getElementById("mail-zip-code").value,
-						  },
-					items: cart,
-					total: document.getElementById("summary-grand-total").textContent,
-					orderDate: new Date().toISOString(),
-				}
-
-				setCookie("orderHistory", JSON.stringify(order), 30)
-				setCookie("shoppingCart", "", -1) // Clear the shopping cart cookie
-				alert("Your order has been placed successfully!")
-				window.location.href = "index.html"
-			}
-
-			document.addEventListener("DOMContentLoaded", () => {
-				fetch("products.json")
-					.then((response) => response.json())
-					.then((data) => {
-						productList = data
-						loadCartFromCookie()
-						renderOrderSummary()
-					})
-					.catch((error) => {
-						console.error("Error fetching products:", error)
-						document.getElementById("summary-items").innerHTML = '<p style="color: red;">Could not load cart.</p>'
-					})
-
-				// Billing address checkbox logic
-				const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
-				const billingAddressFields = document.getElementById("billingAddressFields")
-				sameAsShippingCheckbox.addEventListener("change", function () {
-					billingAddressFields.style.display = this.checked ? "none" : "block"
-				})
-
-				// Payment tabs logic
-				const tabs = document.querySelectorAll(".payment-tabs .tab-link")
-				const tabContents = document.querySelectorAll(".tab-content")
-
-				tabs.forEach((tab) => {
-					tab.addEventListener("click", () => {
-						const target = document.getElementById(tab.dataset.tab)
-
-						tabs.forEach((t) => t.classList.remove("active"))
-						tab.classList.add("active")
-
-						tabContents.forEach((content) => content.classList.remove("active"))
-						target.classList.add("active")
-					})
-				})
-			})
-		</script>
 		<script src="JS/app.js"></script>
+		<script src="JS/cart-code.js"></script>
+		<script src="JS/checkout.js"></script>
 	</body>
 </html>
