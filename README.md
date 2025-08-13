@@ -153,13 +153,9 @@ npm install
 ```
 npx eslint --init & npx eslint
 ```
-### 8) To use ESLint properly, modify the configuration file "***eslint.config.mjs***" to add support of "required" and "env" in code
+### 8) To use ESLint properly, modify a line of configuration file "***eslint.config.mjs***" to add supporting of "required" and "env" in code
 ```
-import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
-
-export default defineConfig([ { plugins: { js }, languageOptions: { globals: { ...globals.browser, ...globals.node } } }, ]);
+languageOptions: { globals: {...globals.browser, ...globals.node} } },
 ```
 ### 9) Run MongoDB database server in new Windows PowerShell in JSON formatting output
 ```
