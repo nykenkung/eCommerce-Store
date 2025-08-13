@@ -228,7 +228,7 @@ https://127.0.0.1:3000/cookies
 
 ### 15) In Chrome Developer Tools, click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 16) If you want to run this repository online, firstly, using the web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
+### 16) If you want to run this repository online, firstly, using any web hosting site supports with both ***Node.js*** and ***Express*** features (e.g. ***Render.com***)
 
 ### 17) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into "***.env***" file
 Default locacl MongoDB address:
@@ -243,12 +243,14 @@ MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-co
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-### 19) After register on ***Render.com***, finish configurations (```NODE_ENV=development``` for opening test API and ```NODE_ENV=production``` for deployment, MONGO_URI must be set in "***.env***" file). First time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in "***.env***" option
+### 19) After register on ***Render.com***, go to Manage=>Environment to configure Environment Variables (For testing development API, set ```NODE_ENV=development``` and ```NODE_ENV=production``` for production deployment)
 ```
 NODE_ENV=production
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 20) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file "***JS\app.js***" to tell where is ***Render.com*** back-end server URL
+### 20) To deploy on ***Render.com***. go to Setting and enter ```npm install``` for Build Command and ```npm start``` for Start Command like in local. Click Monitor=>Logs to monitor to back-end logs
+
+### 21) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file "***JS\app.js***" to tell where is ***Render.com*** back-end server URL
 Default locacl back-end address:
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
@@ -257,6 +259,6 @@ Change to new back-end address:
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 21) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
+### 22) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
 
-### 22) Remember, never share your "***.env***" file on public, share admin password to others, or upload your non-encrypted password online to Github repository
+### 23) Remember, never share your "***.env***" file on public, share admin password to others, or upload your non-encrypted password online to Github repository
