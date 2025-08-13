@@ -178,11 +178,13 @@ python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4
 Then it will automatically open the browser and start with ```https://127.0.0.1:4000``` (front-end)
 ### 13) Once your Node.js back-end server and MongoDB server are connnected, you may test on these API requests on back-end server (e.g. using Chrome extension ***<a href="https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm">Talend API Tester</a>***) 
 - GET /check-auth
+
 Verify user login status by checking for the presence of stored cookie called "***loggedIn***".
 ```
 https://127.0.0.1:3000/check-auth
 ```
 - POST /register
+
 Handle new user registration by validate input, check email availability, hash password and save new user to MongoDB database.
 ```
 https://127.0.0.1:3000/register
@@ -192,6 +194,7 @@ Example of POST "***application/json***" request:
 { "firstName": "First-name", "lastName": "Last-name", "email": "user@email.com", "password": "1234" }
 ```
 - POST /login
+
 Manage user login by search user email, compare password with stored hash and set cookie called "***loggedIn***" upon successful authentication.
 ```
 https://127.0.0.1:3000/login
@@ -201,33 +204,35 @@ Example of POST "***application/json***" request:
 { "email": "user@email.com", "password": "1234" }
 ```
 - GET /logout
+
 Log out and clear stored cookie called "**loggedIn**".
 ```
 https://127.0.0.1:3000/logout
 ```
 ## Development API only enabled when set ```NODE_ENV=development``` or disabled when set ```NODE_ENV=production``` in file "***.env***" 
 - GET /users
+
 Fetch all users and hashed password from MongoDB database.
 ```
 https://127.0.0.1:3000/users
 ```
-- GET /cookies		(https://127.0.0.1:3000/cookies)
+- GET /cookies
+
 Return all cookies sent by browser.
 ```
 https://127.0.0.1:3000/cookies
 ```
 ### 14) Open Chrome and push F12 to open Developer Tools, click Network=>Console to monitor server responses for various of results
-```
-HTTP Status 200 (OK)
-HTTP Status 201 (Created, register or new order)
-HTTP Status 401 (Unauthorized, using wrong password)
-HTTP Status 409 (Conflict, register with existed username)
-```
-### 14) In Chrome Developer Tools, click Application=>Storage=>Cookies for checking storing cookies and login session
+- HTTP Status 200 (OK)
+- HTTP Status 201 (Created, register or new order)
+- HTTP Status 401 (Unauthorized, using wrong password)
+- HTTP Status 409 (Conflict, register with existed username)
 
-### 15) If you want to run this repository online, firstly, using the  web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
+### 15) In Chrome Developer Tools, click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 16) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into ***.env*** file
+### 16) If you want to run this repository online, firstly, using the  web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
+
+### 17) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into ***.env*** file
 Default locacl MongoDB address:
 ```
 MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
@@ -236,16 +241,16 @@ Change to new MongoDB address:
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 17) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** deashboard, in order to allow back-end server access to MongoDB database
+### 18) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** deashboard, in order to allow back-end server access to MongoDB database
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-### 18) After register on ***Render.com***, finish configurations (```NODE_ENV=development``` for opening test API and ```NODE_ENV=production``` for deployment, MONGO_URI must be set in ***.env*** file). First time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in ***.env*** option
+### 19) After register on ***Render.com***, finish configurations (```NODE_ENV=development``` for opening test API and ```NODE_ENV=production``` for deployment, MONGO_URI must be set in ***.env*** file). First time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in ***.env*** option
 ```
 NODE_ENV=production
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
+### 20) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
 Default locacl back-end address:
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
@@ -254,6 +259,6 @@ Change to new back-end address:
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 20) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
+### 21) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
 
-### 21) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online to Github repository
+### 22) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online to Github repository
