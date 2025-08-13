@@ -126,15 +126,15 @@ npm init -y
 ```
 ### 6) Install development and all required dependencies
 - **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "JS/server.js" "server/server.js"```)
-- **eslint**: JavaScript static code analysis tool (Usage: ```nodemon JS/server.js```)
-- **nodemon**: Restart automatically when files change (Usage: ```npx eslint .```)
+- **nodemon**: Restart automatically when files change (Usage: ```nodemon JS/server.js```)
+- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint .```)
 - **express**: Express web server framework for Node.js
+- **mongoose**: Connect to MongoDB server and model MongoDB object
 - **dotenv**: Loads environment variables from ***.env*** file
-- **jsonwebtoken**: Create and verify **JSON Web Tokens** for **web authentication**
+- **jsonwebtoken**: Create and verify **JSON Web Tokens** for web **authentication**
 - **cors**: **Middleware** to handle cross-origin requests
-- **cookie-parser**: Middleware to read cookies in requests
-- **bcryptjs**: Hash and **encrypt** passwords
-- **mongoose**: Connect to **MongoDB** server and model MongoDB object
+- **cookie-parser**: **Middleware** to read cookies in requests
+- **bcryptjs**: **Hash and encrypt** passwords
 ```
 npm install
 (Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser jsonwebtoken cors dotenv
