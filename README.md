@@ -125,9 +125,19 @@ npm init -y
 }
 ```
 ### 6) Install development and all required dependencies
+- concurrently: Runs multiple commands simultaneously (Usage: npm concurrently "JS/server.js" "server/server.js"
+- eslint: Check and enforce JavaScript code style and rules
+- nodemon: Restart automatically when files change
+- express: Web server framework for Node.js
+- dotenv: Loads environment variables from ***.env*** file
+- jsonwebtoken: Create and verify JSON Web Tokens for authentication
+- cors: Middleware to handle cross-origin requests
+- cookie-parser: Middleware to read cookies in requests
+- bcryptjs – Library for encrypting passwords
+- mongoose: Connect to MongoDB server and model MongoDB object
 ```
 npm install
-(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser cors dotenv
+(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser jsonwebtoken cors dotenv
 ```
 ### 7) To use the powerful static code analysis tool ***ESLint*** installed by Node.js
 ```
@@ -153,7 +163,7 @@ mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```npm start``` is equivalent to ```node JS/server.js```  
 ```npm run dev``` is equivalent to ```nodemon JS/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint JS```
-### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. ***products.json***) is prohibited. Then you can create a mini HTTPS server by single one line in Python
+### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. Shop page and Cart page read products list from ***products.json***) is prohibited. To solve this, you can create a mini HTTPS server in Python by below command
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
@@ -165,11 +175,11 @@ HTTP Status 201 (Created, register or new order)
 HTTP Status 401 (Unauthorized, using wrong password)
 HTTP Status 409 (Conflict, register with existed username)
 ```
-### 14) In Developer Tools, and click Application=>Storage=>Cookies for checking storing cookies and login session
+### 14) In Chrome Developer Tools, click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 15) If you want to run this repository online, using both ***Node.js*** and ***Express*** features supported hosting website is required (e.g. ***Render.com***)
+### 15) If you want to run this repository online, firstly, using the  web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
 
-### 16) Second, ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***"
+### 16) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into ***.env*** file
 ```
 MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
 ```
@@ -177,11 +187,11 @@ Change to new MongoDB address
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 17) Third, in your ***MongoDB Atlas*** account, select Overview=>Secuity=>Network Access to add IP Address to connect to your cluster from ***Render.com*** in order to allow backend server access to MongoDB database
+### 17) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** deashboard, in order to allow backend server access to MongoDB database
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-### 18) After register on ***Render.com***, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
+### 18) After register on ***Render.com***, deploy and clone publicly from this Github repository, first time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in ***.env*** option
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
@@ -193,6 +203,6 @@ Change to new backend address
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 20) To view the MongoDB database collections created by web application, go to your ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
+### 20) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
 
-### 21) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online including Github repository
+### 21) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online to Github repository
