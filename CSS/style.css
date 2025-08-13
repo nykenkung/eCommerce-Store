@@ -355,13 +355,16 @@ footer.section-p1 .col p {
 	padding: 40px;
 }
 #shop-section .product-card {
+display: flex;
+	flex-direction: column;
 	text-align: center;
 	border: 1px solid #f0f0f0;
 	padding: 10px;
 }
 #shop-section .product-card img {
 	width: 100%;
-	height: auto;
+	height: 300px;
+	object-fit: contain;
 }
 #shop-section .product-title {
 	margin: 10px 0 5px;
