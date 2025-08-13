@@ -15,7 +15,7 @@
 <h1 align="center"># E-commerceProject<br>3140 ACTIVE WEAR</h1>
 
 ### Click the link to start: <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>
-**Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express backend server**  
+**Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express back-end server**  
 **MongoDB Atlas**: https://cloud.mongodb.com  
 **Render.com**: https://dashboard.render.com
 
@@ -58,8 +58,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── products.json            # All products data in JSON format
 ├── README.md                # This readme file
 │
-├── .env                     # Important envirnment variables, MongoDB server URL (defaul:t mongodb://127.0.0.1:27017/E-commerceProject)
-├── package.json             # Node.js package configuration file ready for deploy and start (e.g Render.com, usgae: npm install, npm start)
+├── .env                     # Important envirnment variables, MongoDB server URL (Default MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject")
+├── package.json             # Node.js package configuration file ready for deploy and start (Usage: npm install & npm start)
 ├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npm run lint)
 │
 ├────── / Icons              # Logo designs folder
@@ -69,13 +69,13 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      └────── styles.css    # Global CSS
 │
 ├──────┬── /JS               # JS Folder
-│      ├────── app.js        # Frontend JavaScript, stored backend apiBaseUrl (default: apiBaseUrl: "https://127.0.0.1:4000")
+│      ├────── app.js        # Front-end JavaScript, stored back-end apiBaseUrl (Default apiBaseUrl: "https://127.0.0.1:4000")
 │      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event that fetches products.json
 │      ├────── cart.js       # Contains functions changeQty, renderFullCart to render cart table
 │      ├────── checkout.js	 # Contains functions renderOrderSummary, placeOrder, setupCheckoutPageListeners for checkout process
 │      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie, to render order history table
 │      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for search and filtering
-│      └────── server.js     # Entry point of Node.js backend server
+│      └────── server.js     # Entry point of Node.js back-end server
 │
 ├──────┬── /server           # Live Chat folder
 │      └────── server.js     # Live Chat JavaScript
@@ -161,7 +161,7 @@ start powershell -Command "<MongoDB installation directory>\bin\mongod.exe --dbp
 ```
 mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
-### 11) To launch backend server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
+### 11) To launch back-end server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
 ```npm start``` is equivalent to ```node JS/server.js```  
 ```npm run dev``` is equivalent to ```nodemon JS/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint JS```
@@ -182,6 +182,7 @@ HTTP Status 409 (Conflict, register with existed username)
 ### 15) If you want to run this repository online, firstly, using the  web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
 
 ### 16) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into ***.env*** file
+Default locacl MongoDB address
 ```
 MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
 ```
@@ -189,7 +190,7 @@ Change to new MongoDB address
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 17) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** deashboard, in order to allow backend server access to MongoDB database
+### 17) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** deashboard, in order to allow back-end server access to MongoDB database
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
@@ -197,11 +198,12 @@ Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) After ***Render.com*** finished deploying, copy the backend server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** backend URL
+### 19) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
+Default locacl back-end address
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
 ```
-Change to new backend address
+Change to new back-end address
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
