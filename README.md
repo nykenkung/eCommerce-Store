@@ -94,7 +94,7 @@ We will upload a figma for a layout once we know the direction we want to go.
            └────── Suen_Ming_Kung_Introduction.html    # Suen Ming's introduction page
 </pre>
 
-### To run on local machine, first make sure that your computer has installed below software:
+### To run on local machine, first make sure that your computer has installed below softwares:
 - **Git** (https://github.com/git-for-windows/git/releases/latest)
 - **OpenSSL** (https://slproweb.com/products/Win32OpenSSL.html)
 - **Node.js** (https://nodejs.org/en/download)
@@ -110,7 +110,7 @@ git clone https://github.com/CunyMeganLubin/E-commerceProject.git
 ```
 cd /d C:\GitHub\E-commerceProject
 ```
-### 3)  Generate the SSL certificate key files for local HTTPS (Make sure ***openssl.exe*** installed directory set to PATH variable)
+### 3)  Generate the SSL certificate key files for local HTTPS (Make sure ***openssl.exe*** installed directory set to ***PATH*** variable)
 ```
 openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.cert
 ```
@@ -133,7 +133,8 @@ npm init -y
 Development dependencies:
 - **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "server/server.js" "server/chat.js"```)
 - **nodemon**: Restart automatically when files changed (Usage: ```nodemon server/server.js```)
-- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint```)  
+- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint```)
+  
 Required dependencies:
 - **express**: Express web server framework for Node.js
 - **mongoose**: Connect to MongoDB server and model MongoDB object
@@ -174,8 +175,8 @@ mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
-Then it will automatically open the browser and start with ```https://127.0.0.1:4000```
-### 13) Once your Node.js back-end server and MongoDB server are connnected, you may test on these API requests on back-end server (e.g. using Chrome extension "***Talend API Tester***") 
+Then it will automatically open the browser and start with ```https://127.0.0.1:4000``` (front-end)
+### 13) Once your Node.js back-end server and MongoDB server are connnected, you may test on these API requests on back-end server (e.g. using Chrome extension ***<a href="https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm">Talend API Tester</a>***) 
 - GET /check-auth
 Verify user login status by checking for the presence of stored cookie called "***loggedIn***".
 ```
@@ -186,7 +187,7 @@ Handle new user registration by validate input, check email availability, hash p
 ```
 https://127.0.0.1:3000/register
 ```
-Example of POST "***application/json***" request
+Example of POST "***application/json***" request:
 ```
 { "firstName": "First-name", "lastName": "Last-name", "email": "user@email.com", "password": "1234" }
 ```
@@ -195,7 +196,7 @@ Manage user login by search user email, compare password with stored hash and se
 ```
 https://127.0.0.1:3000/login
 ```
-Example of POST "***application/json***" request
+Example of POST "***application/json***" request:
 ```
 { "email": "user@email.com", "password": "1234" }
 ```
@@ -211,7 +212,7 @@ Fetch all users and hashed password from MongoDB database.
 https://127.0.0.1:3000/users
 ```
 - GET /cookies		(https://127.0.0.1:3000/cookies)
-Return all cookies sent by browser
+Return all cookies sent by browser.
 ```
 https://127.0.0.1:3000/cookies
 ```
@@ -227,11 +228,11 @@ HTTP Status 409 (Conflict, register with existed username)
 ### 15) If you want to run this repository online, firstly, using the  web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
 
 ### 16) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into ***.env*** file
-Default locacl MongoDB address
+Default locacl MongoDB address:
 ```
 MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
 ```
-Change to new MongoDB address
+Change to new MongoDB address:
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
@@ -245,11 +246,11 @@ NODE_ENV=production
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
 ### 19) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
-Default locacl back-end address
+Default locacl back-end address:
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
 ```
-Change to new back-end address
+Change to new back-end address:
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
