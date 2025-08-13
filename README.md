@@ -130,11 +130,11 @@ npm init -y
 }
 ```
 ### 6) Install development and all required dependencies
-Development dependencies
+Development dependencies:
 - **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "server/server.js" "server/chat.js"```)
 - **nodemon**: Restart automatically when files changed (Usage: ```nodemon server/server.js```)
-- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint```)
-Required dependencies
+- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint```)  
+Required dependencies:
 - **express**: Express web server framework for Node.js
 - **mongoose**: Connect to MongoDB server and model MongoDB object
 - **dotenv**: Loads environment variables from ***.env*** file
