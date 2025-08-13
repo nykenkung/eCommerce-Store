@@ -98,7 +98,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 - **Git** (https://github.com/git-for-windows/git/releases/latest)
 - **OpenSSL** (https://slproweb.com/products/Win32OpenSSL.html)
 - **Node.js** (https://nodejs.org/en/download)
-- MongoDB** database server (https://github.com/mongodb/mongo)
+- **MongoDB** database server (https://github.com/mongodb/mongo)
 - **MongoDB Shell/mongosh** (https://www.mongodb.com/try/download/shell)
 - **Python+pip** (https://www.python.org/downloads/windows)
 
