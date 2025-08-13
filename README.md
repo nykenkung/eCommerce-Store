@@ -129,7 +129,7 @@ npm init -y
 	}
 }
 ```
-### 6) Install development and all required dependencies
+### 6) Install development and all required dependencies in directory of "***package.json***" located
 Development dependencies:
 - **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "server/server.js" "server/chat.js"```)
 - **nodemon**: Restart automatically when files changed (Usage: ```nodemon server/server.js```)
