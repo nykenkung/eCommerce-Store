@@ -63,30 +63,35 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npm run lint)
 │
 ├────── / Icons              # Logo designs folder
+│
 ├────── / clothing           # Product images folder
 │
 ├──────┬── /CSS              # CSS Folder
+│      │
 │      └────── styles.css    # Global CSS
 │
-├──────┬── /JS               # JS Folder
+├──────┬── /JS               # JavaScript folder
+│      │
 │      ├────── app.js        # Front-end JavaScript, stored back-end apiBaseUrl (Default apiBaseUrl: "https://127.0.0.1:4000")
-│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event that fetches products.json
-│      ├────── cart.js       # Contains functions changeQty, renderFullCart to render cart table
+│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event for fetching product lists in "products.json"
+│      ├────── cart.js       # Contains functions changeQty, renderFullCart for rendering carts table
 │      ├────── checkout.js	 # Contains functions renderOrderSummary, placeOrder, setupCheckoutPageListeners for checkout process
-│      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie, to render order history table
-│      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for search and filtering
+│      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie for rendering order histories table
+│      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for searching and filtering
 │      └────── server.js     # Entry point of Node.js back-end server
 │
-├──────┬── /server           # Live Chat folder
-│      └────── server.js     # Live Chat JavaScript
+├──────┬── /server           # Live-chat back-end server folder
+│      │
+│      └────── server.js     # Entry point of Live-chat back-end server
 │
-└──────┬── /Introductions                              # Member introduction pages
-       ├───┬── /Usman                                  # Usman Folder
-       │   └────── index.html                          # Usman Introduction
-       ├───┬── /Megan                                  # Megan Folder
-       │   └────── Megan_Lubin_Introduction.html       # Megan Introduction
-       └───┬── /Suen                                   # Suen Folder
-           └────── Suen_Ming_Kung_Introduction.html    # Suen Introduction
+└──────┬── /Introductions                              # Members introduction folders
+	   │
+       ├───┬── /Usman                                  # Usman's files folder
+       │   └────── index.html                          # Usman's introduction page
+       ├───┬── /Megan                                  # Megan's files folder
+       │   └────── Megan_Lubin_Introduction.html       # Megan's introduction page
+       └───┬── /Suen                                   # Suen Ming's files folder
+           └────── Suen_Ming_Kung_Introduction.html    # Suen Ming's introduction page
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below software:
