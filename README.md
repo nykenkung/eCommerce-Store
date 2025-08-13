@@ -209,7 +209,7 @@ Log out and clear stored cookie called "**loggedIn**".
 ```
 https://127.0.0.1:3000/logout
 ```
-## Development API only enabled when set ```NODE_ENV=development``` or disabled when set ```NODE_ENV=production``` in file "***.env***" 
+## Development API only enabled when set ```NODE_ENV=development``` or disabled on ```NODE_ENV=production``` in file "***.env***" 
 - GET /users
 
 Fetch all users and hashed password from MongoDB database.
