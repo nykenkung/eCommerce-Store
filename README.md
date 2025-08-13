@@ -15,9 +15,9 @@
 <h1 align="center"># E-commerceProject<br>3140 ACTIVE WEAR</h1>
 
 ### Click the link to start: <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>
-**Using MongoDB Atlas as database and Render to run on Node.js + Express backend server**  
-MongoDB Atlas: https://cloud.mongodb.com  
-Render: https://dashboard.render.com
+**Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express backend server**  
+**MongoDB Atlas**: https://cloud.mongodb.com  
+**Render.com**: https://dashboard.render.com
 
 ### Project Team Members
 **Usman Naveed** (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Usman/index.html" target="_blank">Introduction</a>  
@@ -195,7 +195,7 @@ Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) After Render.com finished deploying, copy the backend server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** backend URL
+### 19) After ***Render.com*** finished deploying, copy the backend server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** backend URL
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
 ```
