@@ -90,12 +90,12 @@ We will upload a figma for a layout once we know the direction we want to go.
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below software:
-- Git (https://github.com/git-for-windows/git/releases/latest)
-- OpenSSL (https://slproweb.com/products/Win32OpenSSL.html)
-- Node.js (https://nodejs.org/en/download)
-- MongoDB database server (https://github.com/mongodb/mongo)
-- MongoDB Shell/mongosh (https://www.mongodb.com/try/download/shell)
-- Python+pip (https://www.python.org/downloads/windows)
+- **Git** (https://github.com/git-for-windows/git/releases/latest)
+- **OpenSSL** (https://slproweb.com/products/Win32OpenSSL.html)
+- **Node.js** (https://nodejs.org/en/download)
+- MongoDB** database server (https://github.com/mongodb/mongo)
+- **MongoDB Shell/mongosh** (https://www.mongodb.com/try/download/shell)
+- **Python+pip** (https://www.python.org/downloads/windows)
 
 ### 1) Git Clone project repository to local directory
 ```
@@ -125,16 +125,16 @@ npm init -y
 }
 ```
 ### 6) Install development and all required dependencies
-- concurrently: Runs multiple commands simultaneously (Usage: npm concurrently "JS/server.js" "server/server.js"
-- eslint: Check and enforce JavaScript code style and rules
-- nodemon: Restart automatically when files change
-- express: Web server framework for Node.js
-- dotenv: Loads environment variables from ***.env*** file
-- jsonwebtoken: Create and verify JSON Web Tokens for authentication
-- cors: Middleware to handle cross-origin requests
-- cookie-parser: Middleware to read cookies in requests
-- bcryptjs – Library for encrypting passwords
-- mongoose: Connect to MongoDB server and model MongoDB object
+- **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "JS/server.js" "server/server.js"```)
+- **eslint**: JavaScript static code analysis tool (Usage: ```nodemon JS/server.js```)
+- **nodemon**: Restart automatically when files change (Usage: ```npx eslint .```)
+- **express**: Express web server framework for Node.js
+- **dotenv**: Loads environment variables from ***.env*** file
+- **jsonwebtoken**: Create and verify **JSON Web Tokens** for **web authentication**
+- **cors**: **Middleware** to handle cross-origin requests
+- **cookie-parser**: Middleware to read cookies in requests
+- **bcryptjs**: Hash and **encrypt** passwords
+- **mongoose**: Connect to **MongoDB** server and model MongoDB object
 ```
 npm install
 (Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser jsonwebtoken cors dotenv
