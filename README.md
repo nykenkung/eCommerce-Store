@@ -55,6 +55,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── login.html               # Login/register/password recovery page
 ├── cart.html                # Shopping cart page
 ├── checkout.html            # Checkout page
+├── order.html				 # Order history page	
 ├── products.json            # All products data in JSON format
 ├── README.md                # This readme file
 │
