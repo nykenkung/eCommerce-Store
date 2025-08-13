@@ -205,7 +205,7 @@ Example of POST "***application/json***" request:
 ```
 - GET /logout
 
-Log out and clear stored cookie called "**loggedIn**".
+Log out and clear stored cookie called "***loggedIn***".
 ```
 https://127.0.0.1:3000/logout
 ```
@@ -218,7 +218,7 @@ https://127.0.0.1:3000/users
 ```
 - GET /cookies
 
-Return all cookies sent by browser.
+Return all stored cookies included "***logedIn***" sent by browser.
 ```
 https://127.0.0.1:3000/cookies
 ```
