@@ -78,11 +78,11 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      ├────── checkout.js	 # Contains functions renderOrderSummary, placeOrder, setupCheckoutPageListeners for checkout process
 │      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie for rendering order histories table
 │      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for searching and filtering
-│      └────── server.js     # Entry point of Node.js back-end server
 │
-├──────┬── /server           # Live-chat back-end server folder
+├──────┬── /server           # Node.js back-end server folder
 │      │
-│      └────── server.js     # Entry point of Live-chat back-end server
+│      └────── server.js     # Entry point of Node.js back-end server
+│      └────── chat.js       # Live-chat Node.js back-end JavaScript
 │
 └──────┬── /Introductions                              # Members introduction folders
 	   │
@@ -123,17 +123,17 @@ npm init -y
 {
 	"name": "E-commerceProject",
 	"scripts": {
-		"start": "node JS/server.js",
-		"dev": "nodemon JS/server.js",
-		"lint": "npx eslint JS"
+		"start": "node server/server.js",
+		"dev": "nodemon server/server.js",
+		"lint": "npx eslint"
 	}
 }
 ```
 ### 6) Install development and all required dependencies
 Development dependencies
-- **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "JS/server.js" "server/server.js"```)
-- **nodemon**: Restart automatically when files changed (Usage: ```nodemon JS/server.js```)
-- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint .```)
+- **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "server/server.js" "server/chat.js"```)
+- **nodemon**: Restart automatically when files changed (Usage: ```nodemon server/server.js```)
+- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint```)
 Required dependencies
 - **express**: Express web server framework for Node.js
 - **mongoose**: Connect to MongoDB server and model MongoDB object
@@ -144,7 +144,7 @@ Required dependencies
 - **bcryptjs**: **Hash and encrypt** passwords
 ```
 npm install
-(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser jsonwebtoken cors dotenv
+(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser cors jsonwebtoken dotenv
 ```
 ### 7) To use the powerful static code analysis tool ***ESLint*** installed by Node.js
 ```
@@ -167,15 +167,55 @@ start powershell -Command "<MongoDB installation directory>\bin\mongod.exe --dbp
 mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
 ### 11) To launch back-end server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
-```npm start``` is equivalent to ```node JS/server.js```  
-```npm run dev``` is equivalent to ```nodemon JS/server.js```  
-```npm run lint``` is equivalent to ```npx eslint JS```
+```npm start``` is equivalent to ```node server/server.js```  
+```npm run dev``` is equivalent to ```nodemon server/server.js```  
+```npm run lint``` is equivalent to ```npx eslint```
 ### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. Shop page and Cart page read products list from ***products.json***) is prohibited. To solve this, you can create a mini HTTPS server in Python by below command
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
 Then it will automatically open the browser and start with ```https://127.0.0.1:4000```
-### 13) After open the web page by Chrome, push F12 to open Developer Tools and click Network=>Console to monitor server responses, there are various of result
+### 13) Once your Node.js back-end server and MongoDB server are connnected, you may test on these API requests on back-end server (e.g. using Chrome extension "***Talend API Tester***") 
+- GET /check-auth
+Verify user login status by checking for the presence of stored cookie called "***loggedIn***".
+```
+https://127.0.0.1:3000/check-auth
+```
+- POST /register
+Handle new user registration by validate input, check email availability, hash password and save new user to MongoDB database.
+```
+https://127.0.0.1:3000/register
+```
+Example of POST "***application/json***" request
+```
+{ "firstName": "First-name", "lastName": "Last-name", "email": "user@email.com", "password": "1234" }
+```
+- POST /login
+Manage user login by search user email, compare password with stored hash and set cookie called "***loggedIn***" upon successful authentication.
+```
+https://127.0.0.1:3000/login
+```
+Example of POST "***application/json***" request
+```
+{ "email": "user@email.com", "password": "1234" }
+```
+- GET /logout
+Log out and clear stored cookie called "**loggedIn**".
+```
+https://127.0.0.1:3000/logout
+```
+## Development API only enabled when set ```NODE_ENV=development``` or disabled when set ```NODE_ENV=production``` in file "***.env***" 
+- GET /users
+Fetch all users and hashed password from MongoDB database.
+```
+https://127.0.0.1:3000/users
+```
+- GET /cookies		(https://127.0.0.1:3000/cookies)
+Return all cookies sent by browser
+```
+https://127.0.0.1:3000/cookies
+```
+### 14) Open Chrome and push F12 to open Developer Tools, click Network=>Console to monitor server responses for various of results
 ```
 HTTP Status 200 (OK)
 HTTP Status 201 (Created, register or new order)
@@ -199,11 +239,12 @@ MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-co
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-### 18) After register on ***Render.com***, deploy and clone publicly from this Github repository, first time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in ***.env*** option
+### 18) After register on ***Render.com***, finish configurations (```NODE_ENV=development``` for opening test API and ```NODE_ENV=production``` for deployment, MONGO_URI must be set in ***.env*** file). First time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in ***.env*** option
 ```
+NODE_ENV=production
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
+### 19) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
 Default locacl back-end address
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
