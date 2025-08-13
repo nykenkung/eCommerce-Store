@@ -62,7 +62,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── .env                     # Important envirnment variables, you shall keep your own and do not commit 
 ├── .env.example			 # Shall change to ".env" to store your own envirnment variables like MongoDB server URL (Default MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject")
 ├── package.json             # Node.js package configuration file ready for deploy and start (Usage: npm install & npm start)
-├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npx eslint --init & npm run lint)
+├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npx eslint --init & npx eslint)
 ├── .gitignore				 # Avoid to commit sensitive configuration, unnecessary files and folders you would not commit
 │
 ├────── / Icons              # Logo designs folder
@@ -151,7 +151,7 @@ npm install
 ```
 ### 7) To use the powerful static code analysis tool ***ESLint*** installed by Node.js
 ```
-npx eslint --init
+npx eslint --init & npx eslint
 ```
 ### 8) To use ESLint properly, modify the configuration file "***eslint.config.mjs***" to add support of "required" and "env" in code
 ```
@@ -173,7 +173,7 @@ mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```npm start``` is equivalent to ```node server/server.js```  
 ```npm run dev``` is equivalent to ```nodemon server/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint```
-### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. Shop page and Cart page read products list from ***products.json***) are prohibited. To solve this, you can create a mini HTTPS server in Python by below command
+### 12) Now you can open local webpage ***index.html***, but some features like to access file through local browser (e.g. Shop page and Cart page read products list from ***products.json***) are prohibited. To solve this, you can create a mini HTTPS server in Python by below command
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
