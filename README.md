@@ -63,12 +63,11 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npm run lint)
 │
 ├────── / Icons              # Logo designs folder
-│
 ├────── / clothing           # Product images folder
 │
 ├──────┬── /CSS              # CSS Folder
 │      │
-│      └────── styles.css    # Global CSS
+│      └────── style.css     # Global CSS
 │
 ├──────┬── /JS               # JavaScript folder
 │      │
