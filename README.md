@@ -15,9 +15,9 @@
 <h1 align="center"># E-commerceProject<br>3140 ACTIVE WEAR</h1>
 
 ### Click the link to start: <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>
-**Using MongoDB Atlas as database and Render to run on Node.js + Express backend server**  
-MongoDB Atlas: https://cloud.mongodb.com  
-Render: https://dashboard.render.com
+**Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express back-end server**  
+**MongoDB Atlas**: https://cloud.mongodb.com  
+**Render.com**: https://dashboard.render.com
 
 ### Project Team Members
 **Usman Naveed** (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Usman/index.html" target="_blank">Introduction</a>  
@@ -45,8 +45,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 
 <h3 align="center">Repository Structure:</h3>
 <pre>
-/E-commerceProject
-│                            # Static HTML and configuration files
+/E-commerceProject           # Static HTML and configuration files
+│
 ├── index.html               # Landing front page
 ├── shop.html                # Product detail page
 ├── donate.html              # Donate clothing page
@@ -55,47 +55,52 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── login.html               # Login/register/password recovery page
 ├── cart.html                # Shopping cart page
 ├── checkout.html            # Checkout page
+├── order.html				 # Order history page	
 ├── products.json            # All products data in JSON format
 ├── README.md                # This readme file
 │
-├── .env                     # Important envirnment variables, MongoDB server URL (defaul:t mongodb://127.0.0.1:27017/E-commerceProject)
-├── package.json             # Node.js package configuration file ready for deploy and start (e.g Render.com, usgae: npm install, npm start)
+├── .env                     # Important envirnment variables, MongoDB server URL (Default MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject")
+├── package.json             # Node.js package configuration file ready for deploy and start (Usage: npm install & npm start)
 ├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npm run lint)
 │
 ├────── / Icons              # Logo designs folder
 ├────── / clothing           # Product images folder
 │
 ├──────┬── /CSS              # CSS Folder
-│      └────── styles.css    # Global CSS
+│      │
+│      └────── style.css     # Global CSS
 │
-├──────┬── /JS               # JS Folder
-│      ├────── app.js        # Frontend JavaScript, stored backend apiBaseUrl (default: apiBaseUrl: "https://127.0.0.1:4000")
-│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event that fetches products.json
-│      ├────── cart.js       # Contains functions changeQty, renderFullCart to render cart table
+├──────┬── /JS               # JavaScript folder
+│      │
+│      ├────── app.js        # Front-end JavaScript, stored back-end apiBaseUrl (Default apiBaseUrl: "https://127.0.0.1:4000")
+│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event for fetching product lists in "products.json"
+│      ├────── cart.js       # Contains functions changeQty, renderFullCart for rendering carts table
 │      ├────── checkout.js	 # Contains functions renderOrderSummary, placeOrder, setupCheckoutPageListeners for checkout process
-│      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie, to render order history table
-│      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for search and filtering
-│      └────── server.js     # Entry point of Node.js backend server
+│      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie for rendering order histories table
+│      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for searching and filtering
+│      └────── server.js     # Entry point of Node.js back-end server
 │
-├──────┬── /server           # Live Chat folder
-│      └────── server.js     # Live Chat JavaScript
+├──────┬── /server           # Live-chat back-end server folder
+│      │
+│      └────── server.js     # Entry point of Live-chat back-end server
 │
-└──────┬── /Introductions                            # Member introduction pages
-       ├───┬── /Usman                                # Usman Folder
-       │   └────── index.html                        # Usman Introduction
-       ├───┬── /Megan                                # Megan Folder
-       │   └────── Megan_Lubin_Introduction.html     # Megan Introduction
-       └───┬── /Suen                                 # Suen Folder
-           └────── Suen_Ming_Kung_Introduction.html  # Suen Introduction
+└──────┬── /Introductions                              # Members introduction folders
+	   │
+       ├───┬── /Usman                                  # Usman's files folder
+       │   └────── index.html                          # Usman's introduction page
+       ├───┬── /Megan                                  # Megan's files folder
+       │   └────── Megan_Lubin_Introduction.html       # Megan's introduction page
+       └───┬── /Suen                                   # Suen Ming's files folder
+           └────── Suen_Ming_Kung_Introduction.html    # Suen Ming's introduction page
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below software:
-- Git (https://github.com/git-for-windows/git/releases/latest)
-- OpenSSL (https://slproweb.com/products/Win32OpenSSL.html)
-- Node.js (https://nodejs.org/en/download)
-- MongoDB database server (https://github.com/mongodb/mongo)
-- MongoDB Shell/mongosh (https://www.mongodb.com/try/download/shell)
-- Python+pip (https://www.python.org/downloads/windows)
+- **Git** (https://github.com/git-for-windows/git/releases/latest)
+- **OpenSSL** (https://slproweb.com/products/Win32OpenSSL.html)
+- **Node.js** (https://nodejs.org/en/download)
+- MongoDB** database server (https://github.com/mongodb/mongo)
+- **MongoDB Shell/mongosh** (https://www.mongodb.com/try/download/shell)
+- **Python+pip** (https://www.python.org/downloads/windows)
 
 ### 1) Git Clone project repository to local directory
 ```
@@ -125,9 +130,21 @@ npm init -y
 }
 ```
 ### 6) Install development and all required dependencies
+Development dependencies
+- **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "JS/server.js" "server/server.js"```)
+- **nodemon**: Restart automatically when files changed (Usage: ```nodemon JS/server.js```)
+- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint .```)
+Required dependencies
+- **express**: Express web server framework for Node.js
+- **mongoose**: Connect to MongoDB server and model MongoDB object
+- **dotenv**: Loads environment variables from ***.env*** file
+- **jsonwebtoken**: Create and verify **JSON Web Tokens** for web **authentication**
+- **cors**: **Middleware** to handle cross-origin requests
+- **cookie-parser**: **Middleware** to read cookies in requests
+- **bcryptjs**: **Hash and encrypt** passwords
 ```
 npm install
-(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser cors dotenv
+(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser jsonwebtoken cors dotenv
 ```
 ### 7) To use the powerful static code analysis tool ***ESLint*** installed by Node.js
 ```
@@ -149,11 +166,11 @@ start powershell -Command "<MongoDB installation directory>\bin\mongod.exe --dbp
 ```
 mongosh mongodb://127.0.0.1:27017/E-commerceProject
 ```
-### 11) To launch backend server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
+### 11) To launch back-end server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
 ```npm start``` is equivalent to ```node JS/server.js```  
 ```npm run dev``` is equivalent to ```nodemon JS/server.js```  
 ```npm run lint``` is equivalent to ```npx eslint JS```
-### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. ***products.json***) is prohibited. Then you can create a mini HTTPS server by single one line in Python
+### 12) Now you can open local page ***index.html***, but some features like to access file through local browser (e.g. Shop page and Cart page read products list from ***products.json***) is prohibited. To solve this, you can create a mini HTTPS server in Python by below command
 ```
 python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4000),http.server.SimpleHTTPRequestHandler); ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain('JS\server.cert','JS\server.key'); httpd.socket=ctx.wrap_socket(httpd.socket,server_side=True); print('HTTPS Server https://127.0.0.1:4000'); webbrowser.open('https://127.0.0.1:4000'); httpd.serve_forever()"
 ```
@@ -165,11 +182,12 @@ HTTP Status 201 (Created, register or new order)
 HTTP Status 401 (Unauthorized, using wrong password)
 HTTP Status 409 (Conflict, register with existed username)
 ```
-### 14) In Developer Tools, and click Application=>Storage=>Cookies for checking storing cookies and login session
+### 14) In Chrome Developer Tools, click Application=>Storage=>Cookies for checking storing cookies and login session
 
-### 15) If you want to run this repository online, using both ***Node.js*** and ***Express*** features supported hosting website is required (e.g. ***Render.com***)
+### 15) If you want to run this repository online, firstly, using the  web hosting site supporting both ***Node.js*** and ***Express*** features is required (e.g. ***Render.com***)
 
-### 16) Second, ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***"
+### 16) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into ***.env*** file
+Default locacl MongoDB address
 ```
 MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
 ```
@@ -177,22 +195,23 @@ Change to new MongoDB address
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 17) Third, in your ***MongoDB Atlas*** account, select Overview=>Secuity=>Network Access to add IP Address to connect to your cluster from ***Render.com*** in order to allow backend server access to MongoDB database
+### 17) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** deashboard, in order to allow back-end server access to MongoDB database
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-### 18) After register on ***Render.com***, deploy the Github repository and manually input the sensitive envirnmont variable in ***.env*** option
+### 18) After register on ***Render.com***, deploy and clone publicly from this Github repository, first time install by ```npm install```, run everytime by ```npm start```. And manually input customized envirnmont variables in ***.env*** option
 ```
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 19) After Render.com finished deploying, copy the backend server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** backend URL
+### 19) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local file ***JS\app.js*** to tell where is ***Render.com*** back-end server URL
+Default locacl back-end address
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
 ```
-Change to new backend address
+Change to new back-end address
 ```
 apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
 ```
-### 20) To view the MongoDB database collections created by web application, go to your ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
+### 20) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
 
-### 21) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online including Github repository
+### 21) Remember, never share your ***.env*** file on public, admin password to others, or upload your non-encrypted password online to Github repository
