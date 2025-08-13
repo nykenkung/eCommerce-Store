@@ -169,8 +169,8 @@ if (process.env.NODE_ENV !== "production") {
 	 * @access  Development-only */
 	app.get("/users", async (req, res) => {
 		try {
-			// Find all users and exclude the password field for security.
-			const users = await User.find().select("-password")
+			// Find all users and include all fields.
+			const users = await User.find()
 			res.status(200).json(users)
 		} catch (error) {
 			console.error("Error fetching users:", error)
