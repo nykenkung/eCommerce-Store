@@ -141,7 +141,7 @@ Required dependencies:
 - **dotenv**: Loads environment variables from ***.env*** file
 - **jsonwebtoken**: Create and verify **JSON Web Tokens** for web **authentication**
 - **cors**: **Middleware** to handle cross-origin requests
-- **cookie-parser**: **Middleware** to read cookies in requests
+- **cookie-parser**: **Middleware** to parse cookies attached by client requests
 - **bcryptjs**: **Hash and encrypt** passwords
 ```
 npm install
