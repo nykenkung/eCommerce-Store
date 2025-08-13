@@ -1,9 +1,9 @@
 {
 	"name": "E-commerceProject",
 	"scripts": {
-		"start": "node JS/server.js",
-		"dev": "nodemon JS/server.js",
-		"lint": "npx eslint JS"
+		"start": "node server/server.js",
+		"dev": "nodemon server/server.js",
+		"lint": "npx eslint"
 	},
 	"devDependencies": {
 		"concurrently": "^9.2.0",
