@@ -45,8 +45,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 
 <h3 align="center">Repository Structure:</h3>
 <pre>
-/E-commerceProject
-│                            # Static HTML and configuration files
+/E-commerceProject           # Static HTML and configuration files
+│
 ├── index.html               # Landing front page
 ├── shop.html                # Product detail page
 ├── donate.html              # Donate clothing page
@@ -80,13 +80,13 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├──────┬── /server           # Live Chat folder
 │      └────── server.js     # Live Chat JavaScript
 │
-└──────┬── /Introductions                            # Member introduction pages
-       ├───┬── /Usman                                # Usman Folder
-       │   └────── index.html                        # Usman Introduction
-       ├───┬── /Megan                                # Megan Folder
-       │   └────── Megan_Lubin_Introduction.html     # Megan Introduction
-       └───┬── /Suen                                 # Suen Folder
-           └────── Suen_Ming_Kung_Introduction.html  # Suen Introduction
+└──────┬── /Introductions                              # Member introduction pages
+       ├───┬── /Usman                                  # Usman Folder
+       │   └────── index.html                          # Usman Introduction
+       ├───┬── /Megan                                  # Megan Folder
+       │   └────── Megan_Lubin_Introduction.html       # Megan Introduction
+       └───┬── /Suen                                   # Suen Folder
+           └────── Suen_Ming_Kung_Introduction.html    # Suen Introduction
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below software:
