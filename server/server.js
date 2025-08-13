@@ -38,10 +38,28 @@ const userSchema = new mongoose.Schema(
 		lastName: { type: String, required: true },
 		email: { type: String, required: true, unique: true, lowercase: true },
 		password: { type: String, required: true },
+		isAdmin: { type: Boolean, default: false }, // <-- Admin flag
 	},
 	{ timestamps: true }
 )
 const User = mongoose.model("User", userSchema)
+
+const verifyAdmin = async (req, res, next) => {
+	try {
+		const userId = req.cookies.loggedIn
+		if (!userId) return res.status(401).json({ message: "Not authenticated!" })
+
+		const user = await User.findById(userId)
+		if (!user || !user.isAdmin) {
+			return res.status(403).json({ message: "Access denied: Administrator only!" })
+		}
+		req.user = user // Attach user info
+		next()
+	} catch (err) {
+		console.error("Administrator verification error:", err)
+		res.status(500).json({ message: "Server error during administrator verification!" })
+	}
+}
 
 // --- API Routes ---
 /* @route   GET /check-auth
@@ -59,25 +77,6 @@ app.get("/check-auth", async (req, res) => {
 	} catch (error) {
 		console.error("Auth check error:", error)
 		res.status(500).json({ message: "Server error during authorization check!" })
-	}
-})
-
-/* @route   GET /logout
- * @desc    Handle user logout by clearing the cookie.
- * @access  Public */
-app.get("/logout", (req, res) => {
-	try {
-		// To clear a cookie, you must provide the same options with which it was set.
-		res.clearCookie("loggedIn", {
-			httpOnly: true,
-			secure: true,
-			sameSite: "None",
-		})
-		// Respond with a success message in JSON format.
-		res.status(200).json({ message: "You have been successfully logged out!" })
-	} catch (error) {
-		console.error("Logout error:", error)
-		res.status(500).json({ message: "Server error during logout!" })
 	}
 })
 
@@ -114,8 +113,6 @@ app.post("/register", async (req, res) => {
 			password: hashedPassword,
 		})
 		await newUser.save()
-
-		// Corrected line: Use `newUser` instead of `user`
 		res.status(201).json({ message: `Dear ${newUser.firstName} ${newUser.lastName}, your registration is successful. Please log in!` })
 	} catch (error) {
 		console.error("Registration server error:", error)
@@ -145,15 +142,15 @@ app.post("/login", async (req, res) => {
 		if (!isMatch) {
 			return res.status(401).json({ message: "Wrong Password entered!" })
 		}
+
 		// If credentials are valid, set the cookie.
-		// These settings are crucial for security and cross-origin functionality.
 		res.cookie("loggedIn", user._id, {
 			httpOnly: true, // Prevents client-side JS from accessing the cookie.
 			secure: true, // Ensures the cookie is sent only over HTTPS.
 			sameSite: "None", // Required for cross-origin cookie setting.
 			maxAge: 24 * 60 * 60 * 1000, // Expires in 1 day.
 		})
-		console.log("Cookie should be set for user:", user.firstName, " ", user.lastName)
+		console.log("Cookie set for user:", user.firstName, " ", user.lastName)
 		res.status(200).json({ message: `Welcome back, ${user.firstName} ${user.lastName}!` })
 	} catch (error) {
 		console.error("Login server error:", error)
@@ -161,39 +158,61 @@ app.post("/login", async (req, res) => {
 	}
 })
 
-// --- Developmental Routes (Disabled in Production) ---
-if (process.env.NODE_ENV !== "production") {
-	console.log("Developmental routes are enabled.")
-	/* @route   GET /users
-	 * @desc    Get all users from the database.
-	 * @access  Development-only */
-	app.get("/users", async (req, res) => {
-		try {
-			// Find all users and include all fields.
-			const users = await User.find()
-			res.status(200).json(users)
-		} catch (error) {
-			console.error("Error fetching users:", error)
-			res.status(500).json({ message: "Server error while fetching users." })
-		}
-	})
-	/* @route   GET /cookies
-	 * @desc    Get all cookies sent with the request.
-	 * @access  Development-only */
-	app.get("/cookies", (req, res) => {
-		try {
-			// The cookie-parser middleware populates req.cookies with the cookies from the request.
-			res.status(200).json(req.cookies)
-		} catch (error) {
-			console.error("Error fetching cookies:", error)
-			res.status(500).json({ message: "Server error while fetching cookies." })
-		}
-	})
-}
+/* @route   GET /logout
+ * @desc    Handle user logout by clearing the cookie.
+ * @access  Public */
+app.get("/logout", (req, res) => {
+	try {
+		// To clear a cookie, you must provide the same options with which it was set.
+		res.clearCookie("loggedIn", {
+			httpOnly: true,
+			secure: true,
+			sameSite: "None",
+		})
+		// Respond with a success message in JSON format.
+		res.status(200).json({ message: "You have been successfully logged out!" })
+	} catch (error) {
+		console.error("Logout error:", error)
+		res.status(500).json({ message: "Server error during logout!" })
+	}
+})
+
+/* @route   GET /users
+ * @desc    Get all users from the database.
+ * @access  Administrator only */
+app.get("/users", verifyAdmin, async (req, res) => {
+	try {
+		// Find all users and include all fields.
+		const users = await User.find()
+		res.status(200).json(users)
+	} catch (error) {
+		console.error("Error fetching users:", error)
+		res.status(500).json({ message: "Server error while fetching users." })
+	}
+})
+/* @route   GET /cookies
+ * @desc    Get all cookies sent with the request.
+ * @access  Administrator only */
+app.get("/cookies", verifyAdmin, (req, res) => {
+	try {
+		// The cookie-parser middleware populates req.cookies with the cookies from the request.
+		res.status(200).json(req.cookies)
+	} catch (error) {
+		console.error("Error fetching cookies:", error)
+		res.status(500).json({ message: "Server error while fetching cookies." })
+	}
+})
+
+const os = require("os")
+// Helper to get local IPv4 address
+const localIP =
+	Object.values(os.networkInterfaces())
+		.flat()
+		.find((iface) => iface.family === "IPv4" && !iface.internal)?.address || "127.0.0.1"
 
 /* --- HTTP Server Setup ---
 app.listen(PORT, () => {
-	console.log(`Backend Server is now running on http://127.0.0.1:${PORT}`)
+	console.log(`Backend Server is now running on https://${localIP}:${PORT}`)
 	console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL}`)
 	console.log(`Accessing MongoDB on: ${process.env.MONGO_URI}`)
 }) --- */
@@ -206,9 +225,7 @@ const httpsOptions = {
 	cert: fs.readFileSync("server.cert"),
 }
 https.createServer(httpsOptions, app).listen(PORT, () => {
-	console.log(`Backend Server is now running on https://127.0.0.1:${PORT}`)
-	// Log the current environment
-	console.log(`Current environment: ${process.env.NODE_ENV || "development"}`)
-	console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL}`)
-	console.log(`Accessing MongoDB on: ${process.env.MONGO_URI}`)
+	console.log(`Running back-end server on https://${localIP}:${PORT}`)
+	console.log(`Accept requests from origin front-end: ${process.env.ORIGIN_URL}`)
+	console.log(`Access MongoDB on: ${process.env.MONGO_URI}`)
 })
