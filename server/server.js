@@ -2,8 +2,8 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken") // Import jsonwebtoken
 const cors = require("cors")
+const jwt = require("jsonwebtoken") // Import jsonwebtoken
 require("dotenv").config() // To read variables from a .env file
 
 // --- Express App Initialization ---
@@ -11,17 +11,16 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 // --- Middleware ---
-// Configure CORS to allow requests from the frontend origin.
 const corsOptions = {
 	origin: (origin, callback) => {
-		callback(null, true) // Always approve CORS requests from any local origin
+		// For development, allow all origins. In production, you should restrict this.
+		callback(null, true)
 	},
-	// origin: process.env.ORIGIN_URL, // Uncomment to restrict to a specific URL
+	// origin: process.env.ORIGIN_URL, // Use this for production
 	credentials: true,
 }
 app.use(cors(corsOptions))
-
-app.use(express.json()) // To parse incoming JSON request bodies
+app.use(express.json())
 
 // --- MongoDB Connection ---
 const mongoURI = process.env.MONGO_URI
@@ -30,83 +29,128 @@ mongoose
 	.then(() => console.log("Successfully connected to MongoDB!"))
 	.catch((err) => console.error("MongoDB connection error:", err))
 
-// --- User Schema and Model ---
+// --- Mongoose Schemas and Models ---
+
+// User Schema
 const userSchema = new mongoose.Schema(
 	{
 		firstName: { type: String, required: true },
 		lastName: { type: String, required: true },
 		email: { type: String, required: true, unique: true, lowercase: true },
 		password: { type: String, required: true },
-		isAdmin: { type: Boolean, default: false }, // Admin flag
+		isAdmin: { type: Boolean, default: false },
 	},
 	{ timestamps: true }
 )
 const User = mongoose.model("User", userSchema)
 
 // Order Schema
-const orderSchema = new mongoose.Schema(
-	{
-		userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-		orderNumber: { type: String, required: true, unique: true },
-		orderDate: { type: Date, default: Date.now },
-		total: { type: String, required: true },
-		items: { type: Object, required: true },
-		shippingDetails: {
-			firstName: String,
-			lastName: String,
-			email: String,
-			phone: String,
-			shippingAddress: Object,
-			mailingAddress: mongoose.Schema.Types.Mixed, // Can be an object or a string
-		},
-	},
-	{ timestamps: true }
-)
+const orderSchema = new mongoose.Schema({
+	userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+	items: { type: Object, required: true },
+	total: { type: String, required: true },
+	shippingDetails: { type: Object, required: true },
+	orderNumber: { type: String, required: true, unique: true },
+	orderDate: { type: Date, default: Date.now },
+})
 const Order = mongoose.model("Order", orderSchema)
-// --- JWT Verification Middleware ---
-/* @middleware verifyToken
- * @desc     Verifies the JWT token from the Authorization header.
+
+// --- Authentication Middleware ---
+
+/**
+ * Middleware to verify JWT token from the Authorization header.
+ * If valid, it attaches the user's data to the request object.
  */
 const verifyToken = (req, res, next) => {
+	console.log("Verifying token for a protected route!")
 	const authHeader = req.headers["authorization"]
-	const token = authHeader && authHeader.split(" ")[1] // Extract token from "Bearer <token>"
+	const token = authHeader && authHeader.split(" ")[1] // Bearer TOKEN
 
 	if (!token) {
-		return res.status(401).json({ message: "Access denied! No token provided!" })
+		console.log("Token verification failed: No token provided!")
+		return res.status(401).json({ message: "Access denied. No token provided." })
 	}
 
 	try {
-		// Verify the token using the secret key.
+		// Verify the token using the secret key
 		const decoded = jwt.verify(token, process.env.JWT_SECRET)
-		req.user = decoded // Add the decoded user payload to the request object
+		req.user = decoded // Add decoded user payload to request
+		console.log("Token verified successfully!")
 		next()
-	} catch (error) {
-		console.error("Token verification error:", error)
-		res.status(403).json({ message: "Invalid or expired toke!" })
+	} catch (ex) {
+		console.log("Token verification failed: Invalid token!")
+		res.status(400).json({ message: "Invalid token." })
 	}
 }
 
-/* @middleware verifyAdmin
- * @desc     Checks if the authenticated user is an administrator.
- * This middleware must run *after* verifyToken.
+/**
+ * Middleware to verify if the user is an admin.
+ * This should be used after verifyToken.
  */
-const verifyAdmin = (req, res, next) => {
-	// The req.user object is attached by the verifyToken middleware.
-	if (!req.user || !req.user.isAdmin) {
-		return res.status(403).json({ message: "Access denied: Administrator only!" })
+const verifyAdmin = async (req, res, next) => {
+	console.log("Verifying admin privileges!")
+	try {
+		const user = await User.findById(req.user.id)
+		if (!user || !user.isAdmin) {
+			console.log("Admin verification failed: User is not an admin!")
+			return res.status(403).json({ message: "Access denied: Administrator only!" })
+		}
+		console.log("Admin verified successfully!")
+		next()
+	} catch (err) {
+		console.error("Administrator verification error:", err)
+		res.status(500).json({ message: "Server error during administrator verification!" })
 	}
-	next() // User is an admin, proceed to the route handler.
 }
 
 // --- API Routes ---
+
+// Prefix all API routes with /api
+const apiRouter = express.Router()
+
+/* @route   GET /api/check-auth
+ * @desc    This route can be used to verify a token from the client-side.
+ * @access  Private (requires token) */
+apiRouter.get("/check-auth", verifyToken, (req, res) => {
+	console.log("Responding to authentication check request!")
+	// If verifyToken middleware passes, the token is valid.
+	try {
+		if (req.user) {
+			// User authenticated
+			const { firstName, lastName, email } = req.user
+			res.status(200).json({
+				status: "success",
+				message: `${firstName} ${lastName} (${email}) is authenticated!`,
+				loggedIn: true,
+				user: req.user,
+			})
+		} else {
+			// Token invalid or user not found
+			res.status(401).json({
+				status: "fail",
+				message: req.user ? `${req.user.firstName} ${req.user.lastName} (${req.user.email}) failed authentication!` : "Authentication failed: invalid token or missing credentials!",
+				loggedIn: false,
+			})
+		}
+	} catch (error) {
+		// Unexpected server error
+		console.error("Error during authentication check:", err)
+		res.status(500).json({
+			status: "error",
+			message: "Internal server error during authentication check!",
+			loggedIn: false,
+		})
+	}
+})
+
 /* @route   POST /api/register
  * @desc    Handle new user registration.
  * @access  Public */
-app.post("/api/register", async (req, res) => {
+apiRouter.post("/register", async (req, res) => {
+	console.log("Processing new user registration request!")
 	try {
 		const { firstName, lastName, email, password } = req.body
 
-		// --- Validation ---
 		if (!firstName || !lastName || !email || !password) {
 			return res.status(400).json({ message: "All fields are required!" })
 		}
@@ -129,6 +173,7 @@ app.post("/api/register", async (req, res) => {
 			password: hashedPassword,
 		})
 		await newUser.save()
+		console.log(`User ${email} registered successfully!`)
 		res.status(201).json({ message: `Dear ${newUser.firstName} ${newUser.lastName}, your registration is successful. Please log in!` })
 	} catch (error) {
 		console.error("Registration server error:", error)
@@ -139,7 +184,8 @@ app.post("/api/register", async (req, res) => {
 /* @route   POST /api/login
  * @desc    Handle user login and return a JWT.
  * @access  Public */
-app.post("/api/login", async (req, res) => {
+apiRouter.post("/login", async (req, res) => {
+	console.log("Processing user login request!")
 	try {
 		const { email, password } = req.body
 
@@ -157,18 +203,18 @@ app.post("/api/login", async (req, res) => {
 			return res.status(401).json({ message: "Wrong Password entered!" })
 		}
 
-		// Create JWT payload
+		// Create JWT Payload
 		const payload = {
 			id: user._id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			email: user.email,
 			isAdmin: user.isAdmin,
 		}
 
 		// Sign the token
-		const token = jwt.sign(payload, process.env.JWT_SECRET, {
-			expiresIn: "1d", // Token expires in 24 hours
-		})
-
-		console.log("Token generated for user:", user.firstName, user.lastName)
+		const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" })
+		console.log(`User ${email} logged in successfully!`)
 		res.status(200).json({
 			message: `Welcome back, ${user.firstName} ${user.lastName}!`,
 			token: token, // Send the token to the client
@@ -179,160 +225,89 @@ app.post("/api/login", async (req, res) => {
 	}
 })
 
-/* @route   GET /api/logout
- * @desc    Acknowledge user logout. The client is responsible for clearing the token.
- * @access  Public */
-app.get("/api/logout", (req, res) => {
-	// This endpoint is now primarily for acknowledgment.
-	// The actual logout process (clearing the token) is handled client-side.
-	res.status(200).json({ message: "You have been successfully logged out!" })
-})
-
-/* @route   GET /api/check-auth
- * @desc    Check if the user's token is valid.
+/* @route   POST /api/orders
+ * @desc    Create a new order.
  * @access  Private */
-app.get("/api/check-auth", verifyToken, (req, res) => {
-	// If verifyToken middleware passes, the user is authenticated.
-	res.status(200).json({ isAuthenticated: true, user: req.user })
-})
-
-/* @route   GET /api/profile
- * @desc    Get the profile information for the logged-in user.
- * @access  Private */
-app.get("/api/profile", verifyToken, async (req, res) => {
-	try {
-		// Find the user by the ID from the token, but exclude the password.
-		const user = await User.findById(req.user.id).select("-password")
-		if (!user) {
-			return res.status(404).json({ message: "User not found!" })
-		}
-		res.status(200).json({
-			firstName: user.firstName,
-			lastName: user.lastName,
-			email: user.email,
-		})
-	} catch (error) {
-		console.error("Profile fetch error:", error)
-		res.status(500).json({ message: "Server error while fetching profile." })
-	}
-})
-
-// --- NEW CART ROUTES ---
-
-/* @route   GET /api/cart
- * @desc    Get the user's shopping cart from the database.
- * @access  Private */
-app.get("/api/cart", verifyToken, async (req, res) => {
-	try {
-		const user = await User.findById(req.user.id)
-		if (!user) {
-			return res.status(404).json({ message: "User not found!" })
-		}
-		res.status(200).json(user.cart || {})
-	} catch (error) {
-		console.error("Cart fetch error:", error)
-		res.status(500).json({ message: "Server error while fetching cart." })
-	}
-})
-
-/* @route   POST /api/cart
- * @desc    Update the user's shopping cart in the database.
- * @access  Private */
-app.post("/api/cart", verifyToken, async (req, res) => {
-	try {
-		const { cart } = req.body // Expects the entire cart object
-		if (typeof cart !== "object") {
-			return res.status(400).json({ message: "Invalid cart format." })
-		}
-		// Find the user and update their cart.
-		await User.findByIdAndUpdate(req.user.id, { cart: cart })
-		res.status(200).json({ message: "Cart updated successfully!" })
-	} catch (error) {
-		console.error("Cart update error:", error)
-		res.status(500).json({ message: "Server error while updating cart." })
-	}
-})
-
-// Order Routes
-/* @route   POST /api/order
- * @desc    Create a new order for the authenticated user.
- * @access  Private (requires token) */
-app.post("/api/order", verifyToken, async (req, res) => {
+apiRouter.post("/orders", verifyToken, async (req, res) => {
+	console.log("Processing new order creation request!")
 	try {
 		const { items, total, shippingDetails } = req.body
 		const userId = req.user.id // Get user ID from the verified token
 
-		// Generate a unique order number (e.g., timestamp + random part)
-		const orderNumber = `${Date.now()}${Math.random().toString(36).substr(2, 5).toUpperCase()}`
+		if (!items || !total || !shippingDetails) {
+			return res.status(400).json({ message: "Missing order data." })
+		}
+
+		// Create a unique order number (e.g., based on timestamp and a random string)
+		const orderNumber = `${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`
 
 		const newOrder = new Order({
 			userId,
-			orderNumber,
 			items,
 			total,
 			shippingDetails,
+			orderNumber,
 		})
 
 		await newOrder.save()
+		console.log(`New order ${orderNumber} created successfully!`)
 		res.status(201).json({ message: "Order placed successfully!", order: newOrder })
 	} catch (error) {
-		console.error("Order creation error:", error)
-		res.status(500).json({ message: "Server error while placing order." })
+		console.error("Error placing order:", error)
+		res.status(500).json({ message: "Server error while placing order!" })
 	}
 })
 
-/* @route   GET /api/order
- * @desc    Get the order history for the authenticated user.
- * @access  Private (requires token) */
-app.get("/api/order", verifyToken, async (req, res) => {
+/* @route   GET /api/orders
+ * @desc    Get order history for the logged-in user.
+ * @access  Private */
+apiRouter.get("/orders", verifyToken, async (req, res) => {
+	console.log("Fetching order history for a user!")
 	try {
 		const userId = req.user.id
-		// Find all orders for the user and sort by the most recent date
-		const orders = await Order.find({ userId }).sort({ orderDate: -1 })
+		const orders = await Order.find({ userId: userId }).sort({ orderDate: -1 }) // Get newest orders first
+		console.log(`Found ${orders.length} orders for user ${userId}!`)
 		res.status(200).json(orders)
 	} catch (error) {
 		console.error("Error fetching order history:", error)
-		res.status(500).json({ message: "Server error while fetching order history." })
+		res.status(500).json({ message: "Server error while fetching order history!" })
 	}
 })
 
+// --- Admin Routes ---
 /* @route   GET /api/admin-dbs
- * @desc    Show all documents in the user and order collections.
+ * @desc    Get all documents from both Users and Orders collections.
  * @access  Administrator only */
-app.get("/api/admin-dbs", verifyToken, verifyAdmin, async (req, res) => {
+apiRouter.get("/admin-dbs", verifyToken, verifyAdmin, async (req, res) => {
+	console.log("Admin request to fetch all database documents!")
 	try {
-		// Fetch all documents from the User and Order collections simultaneously
-		const [users, orders] = await Promise.all([
-			User.find(), // Get all users
-			Order.find(), // Get all orders
-		])
-
-		res.status(200).json({
-			database: mongoose.connection.name,
-			collections: {
-				users: users,
-				orders: orders,
-			},
-		})
+		const users = await User.find()
+		const orders = await Order.find()
+		console.log(`Fetched ${users.length} users and ${orders.length} orders!`)
+		res.status(200).json({ users, orders })
 	} catch (error) {
-		console.error("DB data fetch error:", error)
-		res.status(500).json({ message: "Server error while fetching database documents." })
+		console.error("Error fetching all database documents:", error)
+		res.status(500).json({ message: "Server error while fetching all documents!" })
 	}
 })
 
 /* @route   GET /api/admin-reset
- * @desc    Drop all data and create a default admin account.
+ * @desc    Drops the entire database and re-creates the admin account.
  * @access  Administrator only */
-app.get("/api/admin-reset", verifyToken, verifyAdmin, async (req, res) => {
+apiRouter.get("/admin-reset", verifyToken, verifyAdmin, async (req, res) => {
+	console.log("Admin request to reset the entire database!")
 	try {
-		// Drop collections
-		await User.collection.drop()
-		await Order.collection.drop()
-		console.log("Dropped User and Order collections.")
+		// Drop the database
+		await mongoose.connection.db.dropDatabase()
+		console.log("Database dropped successfully!")
 
-		// Create default admin
+		console.log("Deleting existing admin user 'a@a' before reset!")
+		await User.findOneAndDelete({ email: "a@a" })
+
+		// Create the default admin account
+		const adminPassword = "aaaa"
 		const salt = await bcrypt.genSalt(10)
-		const hashedPassword = await bcrypt.hash("aaaa", salt)
+		const hashedPassword = await bcrypt.hash(adminPassword, salt)
 
 		const adminUser = new User({
 			firstName: "3140",
@@ -342,64 +317,59 @@ app.get("/api/admin-reset", verifyToken, verifyAdmin, async (req, res) => {
 			isAdmin: true,
 		})
 		await adminUser.save()
-		console.log("Default admin account created.")
-
-		res.status(200).json({ message: "Database has been reset. All data deleted and a default admin account (a@a) has been created." })
+		console.log(`Created successfully! Administrator account: ${adminUser.firstName} ${adminUser.lastName} (${adminUser.email}) Password: ${adminPassword}`)
 	} catch (error) {
-		// Handle case where collections might not exist
-		if (error.code === 26) {
-			// NamespaceNotFound error code
-			console.log("Collections did not exist, proceeding to create admin.")
-			// Re-run admin creation logic if collections didn't exist to be dropped
-			const salt = await bcrypt.genSalt(10)
-			const hashedPassword = await bcrypt.hash("aaaa", salt)
-			const adminUser = new User({
-				firstName: "3140",
-				lastName: "Administrator",
-				email: "a@a",
-				password: hashedPassword,
-				isAdmin: true,
-			})
-			await adminUser.save()
-			return res.status(200).json({ message: "Database has been reset. Default admin account (a@a) has been created." })
-		}
-		console.error("Admin reset error:", error)
-		res.status(500).json({ message: "Server error during database reset." })
+		console.error("Error resetting database:", error)
+		res.status(500).json({ message: "Server error during database reset!" })
 	}
 })
 
+/* @route   GET /api/users
+ * @desc    Get all users from the database.
+ * @access  Administrator only */
+apiRouter.get("/users", verifyToken, verifyAdmin, async (req, res) => {
+	console.log("Administrator request to fetch all users!")
+	try {
+		const users = await User.find()
+		console.log(`Fetched ${users.length} users for administrator!`)
+		res.status(200).json(users)
+	} catch (error) {
+		console.error("Error fetching users:", error)
+		res.status(500).json({ message: "Server error while fetching users!" })
+	}
+})
+
+// Use the apiRouter for all routes starting with /api
+app.use("/api", apiRouter)
+
 // --- Server Startup ---
 const os = require("os")
+const https = require("https")
+const fs = require("fs")
+
 // Helper to get local IPv4 address
-const localIP =
+const getLocalIp = () =>
 	Object.values(os.networkInterfaces())
 		.flat()
 		.find((iface) => iface.family === "IPv4" && !iface.internal)?.address || "127.0.0.1"
-
-// --- HTTPS Server Setup ---
-const https = require("https")
-const fs = require("fs")
 
 try {
 	const httpsOptions = {
 		key: fs.readFileSync("server.key"),
 		cert: fs.readFileSync("server.cert"),
 	}
+	const localIP = getLocalIp()
+
 	https.createServer(httpsOptions, app).listen(PORT, () => {
-		console.log(`Running back-end server on https://${localIP}:${PORT}`)
-		console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL}`)
+		console.log(`Backend Server is running on https://${localIP}:${PORT}`)
+		console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL || "any"}`)
 		console.log(`Accessing MongoDB on: ${process.env.MONGO_URI}`)
-		if (!process.env.JWT_SECRET) {
-			console.warn("Warning: JWT_SECRET is not set in your .env file. Please add a strong secret key!")
-		}
+		console.log(`JWT Secret is ${process.env.JWT_SECRET ? "loaded" : "MISSING"}`)
 	})
 } catch (error) {
-	console.error("Failed to start HTTPS server. Ensure server.key and server.cert exist!", error)
-	console.log("Falling back to HTTP server.")
+	console.error("Failed to start HTTPS server. Ensure server.key and server.cert are present!", error.message)
+	console.log("Falling back to HTTP server!")
 	app.listen(PORT, () => {
-		console.log(`Running back-end server on http://${localIP}:${PORT}`)
-		if (!process.env.JWT_SECRET) {
-			console.warn("Warning: JWT_SECRET is not set in your .env file. Please add a strong secret key!")
-		}
+		console.log(`Backend Server is running on http://localhost:${PORT}`)
 	})
 }
