@@ -8,7 +8,7 @@ function changeQty(index, delta) {
 	}
 
 	recalculateTotalItems()
-	saveCartToCookie()
+	saveCartToStorage() // Updated to use localStorage
 	updateCartCount()
 	updateCartPreview()
 	renderFullCart() // Re-render the entire cart table

@@ -1,4 +1,8 @@
 // --- Functions for the Checkout Page ---
+
+/**
+ * Renders the order summary section on the checkout page using items from the global cart object.
+ */
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
 	const subtotalDisplay = document.getElementById("summary-subtotal")
@@ -11,6 +15,12 @@ function renderOrderSummary() {
 
 	if (cartKeys.length === 0) {
 		container.innerHTML = "<p>Your cart is empty.</p>"
+		// Disable the place order button if the cart is empty
+		const placeOrderBtn = document.querySelector(".place-order-btn")
+		if (placeOrderBtn) {
+			placeOrderBtn.disabled = true
+			placeOrderBtn.style.backgroundColor = "#ccc"
+		}
 		return
 	}
 
@@ -37,40 +47,21 @@ function renderOrderSummary() {
 	totalDisplay.textContent = `$${total.toFixed(2)}`
 }
 
-function placeOrder() {
-	// Get Existing Order History
-	const historyCookie = getCookie("orderHistory")
-	let orderHistory = []
-
-	if (historyCookie) {
-		try {
-			orderHistory = JSON.parse(historyCookie)
-			if (!Array.isArray(orderHistory)) {
-				orderHistory = [] // Ensure it's an array
-			}
-		} catch (e) {
-			console.error("Could not parse order history cookie:", e)
-			orderHistory = []
-		}
+/**
+ * Gathers form data, sends it to the server to create a new order.
+ * This is an async function to handle the API call.
+ */
+async function placeOrder() {
+	const token = localStorage.getItem("authToken")
+	if (!token) {
+		alert("You must be logged in to place an order.")
+		window.location.href = "login.html"
+		return
 	}
 
-	// Generate the next Order Number
-	let newOrderNumber = 1 // Default to 1 for the first order
-	if (orderHistory.length > 0) {
-		// If history exists, get the number from the most recent order and add 1
-		const lastOrder = orderHistory[0]
-		// Ensure lastOrder.orderNumber is treated as a number before incrementing
-		const lastOrderNumber = parseInt(lastOrder.orderNumber, 10) || 0
-		newOrderNumber = lastOrderNumber + 1
-	}
-
-	// Format the new order number to be 8 digits with leading zeros
-	const formattedOrderNumber = String(newOrderNumber).padStart(8, "0")
-
-	// Create the Order Object with the new formatted number
+	// Collect all shipping and contact details from the form.
 	const isSameAsShipping = document.getElementById("sameAsShipping").checked
-	const order = {
-		orderNumber: formattedOrderNumber, // Use the formatted 5-digit order number
+	const shippingDetails = {
 		firstName: document.getElementById("first-name").value,
 		lastName: document.getElementById("last-name").value,
 		email: document.getElementById("email").value,
@@ -89,29 +80,51 @@ function placeOrder() {
 					state: document.getElementById("mail-state").value,
 					zipCode: document.getElementById("mail-zip-code").value,
 			  },
-		items: cart,
-		total: document.getElementById("summary-grand-total").textContent,
-		orderDate: new Date().toISOString(),
 	}
 
-	// Add new order and save back to cookie
-	orderHistory.unshift(order)
-	setCookie("orderHistory", JSON.stringify(orderHistory), 30)
+	// Construct the payload for the API request.
+	const orderPayload = {
+		items: cart,
+		total: document.getElementById("summary-grand-total").textContent,
+		shippingDetails: shippingDetails,
+	}
 
-	setCookie("shoppingCart", "", -1) // Clear the shopping cart
-	alert("Your order has been placed successfully!")
-	window.location.href = "order.html"
+	try {
+		const response = await fetch("https://e-commerceproject-x4gr.onrender.com/api/orders", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`, // Include the JWT for authentication
+			},
+			body: JSON.stringify(orderPayload),
+		})
+
+		const result = await response.json()
+
+		if (response.ok) {
+			// If order is placed successfully, clear the cart from localStorage.
+			localStorage.removeItem("shoppingCart")
+			alert("Your order has been placed successfully!")
+			window.location.href = "order.html" // Redirect to the order history page.
+		} else {
+			// If the server returns an error, show it to the user.
+			alert(`Order failed: ${result.message}`)
+		}
+	} catch (error) {
+		console.error("Failed to place order:", error)
+		alert("There was a problem connecting to the server. Please try again later.")
+	}
 }
 
+/**
+ * Sets up event listeners for the checkout page, like the address checkbox and payment tabs.
+ */
 function setupCheckoutPageListeners() {
 	const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
-	const mailingAddressFields = document.getElementById("mailingAddressFields") // Corrected ID
-	if (sameAsShippingCheckbox) {
+	const billingAddressFields = document.getElementById("billingAddressFields")
+	if (sameAsShippingCheckbox && billingAddressFields) {
 		sameAsShippingCheckbox.addEventListener("change", function () {
-			// Corrected ID used here
-			if (mailingAddressFields) {
-				mailingAddressFields.style.display = this.checked ? "none" : "block"
-			}
+			billingAddressFields.style.display = this.checked ? "none" : "block"
 		})
 	}
 
@@ -131,6 +144,7 @@ function setupCheckoutPageListeners() {
 }
 
 // --- Initialize Checkout Page ---
+// Wait for the core data (products, cart) to be loaded before setting up the page.
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("checkout-page")) {
 		renderOrderSummary()

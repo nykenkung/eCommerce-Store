@@ -7,45 +7,25 @@ let totalItems = 0
 // This event will notify other scripts when the product list is ready.
 const onCoreDataLoaded = new CustomEvent("coreDataLoaded")
 
-// --- Cookie Functions ---
-function setCookie(name, value, days) {
-	let expires = ""
-	if (days) {
-		const date = new Date()
-		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-		expires = "; expires=" + date.toUTCString()
-	}
-	document.cookie = name + "=" + (value || "") + expires + "; path=/"
+// --- Core Cart Data Management using localStorage ---
+function saveCartToStorage() {
+	// Save the cart object to localStorage as a JSON string.
+	localStorage.setItem("shoppingCart", JSON.stringify(cart))
 }
 
-function getCookie(name) {
-	const nameEQ = name + "="
-	const ca = document.cookie.split(";")
-	for (let i = 0; i < ca.length; i++) {
-		let c = ca[i]
-		while (c.charAt(0) === " ") c = c.substring(1, c.length)
-		if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
-	}
-	return null
-}
-
-// --- Core Cart Data Management ---
-function saveCartToCookie() {
-	setCookie("shoppingCart", JSON.stringify(cart), 7)
-}
-
-function loadCartFromCookie() {
-	const savedCart = getCookie("shoppingCart")
+function loadCartFromStorage() {
+	// Retrieve the cart from localStorage.
+	const savedCart = localStorage.getItem("shoppingCart")
 	if (savedCart) {
 		const parsedCart = JSON.parse(savedCart)
-		Object.assign(cart, parsedCart)
+		Object.assign(cart, parsedCart) // Load the saved cart data.
 	}
 	recalculateTotalItems()
 }
 
 function recalculateTotalItems() {
 	totalItems = 0
-	// Use Object.values for a more modern approach to sum quantities
+	// Use Object.values for a more modern approach to sum quantities.
 	totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0)
 }
 
@@ -65,10 +45,10 @@ function updateCartPreview() {
 	container.innerHTML = ""
 	let total = 0
 
-	// Use Object.entries for a cleaner loop
+	// Use Object.entries for a cleaner loop.
 	for (const [index, qty] of Object.entries(cart)) {
 		const item = productList[index]
-		if (!item) continue // Skip if item not found
+		if (!item) continue // Skip if item not found.
 
 		const subtotal = qty * item.price
 		total += subtotal
@@ -91,13 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 		.then((data) => {
 			productList = data
-			loadCartFromCookie()
+			loadCartFromStorage() // Load cart from localStorage instead of cookies.
 
-			// Run universal updates for the header cart
+			// Run universal updates for the header cart.
 			updateCartCount()
 			updateCartPreview()
 
-			// Notify other scripts that the core data is ready
+			// Notify other scripts that the core data is ready.
 			document.dispatchEvent(onCoreDataLoaded)
 		})
 		.catch((error) => {

@@ -1,10 +1,5 @@
 // All codes wrapped in one DOMContentLoaded listener.
 document.addEventListener("DOMContentLoaded", () => {
-	const config = {
-		// apiBaseUrl: "https://127.0.0.1:3000",
-		apiBaseUrl: "https://e-commerceproject-x4gr.onrender.com",
-	}
-
 	// --- DOM Element References ---
 	const loginForm = document.getElementById("login-form")
 	const registerForm = document.getElementById("register-form")
@@ -17,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// --- Event Handlers ---
 	const handleLoginLinkClick = () => true
+
 	const handleLogin = async (event) => {
 		event.preventDefault()
 		const formData = new FormData(loginForm)
@@ -26,10 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(data),
-				credentials: "include",
 			})
 			const result = await response.json()
-			if (response.ok) {
+			if (response.ok && result.token) {
+				// On successful login, save the token to localStorage.
+				localStorage.setItem("authToken", result.token)
 				updateUIToLoggedInState()
 				showModal("Login Successful!", result.message)
 				modalOkButton.onclick = () => {
@@ -83,24 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// --- Authentication Check ---
-	const checkLoginStatus = async () => {
-		try {
-			const response = await fetch(`${config.apiBaseUrl}/check-auth`, {
-				method: "GET",
-				credentials: "include",
-			})
-			if (!response.ok) {
-				updateUIToLoggedOutState()
-				return
-			}
-			const result = await response.json()
-			if (result.loggedIn) {
-				updateUIToLoggedInState()
-			} else {
-				updateUIToLoggedOutState()
-			}
-		} catch (error) {
-			console.error("Authentication Check Error:", error)
+	const checkLoginStatus = () => {
+		// Check for the auth token in localStorage instead of making an API call.
+		const token = localStorage.getItem("authToken")
+		if (token) {
+			updateUIToLoggedInState()
+		} else {
 			updateUIToLoggedOutState()
 		}
 	}
@@ -123,35 +108,21 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	const handleLogout = async (event) => {
+	const handleLogout = (event) => {
 		event.preventDefault()
-		// Show the initial confirmation modal.
 		showModal("Confirm Logout?", "Are you sure you want to log out?")
 
 		// Define the action for the confirmation modal's "OK" button.
-		modalOkButton.onclick = async () => {
-			try {
-				// Send the logout request to the server.
-				const response = await fetch(`${config.apiBaseUrl}/logout`, {
-					credentials: "include",
-				})
-				// Get the JSON response from the server.
-				const result = await response.json()
-
-				if (response.ok) {
-					// On successful logout, show the server's message in a new modal.
-					showModal("Logout Successful", result.message)
-					// Now, set the "OK" button's action to reload the page.
-					modalOkButton.onclick = () => {
-						window.location.reload()
-					}
-				} else {
-					// If the server responded with an error, display that error.
-					showModal("Logout Failed", result.message || "An error occurred during logout!")
-				}
-			} catch (error) {
-				console.error("Logout Error:", error)
-				showModal("Connection Error", "Could not connect to the server. Please try again later!")
+		modalOkButton.onclick = () => {
+			// Remove the token from localStorage.
+			localStorage.removeItem("authToken")
+			// Update the UI immediately.
+			updateUIToLoggedOutState()
+			// Show a confirmation message.
+			showModal("Logout Successful", "You have been successfully logged out!")
+			// Set the "OK" button's action to reload the page to clear any sensitive state.
+			modalOkButton.onclick = () => {
+				window.location.reload()
 			}
 		}
 	}
