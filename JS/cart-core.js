@@ -65,20 +65,29 @@ function updateCartPreview() {
 	container.innerHTML = ""
 	let total = 0
 
-	// Use Object.entries for a cleaner loop
+	// Use Object.entries for a cleaner loop.
 	for (const [index, qty] of Object.entries(cart)) {
 		const item = productList[index]
-		if (!item) continue // Skip if item not found
+		if (!item) continue // Skip if item not found.
 
 		const subtotal = qty * item.price
 		total += subtotal
 
 		const div = document.createElement("div")
 		div.className = "cart-item"
-		div.innerHTML = `${item.name} x ${qty} = $${subtotal.toFixed(2)}`
+		div.innerHTML = `
+		<img src="${item.img}" alt="${item.name}" class="cart-item-img">
+		<div class="cart-item-details">
+			<span class="cart-item-name">${item.name}</span>
+			<div class="cart-item-qty-controls">
+				<button onclick="changeQty(${index}, -1)">-</button>
+				<span class="cart-item-qty">x ${qty}</span>
+				<button onclick="changeQty(${index}, 1)">+</button>
+			</div>
+		</div>
+		<strong class="cart-item-price">$${subtotal.toFixed(2)}</strong>`
 		container.appendChild(div)
 	}
-
 	totalDisplay.textContent = total.toFixed(2)
 }
 
