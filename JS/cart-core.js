@@ -59,12 +59,15 @@ function updateCartPreview() {
     <img src="${item.img}" alt="${item.name}" class="cart-item-img">
     <div class="cart-item-details">
         <span class="cart-item-name">${item.name}</span>
-        <span class="cart-item-qty">x ${qty}</span>
+        <div class="cart-item-qty-controls">
+            <button onclick="changeQty(${index}, -1)">-</button>
+            <span class="cart-item-qty">x ${qty}</span>
+            <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
     </div>
     <strong class="cart-item-price">$${subtotal.toFixed(2)}</strong>`
 		container.appendChild(div)
 	}
-
 	totalDisplay.textContent = total.toFixed(2)
 }
 
