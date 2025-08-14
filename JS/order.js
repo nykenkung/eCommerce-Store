@@ -20,7 +20,7 @@ async function renderOrderHistory() {
 	container.innerHTML = "<p>Loading your order history...</p>"
 
 	try {
-		const response = await fetch(`${config.apiBaseUrl}/orders`, {
+		const response = await fetch(`${config.apiBaseUrl}/order`, {
 			method: "GET",
 			headers: {
 				Authorization: `Bearer ${token}`, // Authenticate the request with the JWT
