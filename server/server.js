@@ -143,6 +143,27 @@ apiRouter.get("/check-auth", verifyToken, (req, res) => {
 	}
 })
 
+/* @route   GET /api/profile
+ * @desc    Get the profile information for the logged-in user.
+ * @access  Private */
+app.get("/api/profile", verifyToken, async (req, res) => {
+	try {
+		// Find the user by the ID from the token, but exclude the password.
+		const user = await User.findById(req.user.id).select("-password")
+		if (!user) {
+			return res.status(404).json({ message: "User not found!" })
+		}
+		res.status(200).json({
+			firstName: user.firstName,
+			lastName: user.lastName,
+			email: user.email,
+		})
+	} catch (error) {
+		console.error("Profile fetch error:", error)
+		res.status(500).json({ message: "Server error while fetching profile." })
+	}
+})
+
 /* @route   POST /api/register
  * @desc    Handle new user registration.
  * @access  Public */
@@ -225,10 +246,44 @@ apiRouter.post("/login", async (req, res) => {
 	}
 })
 
-/* @route   POST /api/orders
+/* @route   GET /api/cart
+ * @desc    Get the user's shopping cart from the database.
+ * @access  Private */
+app.get("/api/cart", verifyToken, async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id)
+		if (!user) {
+			return res.status(404).json({ message: "User not found!" })
+		}
+		res.status(200).json(user.cart || {})
+	} catch (error) {
+		console.error("Cart fetch error:", error)
+		res.status(500).json({ message: "Server error while fetching cart." })
+	}
+})
+
+/* @route   POST /api/cart
+ * @desc    Update the user's shopping cart in the database.
+ * @access  Private */
+app.post("/api/cart", verifyToken, async (req, res) => {
+	try {
+		const { cart } = req.body // Expects the entire cart object
+		if (typeof cart !== "object") {
+			return res.status(400).json({ message: "Invalid cart format." })
+		}
+		// Find the user and update their cart.
+		await User.findByIdAndUpdate(req.user.id, { cart: cart })
+		res.status(200).json({ message: "Cart updated successfully!" })
+	} catch (error) {
+		console.error("Cart update error:", error)
+		res.status(500).json({ message: "Server error while updating cart." })
+	}
+})
+
+/* @route   POST /api/order
  * @desc    Create a new order.
  * @access  Private */
-apiRouter.post("/orders", verifyToken, async (req, res) => {
+apiRouter.post("/order", verifyToken, async (req, res) => {
 	console.log("Processing new order creation request!")
 	try {
 		const { items, total, shippingDetails } = req.body
@@ -258,10 +313,10 @@ apiRouter.post("/orders", verifyToken, async (req, res) => {
 	}
 })
 
-/* @route   GET /api/orders
+/* @route   GET /api/order
  * @desc    Get order history for the logged-in user.
  * @access  Private */
-apiRouter.get("/orders", verifyToken, async (req, res) => {
+apiRouter.get("/order", verifyToken, async (req, res) => {
 	console.log("Fetching order history for a user!")
 	try {
 		const userId = req.user.id
@@ -272,6 +327,15 @@ apiRouter.get("/orders", verifyToken, async (req, res) => {
 		console.error("Error fetching order history:", error)
 		res.status(500).json({ message: "Server error while fetching order history!" })
 	}
+})
+
+/* @route   GET /api/logout
+ * @desc    Acknowledge user logout. The client is responsible for clearing the token.
+ * @access  Public */
+app.get("/api/logout", (req, res) => {
+	// This endpoint is now primarily for acknowledgment.
+	// The actual logout process (clearing the token) is handled client-side.
+	res.status(200).json({ message: "You have been successfully logged out!" })
 })
 
 // --- Admin Routes ---
@@ -321,21 +385,6 @@ apiRouter.get("/admin-reset", verifyToken, verifyAdmin, async (req, res) => {
 	} catch (error) {
 		console.error("Error resetting database:", error)
 		res.status(500).json({ message: "Server error during database reset!" })
-	}
-})
-
-/* @route   GET /api/users
- * @desc    Get all users from the database.
- * @access  Administrator only */
-apiRouter.get("/users", verifyToken, verifyAdmin, async (req, res) => {
-	console.log("Administrator request to fetch all users!")
-	try {
-		const users = await User.find()
-		console.log(`Fetched ${users.length} users for administrator!`)
-		res.status(200).json(users)
-	} catch (error) {
-		console.error("Error fetching users:", error)
-		res.status(500).json({ message: "Server error while fetching users!" })
 	}
 })
 
