@@ -55,7 +55,13 @@ function updateCartPreview() {
 
 		const div = document.createElement("div")
 		div.className = "cart-item"
-		div.innerHTML = `${item.name} x ${qty} = $${subtotal.toFixed(2)}`
+		div.innerHTML = `
+    <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+    <div class="cart-item-details">
+        <span class="cart-item-name">${item.name}</span>
+        <span class="cart-item-qty">x ${qty}</span>
+    </div>
+    <strong class="cart-item-price">$${subtotal.toFixed(2)}</strong>`
 		container.appendChild(div)
 	}
 
