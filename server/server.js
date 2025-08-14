@@ -303,7 +303,7 @@ app.get("/api/admin-dbs", verifyToken, verifyAdmin, async (req, res) => {
 	try {
 		// Fetch all documents from the User and Order collections simultaneously
 		const [users, orders] = await Promise.all([
-			User.find().select("-password"), // Get all users, exclude passwords
+			User.find(), // Get all users
 			Order.find(), // Get all orders
 		])
 
