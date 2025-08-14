@@ -50,94 +50,28 @@
 		<main id="checkout-page" class="section-p1">
 			<div class="checkout-container">
 				<div class="checkout-form">
-					<h3>Please enter your information to place your order!</h3>
-					<h3>Contact Information</h3>
-					<div class="form-group">
-						<input type="text" id="first-name" placeholder="First Name" />
-						<input type="text" id="last-name" placeholder="Last Name" />
-					</div>
-					<div class="form-group">
-						<input type="text" id="email" placeholder="Email" />
-					</div>
-					<div class="form-group">
-						<input type="text" id="phone" placeholder="Phone" />
-					</div>
+					<form id="checkout-form-element" novalidate>
+						<h3>Please enter your information to place your order!</h3>
 
-					<h3>Shipping Address</h3>
-					<div class="form-group">
-						<input type="text" id="address" placeholder="Street Address" />
-					</div>
-					<div class="form-group-3">
-						<input type="text" id="city" placeholder="City" />
-						<select id="state">
-							<option value="">State</option>
-							<option value="AL">AL</option>
-							<option value="AK">AK</option>
-							<option value="AZ">AZ</option>
-							<option value="AR">AR</option>
-							<option value="CA">CA</option>
-							<option value="CO">CO</option>
-							<option value="CT">CT</option>
-							<option value="DE">DE</option>
-							<option value="DC">DC</option>
-							<option value="FL">FL</option>
-							<option value="GA">GA</option>
-							<option value="HI">HI</option>
-							<option value="ID">ID</option>
-							<option value="IL">IL</option>
-							<option value="IN">IN</option>
-							<option value="IA">IA</option>
-							<option value="KS">KS</option>
-							<option value="KY">KY</option>
-							<option value="LA">LA</option>
-							<option value="ME">ME</option>
-							<option value="MD">MD</option>
-							<option value="MA">MA</option>
-							<option value="MI">MI</option>
-							<option value="MN">MN</option>
-							<option value="MS">MS</option>
-							<option value="MO">MO</option>
-							<option value="MT">MT</option>
-							<option value="NE">NE</option>
-							<option value="NV">NV</option>
-							<option value="NH">NH</option>
-							<option value="NJ">NJ</option>
-							<option value="NM">NM</option>
-							<option value="NY">NY</option>
-							<option value="NC">NC</option>
-							<option value="ND">ND</option>
-							<option value="OH">OH</option>
-							<option value="OK">OK</option>
-							<option value="OR">OR</option>
-							<option value="PA">PA</option>
-							<option value="RI">RI</option>
-							<option value="SC">SC</option>
-							<option value="SD">SD</option>
-							<option value="TN">TN</option>
-							<option value="TX">TX</option>
-							<option value="UT">UT</option>
-							<option value="VT">VT</option>
-							<option value="VA">VA</option>
-							<option value="WA">WA</option>
-							<option value="WV">WV</option>
-							<option value="WI">WI</option>
-							<option value="WY">WY</option>
-						</select>
-						<input type="text" id="zip-code" placeholder="ZIP Code" />
-					</div>
-
-					<h3>Billing Address</h3>
-					<div class="form-group-checkbox">
-						<input type="checkbox" id="sameAsShipping" checked />
-						<label for="sameAsShipping">Same as shipping address</label>
-					</div>
-					<div id="billingAddressFields" style="display: none">
+						<h3>Contact Information</h3>
 						<div class="form-group">
-							<input type="text" id="mail-address" placeholder="Street Address" />
+							<input type="text" id="first-name" placeholder="First Name" required />
+							<input type="text" id="last-name" placeholder="Last Name" required />
+						</div>
+						<div class="form-group">
+							<input type="email" id="email" placeholder="Email" required />
+						</div>
+						<div class="form-group">
+							<input type="tel" id="phone" placeholder="Phone" />
+						</div>
+
+						<h3>Shipping Address</h3>
+						<div class="form-group">
+							<input type="text" id="address" placeholder="Street Address" required />
 						</div>
 						<div class="form-group-3">
-							<input type="text" id="mail-city" placeholder="City" />
-							<select id="mail-state">
+							<input type="text" id="city" placeholder="City" required />
+							<select id="state" required>
 								<option value="">State</option>
 								<option value="AL">AL</option>
 								<option value="AK">AK</option>
@@ -191,56 +125,125 @@
 								<option value="WI">WI</option>
 								<option value="WY">WY</option>
 							</select>
-							<input type="text" id="mail-zip-code" placeholder="ZIP Code" />
+							<input type="text" id="zip-code" placeholder="ZIP Code" required />
 						</div>
-					</div>
 
-					<h3>Payment</h3>
-					<div class="payment-container">
-						<ul class="payment-tabs">
-							<li class="tab-link active" data-tab="credit-card">
-								<i class="fa fa-credit-card"></i>
-								Credit Card
-							</li>
-							<li class="tab-link" data-tab="paypal">
-								<i class="fab fa-paypal"></i>
-								PayPal
-							</li>
-							<li class="tab-link" data-tab="google-pay">
-								<i class="fab fa-google-pay"></i>
-								Google Pay
-							</li>
-							<li class="tab-link" data-tab="apple-pay">
-								<i class="fab fa-apple-pay"></i>
-								Apple Pay
-							</li>
-							<li class="tab-link" data-tab="affirm">Affirm</li>
-						</ul>
-						<div id="credit-card" class="tab-content active">
+						<h3>Billing Address</h3>
+						<div class="form-group-checkbox">
+							<input type="checkbox" id="sameAsShipping" checked />
+							<label for="sameAsShipping">Same as shipping address</label>
+						</div>
+						<div id="billingAddressFields" style="display: none">
 							<div class="form-group">
-								<input type="text" id="card-number" placeholder="Card Number" />
+								<input type="text" id="mail-address" placeholder="Street Address" />
 							</div>
-							<div class="form-group">
-								<input type="text" id="card-name" placeholder="Name on Card" />
+							<div class="form-group-3">
+								<input type="text" id="mail-city" placeholder="City" />
+								<select id="mail-state">
+									<option value="">State</option>
+									<option value="AL">AL</option>
+									<option value="AK">AK</option>
+									<option value="AZ">AZ</option>
+									<option value="AR">AR</option>
+									<option value="CA">CA</option>
+									<option value="CO">CO</option>
+									<option value="CT">CT</option>
+									<option value="DE">DE</option>
+									<option value="DC">DC</option>
+									<option value="FL">FL</option>
+									<option value="GA">GA</option>
+									<option value="HI">HI</option>
+									<option value="ID">ID</option>
+									<option value="IL">IL</option>
+									<option value="IN">IN</option>
+									<option value="IA">IA</option>
+									<option value="KS">KS</option>
+									<option value="KY">KY</option>
+									<option value="LA">LA</option>
+									<option value="ME">ME</option>
+									<option value="MD">MD</option>
+									<option value="MA">MA</option>
+									<option value="MI">MI</option>
+									<option value="MN">MN</option>
+									<option value="MS">MS</option>
+									<option value="MO">MO</option>
+									<option value="MT">MT</option>
+									<option value="NE">NE</option>
+									<option value="NV">NV</option>
+									<option value="NH">NH</option>
+									<option value="NJ">NJ</option>
+									<option value="NM">NM</option>
+									<option value="NY">NY</option>
+									<option value="NC">NC</option>
+									<option value="ND">ND</option>
+									<option value="OH">OH</option>
+									<option value="OK">OK</option>
+									<option value="OR">OR</option>
+									<option value="PA">PA</option>
+									<option value="RI">RI</option>
+									<option value="SC">SC</option>
+									<option value="SD">SD</option>
+									<option value="TN">TN</option>
+									<option value="TX">TX</option>
+									<option value="UT">UT</option>
+									<option value="VT">VT</option>
+									<option value="VA">VA</option>
+									<option value="WA">WA</option>
+									<option value="WV">WV</option>
+									<option value="WI">WI</option>
+									<option value="WY">WY</option>
+								</select>
+								<input type="text" id="mail-zip-code" placeholder="ZIP Code" />
 							</div>
-							<div class="form-group">
-								<input type="text" id="card-expiry" placeholder="MM / YY" />
-								<input type="text" id="card-cvc" placeholder="CVC" />
+						</div>
+
+						<h3>Payment</h3>
+						<div class="payment-container">
+							<ul class="payment-tabs">
+								<li class="tab-link active" data-tab="credit-card">
+									<i class="fa fa-credit-card"></i>
+									Credit Card
+								</li>
+								<li class="tab-link" data-tab="paypal">
+									<i class="fab fa-paypal"></i>
+									PayPal
+								</li>
+								<li class="tab-link" data-tab="google-pay">
+									<i class="fab fa-google-pay"></i>
+									Google Pay
+								</li>
+								<li class="tab-link" data-tab="apple-pay">
+									<i class="fab fa-apple-pay"></i>
+									Apple Pay
+								</li>
+								<li class="tab-link" data-tab="affirm">Affirm</li>
+							</ul>
+							<div id="credit-card" class="tab-content active">
+								<div class="form-group">
+									<input type="text" id="card-number" placeholder="Card Number" />
+								</div>
+								<div class="form-group">
+									<input type="text" id="card-name" placeholder="Name on Card" />
+								</div>
+								<div class="form-group">
+									<input type="text" id="card-expiry" placeholder="MM / YY" />
+									<input type="text" id="card-cvc" placeholder="CVC" />
+								</div>
+							</div>
+							<div id="paypal" class="tab-content">
+								<p>You will be redirected to PayPal to complete your payment.</p>
+							</div>
+							<div id="google-pay" class="tab-content">
+								<p>Follow the prompts from Google Pay to complete your purchase.</p>
+							</div>
+							<div id="apple-pay" class="tab-content">
+								<p>Follow the prompts from Apple Pay to complete your purchase.</p>
+							</div>
+							<div id="affirm" class="tab-content">
+								<p>You will be redirected to Affirm to set up your payment plan.</p>
 							</div>
 						</div>
-						<div id="paypal" class="tab-content">
-							<p>You will be redirected to PayPal to complete your payment.</p>
-						</div>
-						<div id="google-pay" class="tab-content">
-							<p>Follow the prompts from Google Pay to complete your purchase.</p>
-						</div>
-						<div id="apple-pay" class="tab-content">
-							<p>Follow the prompts from Apple Pay to complete your purchase.</p>
-						</div>
-						<div id="affirm" class="tab-content">
-							<p>You will be redirected to Affirm to set up your payment plan.</p>
-						</div>
-					</div>
+					</form>
 					<button class="place-order-btn" onclick="placeOrder()">Place Order</button>
 				</div>
 				<div class="order-summary">
@@ -268,9 +271,9 @@
 		<footer style="padding: 20px; background: #eee; justify-content: center">
 			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
 		</footer>
-		<script src="JS/config.js"></script>
-		<script src="JS/app.js"></script>
-		<script src="JS/cart-core.js"></script>
-		<script src="JS/checkout.js"></script>
+		<script src="JS/config.js" defer></script>
+		<script src="JS/app.js" defer></script>
+		<script src="JS/cart-core.js" defer></script>
+		<script src="JS/checkout.js" defer></script>
 	</body>
 </html>

@@ -1,60 +1,5 @@
 // --- Functions for the Checkout Page ---
-
-/**
- * Creates and displays a modal dialog on the checkout page.
- * This function builds the modal from scratch and removes it when done.
- * @param {string} title - The title for the modal window.
- * @param {string} message - The message text to be displayed.
- * @param {function} [onOk] - Optional callback for when the OK button is clicked.
- */
-function createCheckoutModal(title, message, onOk) {
-	// Remove any existing modal first to be safe
-	const existingModal = document.getElementById("checkout-modal-overlay")
-	if (existingModal) {
-		existingModal.remove()
-	}
-
-	// Create modal overlay and apply the CSS class
-	const overlay = document.createElement("div")
-	overlay.className = "modal active" // Use CSS classes
-
-	// Create modal content box and apply the CSS class
-	const content = document.createElement("div")
-	content.className = "modal-content" // Use CSS class
-
-	// Create title (inline style is fine for simple element-specific overrides)
-	const h2 = document.createElement("h2")
-	h2.textContent = title
-
-	// Create message
-	const p = document.createElement("p")
-	p.innerHTML = message
-
-	// Create OK button
-	const button = document.createElement("button")
-	button.textContent = "OK"
-
-	// Button click action
-	button.onclick = () => {
-		if (onOk) {
-			onOk()
-		}
-		overlay.remove() // **CRITICAL**: Always remove the modal
-	}
-
-	// Assemble the modal
-	content.appendChild(h2)
-	content.appendChild(p)
-	content.appendChild(button)
-	overlay.appendChild(content)
-
-	// Add to the page
-	document.body.appendChild(overlay)
-}
-
-/**
- * Renders the order summary section on the checkout page.
- */
+// Renders the order summary section on the checkout page.
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
 	const subtotalDisplay = document.getElementById("summary-subtotal")
@@ -115,7 +60,8 @@ document.querySelectorAll("input[required], select[required]").forEach((input) =
 async function placeOrder() {
 	const token = localStorage.getItem("authToken")
 	if (!token) {
-		createCheckoutModal("Authentication Required", "You must be logged in to place an order. Redirecting you to the login page.", () => {
+		// MODIFIED PART: Using the global showModal for consistent styling
+		showModal("Authentication Required", "You must be logged in to place an order. <br><br> You will be redirected to the login page.", () => {
 			window.open("login.html", "_blank")
 		})
 		return

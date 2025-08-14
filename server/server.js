@@ -27,7 +27,7 @@ const mongoURI = process.env.MONGO_URI
 mongoose
 	.connect(mongoURI)
 	.then(() => console.log("Successfully connected to MongoDB!"))
-	.catch((err) => console.error("MongoDB connection error:", err))
+	.catch((error) => console.error("MongoDB connection error:", error))
 
 // --- Mongoose Schemas and Models ---
 
@@ -77,7 +77,7 @@ const verifyToken = (req, res, next) => {
 		req.user = decoded // Add decoded user payload to request
 		console.log("Token verified successfully!")
 		next()
-	} catch (ex) {
+	} catch (error) {
 		console.log("Token verification failed: Invalid token!")
 		res.status(400).json({ message: "Invalid token." })
 	}
@@ -97,8 +97,8 @@ const verifyAdmin = async (req, res, next) => {
 		}
 		console.log("Admin verified successfully!")
 		next()
-	} catch (err) {
-		console.error("Administrator verification error:", err)
+	} catch (error) {
+		console.error("Administrator verification error:", error)
 		res.status(500).json({ message: "Server error during administrator verification!" })
 	}
 }
@@ -134,7 +134,7 @@ apiRouter.get("/check-auth", verifyToken, (req, res) => {
 		}
 	} catch (error) {
 		// Unexpected server error
-		console.error("Error during authentication check:", err)
+		console.error("Error during authentication check:", error)
 		res.status(500).json({
 			status: "error",
 			message: "Internal server error during authentication check!",
