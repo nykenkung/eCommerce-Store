@@ -464,8 +464,37 @@ footer.section-p1 .col p {
 	font-weight: 600;
 	margin-bottom: 4px;
 }
+/* Styling for the new quantity controls in the cart preview */
+.cart-item-qty-controls {
+	display: flex;
+	align-items: center;
+	justify-content: center; /* Center the entire control block */
+	gap: 8px; /* Adjust gap for aesthetics */
+	margin-top: 5px;
+}
+.cart-item-qty-controls button {
+	width: 25px;
+	height: 25px;
+	padding: 0;
+	font-size: 20px;
+	line-height: 22px;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	background-color: #e9e9e9;
+	color: white;
+	border-radius: 50%; /* Make buttons circular */
+	flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+.cart-item-qty-controls button:hover {
+	background-color: #6c84a2;
+	border-color: #bbb;
+}
 .cart-item-qty {
+	font-size: 14px;
 	color: #666;
+	min-width: 30px; /* Set a minimum width to prevent layout shifts */
+	text-align: center; /* Ensure the text is centered */
 }
 .cart-item-price {
 	font-weight: 600;
@@ -484,7 +513,6 @@ footer.section-p1 .col p {
 }
 
 /* Dropdown Menu Styling */
-/* The container <li> - needed to position the dropdown content */
 #navbar .dropdown {
 	position: relative;
 	display: inline-block;
