@@ -20,7 +20,7 @@
 				justify-content: space-between;
 				align-items: center;
 				transform: translateY(-100%); /* Initially hidden above the screen */
-				transition: transform 2s ease-out; /* Smooth slide animation */
+				transition: transform 1s ease-out; /* Smooth slide animation */
 			}
 			#welcome-banner.active {
 				transform: translateY(0); /* Slides it down into view */
@@ -29,18 +29,20 @@
 			#welcome-banner button {
 				width: auto;
 				margin: 0;
-				padding: 8px 25px;
-				font-size: 14px;
-				background-color: #6c84a2;
-				color: white;
+				padding: 15px 80px; /* Increased padding */
+				font-size: 16px; /* Increased font size */
+				background-color: #ffffff; /* White background */
+				color: #6c84a2; /* Text color to match other elements */
 				border: none;
-				border-radius: 8px;
+				border-radius: 20px;
 				cursor: pointer;
 				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 				transition: background-color 0.3s ease;
 			}
 			#welcome-banner button:hover {
-				background-color: #194069;
+				background-color: #f7f7f7; /* Slightly grey on hover */
+				color: #194069; /* Darker text on hover */
+				border-color: #ccc;
 			}
 		</style>
 	</head>
@@ -74,7 +76,7 @@
 								<span id="cart-count">0</span>
 							</a>
 							<div id="cart-preview" class="cart-preview">
-								<a href="cart.html" class="button-link white">My Shopping Cart</a>
+								<h3>My Shopping Cart</h3>
 								<div id="cart-items"></div>
 								<div class="cart-total">
 									<strong>Total:</strong>
@@ -82,8 +84,12 @@
 									<span id="cart-total">0.00</span>
 								</div>
 								<div style="margin-top: 20px; text-align: center">
+									<a href="cart.html" class="button-link">My Shopping Cart</a>
 									<a href="checkout.html" class="button-link">Proceed to Checkout</a>
-									<a href="order.html" class="button-link white">My Order History</a>
+									<br />
+									<br />
+									<br />
+									<a href="order.html" class="button-link">My Order History</a>
 								</div>
 							</div>
 						</div>
