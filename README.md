@@ -22,7 +22,7 @@
 ### Project Team Members
 **Usman Naveed** (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Usman/index.html" target="_blank">Introduction</a>  
 **Megan Lubin** (<a href="https://github.com/CunyMeganLubin" target="_blank">Github</a>) - Developer - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Megan/Megan_Lubin_Introduction.html" target="_blank">Introduction</a>  
-**Suen Ming Kung** (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Designer/Researcher - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Suen/Suen_Ming_Kung_Introduction.html" target="_blank">Introduction</a>  
+**Suen Ming Kung** (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Full-Stack Developer - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Suen/Suen_Ming_Kung_Introduction.html" target="_blank">Introduction</a>  
 
 This project is an e-commerce web application that features:
 
