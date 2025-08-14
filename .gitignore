@@ -1,6 +1,7 @@
+.gitignore
 node_modules/
-.env
 package-lock.json
 server.key
 server.cert
-*.bat
+.env
+JS/config.js
