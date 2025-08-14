@@ -194,23 +194,33 @@ fetch('https://127.0.0.1:3000/api/check-auth', { method: 'GET', headers: { 'Cont
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
 ```
+- GET /api/profile
+
+Get current login user name.
+```
+https://127.0.0.1:3000/api/users
+```
 - POST /api/register
 
 Handle new user registration by validate input, check email availability, hash password and save new user to MongoDB database.
 ```
 https://127.0.0.1:3000/api/register
 ```
-Example of POST "***application/json***" request:
+For example, use the Talend API Tester, type in "Content-Type" and "application/json", select POST https://127.0.0.1:3000/api/register and paste below JSON data:
 ```
 { "firstName": "First-name", "lastName": "Last-name", "email": "user@email.com", "password": "1234" }
 ```
+Example 2: Use CURL command to post JSON to the server
+```
+curl -k -X POST -H "Content-Type: application/json" https://127.0.0.1:3000/register -d "{\"firstName\": \"First-name\", \"lastName\": \"Last-name\", \"email\": \"user@email.com\", \"password\": \"1234\"}"
+```
 - POST /api/login
 
-Manage user login by search user email, compare password with stored hash and set cookie called "***loggedIn***" upon successful authentication.
+Manage user login by search user email, compare password with stored hash upon successful authentication.
 ```
 https://127.0.0.1:3000/api/login
 ```
-Example of POST "***application/json***" request:
+For example, use the Talend API Tester, type in "Content-Type" and "application/json", select POST https://127.0.0.1:3000/api/login and paste below JSON data:
 ```
 { "email": "user@email.com", "password": "1234" }
 ```
@@ -219,12 +229,6 @@ Example of POST "***application/json***" request:
 Log out and clear the stored login JSON Web Token.
 ```
 https://127.0.0.1:3000/api/logout
-```
-- GET /api/profile
-
-Get current login user name.
-```
-https://127.0.0.1:3000/api/users
 ```
 - GET /api/cart
 
@@ -285,9 +289,9 @@ MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-co
 ```
 Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
-### 19) After register on ***Render.com***, go to Manage=>Environment to configure Environment Variables (For testing development API, set ```NODE_ENV=development``` and ```NODE_ENV=production``` for production deployment)
+### 19) After register on ***Render.com***, go to Manage=>Environment to configure Environment Variables to set up JSON Web Token private key keep by own 
 ```
-NODE_ENV=production
+JWT_SECRET=0123456789
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
 ### 20) To deploy on ***Render.com***, login and go to Setting, input ```npm install``` for Build Command, ```npm start``` for Start Command. Click Monitor=>Logs to monitor to back-end logs
