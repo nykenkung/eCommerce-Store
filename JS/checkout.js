@@ -1,13 +1,65 @@
 // --- Functions for the Checkout Page ---
 
 /**
- * Renders the order summary section on the checkout page using items from the global cart object.
+ * Creates and displays a modal dialog on the checkout page.
+ * This function builds the modal from scratch and removes it when done.
+ * @param {string} title - The title for the modal window.
+ * @param {string} message - The message text to be displayed.
+ * @param {function} [onOk] - Optional callback for when the OK button is clicked.
+ */
+function createCheckoutModal(title, message, onOk) {
+	// Remove any existing modal first to be safe
+	const existingModal = document.getElementById("checkout-modal-overlay")
+	if (existingModal) {
+		existingModal.remove()
+	}
+
+	// Create modal overlay and apply the CSS class
+	const overlay = document.createElement("div")
+	overlay.className = "modal active" // Use CSS classes
+
+	// Create modal content box and apply the CSS class
+	const content = document.createElement("div")
+	content.className = "modal-content" // Use CSS class
+
+	// Create title (inline style is fine for simple element-specific overrides)
+	const h2 = document.createElement("h2")
+	h2.textContent = title
+
+	// Create message
+	const p = document.createElement("p")
+	p.innerHTML = message
+
+	// Create OK button
+	const button = document.createElement("button")
+	button.textContent = "OK"
+
+	// Button click action
+	button.onclick = () => {
+		if (onOk) {
+			onOk()
+		}
+		overlay.remove() // **CRITICAL**: Always remove the modal
+	}
+
+	// Assemble the modal
+	content.appendChild(h2)
+	content.appendChild(p)
+	content.appendChild(button)
+	overlay.appendChild(content)
+
+	// Add to the page
+	document.body.appendChild(overlay)
+}
+
+/**
+ * Renders the order summary section on the checkout page.
  */
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
 	const subtotalDisplay = document.getElementById("summary-subtotal")
 	const totalDisplay = document.getElementById("summary-grand-total")
-	if (!container) return // Exit if not on checkout page
+	if (!container) return
 
 	let total = 0
 	container.innerHTML = ""
@@ -15,11 +67,11 @@ function renderOrderSummary() {
 
 	if (cartKeys.length === 0) {
 		container.innerHTML = "<p>Your cart is empty.</p>"
-		// Disable the place order button if the cart is empty
 		const placeOrderBtn = document.querySelector(".place-order-btn")
 		if (placeOrderBtn) {
 			placeOrderBtn.disabled = true
 			placeOrderBtn.style.backgroundColor = "#ccc"
+			placeOrderBtn.textContent = "Cart is Empty"
 		}
 		return
 	}
@@ -47,20 +99,44 @@ function renderOrderSummary() {
 	totalDisplay.textContent = `$${total.toFixed(2)}`
 }
 
-/**
- * Gathers form data, sends it to the server to create a new order.
- * This is an async function to handle the API call.
- */
+document.querySelectorAll("input[required], select[required]").forEach((input) => {
+	input.addEventListener("input", () => {
+		if (input.checkValidity()) {
+			input.classList.add("valid")
+			input.classList.remove("invalid")
+		} else {
+			input.classList.add("invalid")
+			input.classList.remove("valid")
+		}
+	})
+})
+
+// Gathers form data, validates it, and sends it to the server to create a new order.
 async function placeOrder() {
 	const token = localStorage.getItem("authToken")
 	if (!token) {
-		alert("You must be logged in to place an order.")
-		window.location.href = "login.html"
+		createCheckoutModal("Authentication Required", "You must be logged in to place an order. Redirecting you to the login page.", () => {
+			window.open("login.html", "_blank")
+		})
 		return
 	}
 
-	// Collect all shipping and contact details from the form.
-	const isSameAsShipping = document.getElementById("sameAsShipping").checked
+	// REFACTORED VALIDATION LOGIC
+	const form = document.getElementById("checkout-form-element")
+
+	// Check all 'required' fields, email formats, etc., defined in the HTML.
+	if (!form.checkValidity()) {
+		createCheckoutModal("Missing Information", "Please fill out all required fields correctly.")
+		// Explicitly trigger validation UI for any untouched fields so they turn red.
+		form.querySelectorAll("input[required], select[required]").forEach((input) => {
+			if (!input.checkValidity()) {
+				input.classList.add("invalid")
+				input.classList.remove("valid")
+			}
+		})
+		return
+	}
+
 	const shippingDetails = {
 		firstName: document.getElementById("first-name").value,
 		lastName: document.getElementById("last-name").value,
@@ -72,7 +148,7 @@ async function placeOrder() {
 			state: document.getElementById("state").value,
 			zipCode: document.getElementById("zip-code").value,
 		},
-		mailingAddress: isSameAsShipping
+		mailingAddress: document.getElementById("sameAsShipping").checked
 			? "Same as shipping"
 			: {
 					address: document.getElementById("mail-address").value,
@@ -82,19 +158,22 @@ async function placeOrder() {
 			  },
 	}
 
-	// Construct the payload for the API request.
 	const orderPayload = {
 		items: cart,
 		total: document.getElementById("summary-grand-total").textContent,
 		shippingDetails: shippingDetails,
 	}
 
+	const placeOrderBtn = document.querySelector(".place-order-btn")
+	placeOrderBtn.disabled = true
+	placeOrderBtn.textContent = "Placing Order..."
+
 	try {
-		const response = await fetch("https://e-commerceproject-x4gr.onrender.com/api/orders", {
+		const response = await fetch(`${config.apiBaseUrl}/orders`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`, // Include the JWT for authentication
+				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify(orderPayload),
 		})
@@ -102,22 +181,26 @@ async function placeOrder() {
 		const result = await response.json()
 
 		if (response.ok) {
-			// If order is placed successfully, clear the cart from localStorage.
-			localStorage.removeItem("shoppingCart")
-			alert("Your order has been placed successfully!")
-			window.location.href = "order.html" // Redirect to the order history page.
+			Object.keys(cart).forEach((key) => delete cart[key])
+			saveCartToCookie()
+			createCheckoutModal("Order Successful!", "Your order has been placed. You will now be redirected to your order history.", () => {
+				window.location.href = "order.html"
+			})
 		} else {
-			// If the server returns an error, show it to the user.
-			alert(`Order failed: ${result.message}`)
+			placeOrderBtn.disabled = false
+			placeOrderBtn.textContent = "Place Order"
+			createCheckoutModal(`Order Failed`, result.message || "An unexpected error occurred.")
 		}
 	} catch (error) {
 		console.error("Failed to place order:", error)
-		alert("There was a problem connecting to the server. Please try again later.")
+		placeOrderBtn.disabled = false
+		placeOrderBtn.textContent = "Place Order"
+		createCheckoutModal("Connection Error", "There was a problem connecting to the server. Please try again later.")
 	}
 }
 
 /**
- * Sets up event listeners for the checkout page, like the address checkbox and payment tabs.
+ * Sets up event listeners for the checkout page.
  */
 function setupCheckoutPageListeners() {
 	const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
@@ -144,7 +227,6 @@ function setupCheckoutPageListeners() {
 }
 
 // --- Initialize Checkout Page ---
-// Wait for the core data (products, cart) to be loaded before setting up the page.
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("checkout-page")) {
 		renderOrderSummary()

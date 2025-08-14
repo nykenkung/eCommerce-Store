@@ -155,6 +155,17 @@ img {
 	display: inline-block;
 }
 
+input.valid,
+select.valid {
+	border-color: green !important;
+	background-color: #e6f5ea !important;
+}
+input.invalid,
+select.invalid {
+	border-color: red !important;
+	background-color: #ffecec !important;
+}
+
 button {
 	width: 100%;
 	background-color: #6c84a2;

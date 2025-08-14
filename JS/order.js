@@ -20,7 +20,7 @@ async function renderOrderHistory() {
 	container.innerHTML = "<p>Loading your order history...</p>"
 
 	try {
-		const response = await fetch("https://e-commerceproject-x4gr.onrender.com/api/orders", {
+		const response = await fetch(`${config.apiBaseUrl}/orders`, {
 			method: "GET",
 			headers: {
 				Authorization: `Bearer ${token}`, // Authenticate the request with the JWT
@@ -29,13 +29,17 @@ async function renderOrderHistory() {
 
 		if (!response.ok) {
 			const errorResult = await response.json()
+			// If token is invalid/expired, prompt user to log in again.
+			if (response.status === 401 || response.status === 400) {
+				throw new Error("Your session has expired. Please <a href='login.html'>log in</a> again.")
+			}
 			throw new Error(errorResult.message || "Failed to fetch orders.")
 		}
 
 		const orderHistory = await response.json()
 
 		if (!Array.isArray(orderHistory) || orderHistory.length === 0) {
-			container.innerHTML = "<p class='no-orders-message'>You have no past orders.</p>"
+			container.innerHTML = "<p class='no-orders-message'>You have no past orders. <a href='shop.html'>Start shopping!</a></p>"
 			return
 		}
 
@@ -54,10 +58,11 @@ async function renderOrderHistory() {
 			})
 
 			// Build the HTML for the items in the order.
+			// It's crucial that productList is loaded from cart-core.js before this runs.
 			let itemsHtml = ""
-			if (order.items && typeof order.items === "object") {
+			if (order.items && typeof order.items === "object" && productList.length > 0) {
 				for (const [index, qty] of Object.entries(order.items)) {
-					const product = productList[index] // Assumes productList is globally available from cart-core.js
+					const product = productList[index]
 					if (product) {
 						itemsHtml += `
                             <div class="order-item">
@@ -92,7 +97,7 @@ async function renderOrderHistory() {
                         <span>${order.orderNumber}</span>
                     </div>
                 </div>
-                <div class="order-body">${itemsHtml}</div>`
+                <div class="order-body">${itemsHtml || "<p>Item details not available.</p>"}</div>`
 			container.appendChild(orderCard)
 		})
 	} catch (error) {

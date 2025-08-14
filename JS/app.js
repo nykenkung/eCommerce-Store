@@ -1,4 +1,20 @@
-// All codes wrapped in one DOMContentLoaded listener.
+// This function needs to be accessible globally by other scripts like checkout.js
+function showModal(title, message, onOk) {
+	const modal = document.getElementById("modal")
+	const modalTitle = document.getElementById("modal-title")
+	const modalMessage = document.getElementById("modal-message")
+	const modalOkButton = document.getElementById("modal-ok-button")
+
+	if (modal && modalTitle && modalMessage && modalOkButton) {
+		modalTitle.textContent = title
+		modalMessage.innerHTML = message // Use innerHTML to allow for links etc.
+		modal.classList.add("active")
+
+		// Set the action for the OK button, or default to just closing the modal
+		modalOkButton.onclick = onOk || (() => modal.classList.remove("active"))
+	}
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 	// --- DOM Element References ---
 	const loginForm = document.getElementById("login-form")
@@ -6,13 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const recoveryButton = document.getElementById("send-recovery-email")
 	const loginLogoutLink = document.getElementById("login-logout-link")
 	const modal = document.getElementById("modal")
-	const modalTitle = document.getElementById("modal-title")
-	const modalMessage = document.getElementById("modal-message")
-	const modalOkButton = document.getElementById("modal-ok-button")
 
 	// --- Event Handlers ---
-	const handleLoginLinkClick = () => true
-
 	const handleLogin = async (event) => {
 		event.preventDefault()
 		const formData = new FormData(loginForm)
@@ -25,15 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
 			})
 			const result = await response.json()
 			if (response.ok && result.token) {
-				// On successful login, save the token to localStorage.
+				// *** Store the token in localStorage ***
 				localStorage.setItem("authToken", result.token)
-				updateUIToLoggedInState()
-				showModal("Login Successful!", result.message)
-				modalOkButton.onclick = () => {
+				showModal("Login Successful!", result.message, () => {
 					window.location.href = "index.html"
-				}
+				})
 			} else {
-				showModal("Login Failed!", result.message)
+				showModal("Login Failed!", result.message || "An unknown error occurred.")
 			}
 		} catch (error) {
 			console.error("Login Error:", error)
@@ -53,13 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			})
 			const result = await response.json()
 			if (response.ok) {
-				showModal("Registration Successful!", result.message)
-				modalOkButton.onclick = () => {
-					modal.classList.remove("active")
+				showModal("Registration Successful!", result.message, () => {
 					document.getElementById("login-tab").click()
 					document.getElementById("login-email").value = data.email
 					registerForm.reset()
-				}
+					document.getElementById("modal").classList.remove("active")
+				})
 			} else {
 				showModal("Registration Failed", result.message)
 			}
@@ -67,6 +75,20 @@ document.addEventListener("DOMContentLoaded", () => {
 			console.error("Registration Error:", error)
 			showModal("Connection Error", "Could not connect to the server. Please try again later!")
 		}
+	}
+
+	const handleLogout = (event) => {
+		event.preventDefault()
+		showModal("Confirm Logout?", "Are you sure you want to log out?", () => {
+			// *** Remove the token from localStorage ***
+			localStorage.removeItem("authToken")
+			// Update UI immediately
+			updateUIToLoggedOutState()
+			// Show confirmation and then reload
+			showModal("Logout Successful", "You have been successfully logged out.", () => {
+				window.location.reload()
+			})
+		})
 	}
 
 	const handlePasswordRecovery = (event) => {
@@ -79,23 +101,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	// --- Authentication Check ---
-	const checkLoginStatus = () => {
-		// Check for the auth token in localStorage instead of making an API call.
-		const token = localStorage.getItem("authToken")
-		if (token) {
-			updateUIToLoggedInState()
-		} else {
-			updateUIToLoggedOutState()
-		}
-	}
-
+	// --- UI Update Functions ---
 	const updateUIToLoggedInState = () => {
 		if (loginLogoutLink) {
 			loginLogoutLink.textContent = "Logout"
 			loginLogoutLink.href = "#"
-			loginLogoutLink.removeEventListener("click", handleLoginLinkClick)
-			loginLogoutLink.addEventListener("click", handleLogout)
+			loginLogoutLink.onclick = handleLogout // Use onclick to easily override
 		}
 	}
 
@@ -103,60 +114,35 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (loginLogoutLink) {
 			loginLogoutLink.textContent = "Login/Register"
 			loginLogoutLink.href = "login.html"
-			loginLogoutLink.removeEventListener("click", handleLogout)
-			loginLogoutLink.addEventListener("click", handleLoginLinkClick)
+			loginLogoutLink.onclick = null // Remove the logout handler
 		}
 	}
 
-	const handleLogout = (event) => {
-		event.preventDefault()
-		showModal("Confirm Logout?", "Are you sure you want to log out?")
-
-		// Define the action for the confirmation modal's "OK" button.
-		modalOkButton.onclick = () => {
-			// Remove the token from localStorage.
-			localStorage.removeItem("authToken")
-			// Update the UI immediately.
+	// --- Authentication Check ---
+	const checkLoginStatus = () => {
+		const token = localStorage.getItem("authToken")
+		if (token) {
+			// Here you could add a call to /api/check-auth to verify the token with the server
+			// For now, we'll trust the token's existence.
+			updateUIToLoggedInState()
+		} else {
 			updateUIToLoggedOutState()
-			// Show a confirmation message.
-			showModal("Logout Successful", "You have been successfully logged out!")
-			// Set the "OK" button's action to reload the page to clear any sensitive state.
-			modalOkButton.onclick = () => {
-				window.location.reload()
-			}
 		}
 	}
-
-	/** --- Modal Functions ---
-	 * Displays a message to the user in a popup modal.
-	 * @param {string} title - The title for the modal window.
-	 * @param {string} message - The message text to be displayed.
-	 */
-	const showModal = (title, message) => {
-		if (modal && modalTitle && modalMessage && modalOkButton) {
-			modalTitle.textContent = title
-			modalMessage.textContent = message
-			modal.classList.add("active")
-
-			// Default "OK" button behavior is to just close the modal
-			modalOkButton.onclick = () => {
-				modal.classList.remove("active")
-			}
-		}
-	}
-	// Close the modal if the user clicks outside of the modal content.
-	window.addEventListener("click", (e) => {
-		if (e.target === modal) {
-			modal.classList.remove("active")
-		}
-	})
 
 	// --- Initialize Page ---
-	// Attach event listeners to forms if they exist on the page
 	if (loginForm) loginForm.addEventListener("submit", handleLogin)
 	if (registerForm) registerForm.addEventListener("submit", handleRegister)
 	if (recoveryButton) recoveryButton.addEventListener("click", handlePasswordRecovery)
 
-	// Perform the initial login check when the page loads
+	// Close modal on outside click
+	if (modal) {
+		window.addEventListener("click", (e) => {
+			if (e.target === modal) {
+				modal.classList.remove("active")
+			}
+		})
+	}
+
 	checkLoginStatus()
 })
