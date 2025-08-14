@@ -74,12 +74,13 @@ We will upload a figma for a layout once we know the direction we want to go.
 │
 ├──────┬── /JS               # JavaScript folder
 │      │
-│      ├────── app.js        # Front-end JavaScript, stored back-end apiBaseUrl (Default apiBaseUrl: "https://127.0.0.1:4000")
-│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and core for cookie, contains functions setCookie, getCookie, saveCartToCookie, loadCartFromCookie, recalculateTotalItems, updateCartCoun, updateCartPreview and initial DOMContentLoaded event for fetching product lists in "products.json"
-│      ├────── cart.js       # Contains functions changeQty, renderFullCart for rendering carts table
-│      ├────── checkout.js	 # Contains functions renderOrderSummary, placeOrder, setupCheckoutPageListeners for checkout process
-│      ├────── order.js		 # Contains functions renderOrderHistory, orderHistoryCookie for rendering order histories table
-│      ├────── shop.js       # Contains functions addToCart, changeQty, renderProducts, updateProductViews, setupShopPageListeners for searching and filtering
+│      ├────── app.js        # Front-end JavaScript on load of every pages
+│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and initial DOMContentLoaded event for fetching product lists in "products.json"
+│      ├────── shop.js       # Contains functions for searching and filtering
+│      ├────── cart.js       # Contains functions for rendering carts table
+│      ├────── checkout.js	 # Contains functions for checkout process
+│      ├────── order.js		 # Contains functions for rendering histories table
+│      └────── config.js     # Configuration file to store back-end apiBaseUrl (Default apiBaseUrl: "https://127.0.0.1:4000")
 │
 ├──────┬── /server           # Node.js back-end server folder
 │      │
@@ -140,26 +141,31 @@ Development dependencies:
 Required dependencies:
 - **express**: Express web server framework for Node.js
 - **mongoose**: Connect to MongoDB server and model MongoDB object
-- **dotenv**: Loads environment variables from ***.env*** file
-- **jsonwebtoken**: Create and verify **JSON Web Tokens** for web **authentication**
-- **cors**: **Middleware** to handle cross-origin requests
-- **cookie-parser**: **Middleware** to parse cookies attached by client requests
 - **bcryptjs**: **Hash and encrypt** passwords
+- **cors**: **Middleware** to handle cross-origin requests
+- **jsonwebtoken**: Create and verify **JSON Web Tokens** for **web authentication**
+- **dotenv**: Loads environment variables from ***.env*** file
+- ~~**cookie-parser**: Middleware to parse cookies attached by client requests~~ (Switched from Cookies method to JSON Web Token for only token credential is used for web authentication.)
 ```
 npm install
-(Or manually) npm install --save-dev concurrently eslint nodemon & npm install express mongoose bcryptjs cookie-parser cors jsonwebtoken dotenv
+(Optional) npm install --save-dev concurrently eslint nodemon & npx eslint --init
+(Or manually) npm install express mongoose bcryptjs cors jsonwebtoken dotenv & npm install --save-dev concurrently eslint nodemon & npx eslint --init
 ```
-### 7) To use the powerful static code analysis tool ***ESLint*** installed by Node.js
+### 7) To start the powerful static code analysis tool ***ESLint*** to check all JavaScript files on all folders and subfolders
 ```
-npx eslint --init & npx eslint
+npx eslint
 ```
 ### 8) To use ESLint properly, modify a line of configuration file "***eslint.config.mjs***" to add supporting of "required" and "env" in code
 ```
 languageOptions: { globals: {...globals.browser, ...globals.node} } },
 ```
-### 9) Run MongoDB database server in new Windows PowerShell in JSON formatting output
+### 9) Run MongoDB database server in new Windows PowerShell in pretty JSON formatting output
 ```
 start powershell -Command "<MongoDB installation directory>\bin\mongod.exe --dbpath=<MongoDB data directory>\db | ForEach-Object { try { ($_ | ConvertFrom-Json) | ConvertTo-Json } catch { $_ } }"
+```
+Or just string output by starting MongoDB service in Windows:
+```
+net start MongoDB
 ```
 ### 10) Connect to database by MongoDB Shell (mongosh)
 ```
@@ -175,50 +181,86 @@ python -c "import http.server,ssl,webbrowser; httpd=http.server.HTTPServer(('',4
 ```
 Then it will automatically open the browser and start with ```https://127.0.0.1:4000``` (front-end)
 ### 13) Once your Node.js back-end server and MongoDB server are connnected, you may test on these API requests on back-end server (e.g. using Chrome extension ***<a href="https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm">Talend API Tester</a>***) 
-- GET /check-auth
+- GET /api/check-auth
 
-Verify user login status by checking for the presence of stored cookie called "***loggedIn***".
+Verify user login status by checking for the presence of JSON Web Token stored in **Local Storage**, must attach a valid login token to reach API
 ```
-https://127.0.0.1:3000/check-auth
+https://127.0.0.1:3000/api/check-auth
 ```
-- POST /register
+For example, the login token from front-end can be used for back-end API, go to Login page to login in, then push F12 to open Chrome Developer Tool=>Console (shortcut key: Ctrl + Shift + J), paste below script to execute:
+```
+fetch('https://127.0.0.1:3000/api/check-auth', { method: 'GET', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+```
+- POST /api/register
 
 Handle new user registration by validate input, check email availability, hash password and save new user to MongoDB database.
 ```
-https://127.0.0.1:3000/register
+https://127.0.0.1:3000/api/register
 ```
 Example of POST "***application/json***" request:
 ```
 { "firstName": "First-name", "lastName": "Last-name", "email": "user@email.com", "password": "1234" }
 ```
-- POST /login
+- POST /api/login
 
 Manage user login by search user email, compare password with stored hash and set cookie called "***loggedIn***" upon successful authentication.
 ```
-https://127.0.0.1:3000/login
+https://127.0.0.1:3000/api/login
 ```
 Example of POST "***application/json***" request:
 ```
 { "email": "user@email.com", "password": "1234" }
 ```
-- GET /logout
+- GET /api/logout
 
-Log out and clear stored cookie called "***loggedIn***".
+Log out and clear the stored login JSON Web Token.
 ```
-https://127.0.0.1:3000/logout
+https://127.0.0.1:3000/api/logout
 ```
-## Development API only enabled when set ```NODE_ENV=development``` or disabled on ```NODE_ENV=production``` in file "***.env***" 
-- GET /users
+- GET /api/profile
 
-Fetch all users and hashed password from MongoDB database.
+Get current login user name.
 ```
-https://127.0.0.1:3000/users
+https://127.0.0.1:3000/api/users
 ```
-- GET /cookies
+- GET /api/cart
 
-Return all stored cookies included "***logedIn***" sent by browser.
+Fetch all shopping cart from current user.
 ```
-https://127.0.0.1:3000/cookies
+https://127.0.0.1:3000/api/cart
+```
+- POST /api/cart
+
+Update your shipping cart on database.
+```
+https://127.0.0.1:3000/api/cart
+```
+- GET /apt/order
+
+Fetch all order history from current user.
+```
+https://127.0.0.1:3000/api/order
+```
+- POST /api/order
+
+Update your shipping cart on database.
+```
+https://127.0.0.1:3000/api/order
+```
+- GET /api/admin-dbs
+
+Fetch all users and order with hashed password from MongoDB database (Need to login as Administrator first)
+```
+https://127.0.0.1:3000/api/admin-dbs
+```
+- GET /api/admin-reset
+
+Drop all MongoDB database and create an admin account with email: a@a, password: aaaa (Need to login as Administrator first)
+```
+https://127.0.0.1:3000/admin-reset
 ```
 ### 14) Open Chrome and push F12 to open Developer Tools, click Network=>Console to monitor server responses for various of results
 - HTTP Status 200 (OK)
@@ -226,9 +268,9 @@ https://127.0.0.1:3000/cookies
 - HTTP Status 401 (Unauthorized, using wrong password)
 - HTTP Status 409 (Conflict, register with existed username)
 
-### 15) In Chrome Developer Tools, click Application=>Storage=>Cookies for checking storing cookies and login session
+### 15) In Chrome Developer Tools, click Application=>Storage=>Local storage for checking storing JSON Web Tokens of login session
 
-### 16) If you want to run this repository online, firstly, using any web hosting site supports with both ***Node.js*** and ***Express*** features (e.g. ***Render.com***)
+### 16) If you want to run this repository online, using any web hosting site supports with both ***Node.js*** and ***Express*** features (e.g. ***Render.com***)
 
 ### 17) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into "***.env***" file
 Default locacl MongoDB address:
@@ -248,9 +290,9 @@ Add new IP Address: xxx.xxx.xxx.xxx/xxx
 NODE_ENV=production
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
 ```
-### 20) To deploy on ***Render.com***. go to Setting and enter ```npm install``` for Build Command and ```npm start``` for Start Command like in local. Click Monitor=>Logs to monitor to back-end logs
+### 20) To deploy on ***Render.com***, login and go to Setting, input ```npm install``` for Build Command, ```npm start``` for Start Command. Click Monitor=>Logs to monitor to back-end logs
 
-### 21) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file "***JS\app.js***" to tell where is ***Render.com*** back-end server URL
+### 21) After ***Render.com*** finished deploying, copy the back-end server URL. Modify the local JavaScript file "***JS\config.js***" to tell where is ***Render.com*** back-end server URL
 Default locacl back-end address:
 ```
 apiBaseUrl: "https://127.0.0.1:3000"
