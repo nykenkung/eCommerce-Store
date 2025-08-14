@@ -1,121 +1,110 @@
 // --- Functions for the Order History Page (order.html) ---
 
-function renderOrderHistory() {
-	console.log("Attempting to render order history...")
-
+/**
+ * Fetches and renders the order history for the logged-in user.
+ */
+async function renderOrderHistory() {
 	const container = document.getElementById("order-list-container")
 	if (!container) {
-		console.error("Error: Could not find the '#order-list-container' element on the page.")
+		console.error("Error: Could not find the '#order-list-container' element.")
 		return
 	}
 
-	const orderHistoryCookie = getCookie("orderHistory")
-	console.log("Raw orderHistory cookie string:", orderHistoryCookie)
-
-	if (!orderHistoryCookie) {
-		container.innerHTML = "<p class='no-orders-message'>You have no past orders.</p>"
-		console.log("No order history cookie found. Displaying 'no orders' message.")
+	const token = localStorage.getItem("authToken")
+	if (!token) {
+		container.innerHTML = "<p class='no-orders-message'>Please <a href='login.html'>log in</a> to view your order history.</p>"
 		return
 	}
 
-	let orderHistory = []
+	// Show a loading message while fetching data.
+	container.innerHTML = "<p>Loading your order history...</p>"
+
 	try {
-		orderHistory = JSON.parse(orderHistoryCookie)
-		console.log("Successfully parsed order history:", orderHistory)
-	} catch (error) {
-		console.error("Error parsing order history cookie. The cookie might be corrupt.", error)
-		container.innerHTML = "<p class='no-orders-message'>Could not load order history.</p>"
-		return
-	}
-
-	if (!Array.isArray(orderHistory) || orderHistory.length === 0) {
-		container.innerHTML = "<p class='no-orders-message'>You have no past orders.</p>"
-		console.log("Order history is empty. Displaying 'no orders' message.")
-		return
-	}
-
-	// Clear the container before adding new elements
-	container.innerHTML = ""
-
-	// .reverse() shows the newest order first
-	orderHistory.reverse().forEach((order) => {
-		console.log("Processing order #:", order.orderNumber)
-
-		const orderCard = document.createElement("div")
-		orderCard.className = "order-card"
-
-		const orderDate = new Date(order.orderDate).toLocaleDateString("en-US", {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
+		const response = await fetch("https://e-commerceproject-x4gr.onrender.com/api/orders", {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${token}`, // Authenticate the request with the JWT
+			},
 		})
 
-		let itemsHtml = ""
-		if (order.items && typeof order.items === "object") {
-			for (const [index, qty] of Object.entries(order.items)) {
-				const product = productList[index]
-				if (product) {
-					console.log(`Found product for index ${index}:`, product.name)
-					itemsHtml += `
-						<div class="order-item">
-							<img src="${product.img}" alt="${product.name}">
-							<div class="item-details">
-								<span class="item-name">${product.name}</span>
-								<span class="item-qty">Quantity: ${qty}</span>
-							</div>
-							<span class="item-price">$${(product.price * qty).toFixed(2)}</span>
-						</div>
-					`
-				} else {
-					console.warn(`Warning: Product with index ${index} not found in productList.`)
-				}
-			}
+		if (!response.ok) {
+			const errorResult = await response.json()
+			throw new Error(errorResult.message || "Failed to fetch orders.")
 		}
 
-		orderCard.innerHTML = `
-			<div class="order-header">
-				<div>
-					<span class="header-label">ORDER PLACED</span>
-					<span>${orderDate}</span>
-				</div>
-				<div>
-					<span class="header-label">TOTAL</span>
-					<span>${order.total}</span>
-				</div>
-				<div>
-					<span class="header-label">SHIPPED TO</span>
-					<span>${order.firstName} ${order.lastName}</span>
-				</div>
-				<div>
-					<span class="header-label">ORDER #</span>
-					<span>${order.orderNumber}</span>
-				</div>
-			</div>
-			<div class="order-body">
-				${itemsHtml}
-			</div>
-		`
-		container.appendChild(orderCard)
-	})
+		const orderHistory = await response.json()
+
+		if (!Array.isArray(orderHistory) || orderHistory.length === 0) {
+			container.innerHTML = "<p class='no-orders-message'>You have no past orders.</p>"
+			return
+		}
+
+		// Clear the loading message.
+		container.innerHTML = ""
+
+		// Iterate over the fetched orders and create a card for each one.
+		orderHistory.forEach((order) => {
+			const orderCard = document.createElement("div")
+			orderCard.className = "order-card"
+
+			const orderDate = new Date(order.orderDate).toLocaleDateString("en-US", {
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			})
+
+			// Build the HTML for the items in the order.
+			let itemsHtml = ""
+			if (order.items && typeof order.items === "object") {
+				for (const [index, qty] of Object.entries(order.items)) {
+					const product = productList[index] // Assumes productList is globally available from cart-core.js
+					if (product) {
+						itemsHtml += `
+                            <div class="order-item">
+                                <img src="${product.img}" alt="${product.name}">
+                                <div class="item-details">
+                                    <span class="item-name">${product.name}</span>
+                                    <span class="item-qty">Quantity: ${qty}</span>
+                                </div>
+                                <span class="item-price">$${(product.price * qty).toFixed(2)}</span>
+                            </div>`
+					}
+				}
+			}
+
+			// Build the full order card HTML.
+			orderCard.innerHTML = `
+                <div class="order-header">
+                    <div>
+                        <span class="header-label">ORDER PLACED</span>
+                        <span>${orderDate}</span>
+                    </div>
+                    <div>
+                        <span class="header-label">TOTAL</span>
+                        <span>${order.total}</span>
+                    </div>
+                    <div>
+                        <span class="header-label">SHIPPED TO</span>
+                        <span>${order.shippingDetails.firstName} ${order.shippingDetails.lastName}</span>
+                    </div>
+                    <div>
+                        <span class="header-label">ORDER #</span>
+                        <span>${order.orderNumber}</span>
+                    </div>
+                </div>
+                <div class="order-body">${itemsHtml}</div>`
+			container.appendChild(orderCard)
+		})
+	} catch (error) {
+		console.error("Error fetching order history:", error)
+		container.innerHTML = `<p class='no-orders-message'>Could not load order history. ${error.message}</p>`
+	}
 }
 
 // --- Initialize Order History Page ---
+// This event comes from cart-core.js and ensures the product list is loaded before we try to render orders.
 document.addEventListener("coreDataLoaded", () => {
-	console.log("'coreDataLoaded' event received. Product list should be ready.")
 	if (document.getElementById("order-history-page")) {
 		renderOrderHistory()
 	}
-})
-
-// A fallback in case the event listener doesn't fire for some reason
-window.addEventListener("load", () => {
-	// A small delay to ensure coreDataLoaded has a chance to run first
-	setTimeout(() => {
-		const container = document.getElementById("order-list-container")
-		// If the container is still empty, it means renderOrderHistory was never called
-		if (container && container.innerHTML.trim() === "") {
-			console.warn("Fallback triggered: 'coreDataLoaded' event may not have fired. Trying to render history now.")
-			renderOrderHistory()
-		}
-	}, 500)
 })

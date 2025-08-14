@@ -2,7 +2,7 @@
 function addToCart(index) {
 	cart[index] = (cart[index] || 0) + 1 // Add or increment item
 	recalculateTotalItems()
-	saveCartToCookie()
+	saveCartToStorage() // Updated to use localStorage
 	updateCartCount()
 	updateCartPreview()
 	updateProductViews() // Update the specific product card view
@@ -17,7 +17,7 @@ function changeQty(index, delta) {
 	}
 
 	recalculateTotalItems()
-	saveCartToCookie()
+	saveCartToStorage() // Updated to use localStorage
 	updateCartCount()
 	updateCartPreview()
 	renderProducts() // Re-render the shop page to reflect the change
@@ -53,7 +53,6 @@ function renderProducts(filteredList = productList) {
 function updateProductViews() {
 	// First, hide all quantity controls
 	document.querySelectorAll(".quantity-controls").forEach((el) => (el.style.display = "none"))
-
 	// Then, show controls only for items in the cart
 	for (const [index, qty] of Object.entries(cart)) {
 		if (qty > 0) {
