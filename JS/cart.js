@@ -6,12 +6,11 @@ function changeQty(index, delta) {
 	if (cart[index] <= 0) {
 		delete cart[index]
 	}
-
 	recalculateTotalItems()
 	saveCartToCookie()
 	updateCartCount()
 	updateCartPreview()
-	renderFullCart() // Re-render the entire cart table
+	renderFullCart() // Re-render function cart.js
 }
 
 function renderFullCart() {

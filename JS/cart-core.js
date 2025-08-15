@@ -91,6 +91,19 @@ function updateCartPreview() {
 	totalDisplay.textContent = total.toFixed(2)
 }
 
+function changeQty(index, delta) {
+	if (!cart[index]) return // Safety check
+
+	cart[index] += delta
+	if (cart[index] <= 0) {
+		delete cart[index]
+	}
+	recalculateTotalItems()
+	saveCartToCookie()
+	updateCartCount()
+	updateCartPreview()
+}
+
 // --- Main Initialization Sequence ---
 document.addEventListener("DOMContentLoaded", () => {
 	fetch("products.json")
