@@ -12,7 +12,11 @@
 				<strong style="font-size: 18px">🎉 Welcome to 3140 ACTIVE WEAR! 🎉</strong>
 				<span style="font-size: 15px; margin-left: 20px">Please login for exclusive promotion! Don't forget to sign in to claim your promotional offer!</span>
 			</div>
-			<button onclick="closeBanner()">OK</button>
+			<div style="display: flex; align-items: center">
+				<input type="checkbox" id="no-show-again" style="margin-right: 5px" />
+				<label for="no-show-again" style="font-size: 14px; margin-right: 15px">Don't show again</label>
+				<button onclick="closeBanner()">OK</button>
+			</div>
 		</div>
 		<section id="header">
 			<a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250" /></a>
@@ -55,6 +59,9 @@
 		</section>
 
 		<section id="hero">
+			<div class="hero-arrow left" onclick="handleArrowClick(-1)">&#10094;</div>
+			<div class="hero-arrow right" onclick="handleArrowClick(1)">&#10095;</div>
+
 			<h1 class="hero-heading">Affordable Essentials for Everyday Athletes.</h1>
 			<div class="hero-text">
 				<p style="text-indent: 20px">We provide affordable, high-quality essentials for everyday athletes who show up, push hard, and strive to stay active every day. Our mission is to support your performance that fits your lifestyle and your budget.</p>
@@ -180,23 +187,64 @@
 			</div>
 		</div>
 		<script>
-			// --- Welcome Banner Logic ---
+			// Welcome Banner
+			let bannerCloseTimer
 			function closeBanner() {
+				clearTimeout(bannerCloseTimer)
 				const banner = document.getElementById("welcome-banner")
-				// Remove the 'active' class to trigger the slide-up animation
+				const noShowCheckbox = document.getElementById("no-show-again")
+				if (noShowCheckbox.checked) {
+					localStorage.setItem("hideWelcomeBanner", "true")
+				}
 				banner.classList.remove("active")
 			}
 
-			// When the page content is fully loaded, slide the banner down
+			// Slideshow
+			let currentHeroIndex = 0
+			const heroImages = ["../clothing/hero.png", "../clothing/hero1.jpg", "../clothing/hero2.jpg", "../clothing/hero3.jpg", "../clothing/hero4.jpg", "../clothing/hero5.jpg", "../clothing/hero6.jpg", "../clothing/hero7.jpg", "../clothing/hero8.jpg", "../clothing/hero9.jpg"]
+
+			// Manual arrow clicks
+			let heroInterval
+			function handleArrowClick(n) {
+				clearInterval(heroInterval) // Stop the current timer
+				changeHero(n) // Change the image immediately
+				startSlideshow() // Restart the timer
+			}
+
+			function changeHero(n) {
+				currentHeroIndex += n
+				if (currentHeroIndex < 0) {
+					currentHeroIndex = heroImages.length - 1
+				}
+				if (currentHeroIndex >= heroImages.length) {
+					currentHeroIndex = 0
+				}
+				document.getElementById("hero").style.backgroundImage = `url('${heroImages.at(currentHeroIndex)}')`
+			}
+			function startSlideshow() {
+				heroInterval = setInterval(() => changeHero(1), 4000) // 4 seconds timer to play next slide
+			}
+
+			// On page load
 			window.addEventListener("DOMContentLoaded", () => {
 				const banner = document.getElementById("welcome-banner")
-				// Use a small timeout to ensure the initial render is complete before animating
-				setTimeout(() => {
-					banner.classList.add("active")
+				if (localStorage.getItem("hideWelcomeBanner") !== "true") {
+					setTimeout(() => {
+						banner.classList.add("active")
+					}, 200) // 0.2 second delay before slide down
+					bannerCloseTimer = setTimeout(() => {
+						closeBanner()
+					}, 5000) // Disappear after 5 second
+				}
+
+				// Preload next image
+				heroImages.forEach((src) => {
+					const img = new Image()
+					img.src = src
 				})
-				bannerTimer = setTimeout(() => {
-					closeBanner()
-				}, 5000)
+				// Initialize hero image
+				document.getElementById("hero").style.backgroundImage = `url('${heroImages.at(currentHeroIndex)}')`
+				startSlideshow()
 			})
 		</script>
 		<script src="JS/config.js" defer></script>
