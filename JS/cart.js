@@ -46,13 +46,13 @@ function renderFullCart() {
 		total += subtotal
 		const itemRow = document.createElement("tr")
 		itemRow.innerHTML = `
-			<td><button class="remove-btn" onclick="changeQty(${index}, -${qty})">×</button></td>
+			<td><button class="button-remove" onclick="changeQty(${index}, -${qty})">×</button></td>
 			<td><img src="${item.img}" alt="${item.name}"></td>
 			<td>${item.name}</td>
 			<td>$${item.price.toFixed(2)}</td>
 			<td>
 				<div class="quantity-controls-cart">
-					<button onclick="changeQty(${index}, -1)">−</button>
+					<button onclick="changeQty(${index}, -1)" ${qty <= 1 ? "disabled" : ""}>−</button>
 					<span>${qty}</span>
 					<button onclick="changeQty(${index}, 1)">+</button>
 				</div>
