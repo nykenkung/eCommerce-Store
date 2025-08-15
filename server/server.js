@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true, lowercase: true },
 		password: { type: String, required: true },
 		isAdmin: { type: Boolean, default: false },
+		cart: { type: Object, default: {} },
 	},
 	{ timestamps: true }
 )
@@ -246,6 +247,15 @@ apiRouter.post("/login", async (req, res) => {
 	}
 })
 
+/* @route   GET /api/logout
+ * @desc    Acknowledge user logout. The client is responsible for clearing the token.
+ * @access  Public */
+app.get("/api/logout", (req, res) => {
+	// This endpoint is now primarily for acknowledgment.
+	// The actual logout process (clearing the token) is handled client-side.
+	res.status(200).json({ message: "You have been successfully logged out!" })
+})
+
 /* @route   GET /api/cart
  * @desc    Get the user's shopping cart from the database.
  * @access  Private */
@@ -280,6 +290,22 @@ app.post("/api/cart", verifyToken, async (req, res) => {
 	}
 })
 
+/* @route   GET /api/order
+ * @desc    Get order history for the logged-in user.
+ * @access  Private */
+apiRouter.get("/order", verifyToken, async (req, res) => {
+	console.log("Fetching order history for a user!")
+	try {
+		const userId = req.user.id
+		const orders = await Order.find({ userId: userId }).sort({ orderDate: -1 }) // Get newest orders first
+		console.log(`Found ${orders.length} orders for user ${userId}!`)
+		res.status(200).json(orders)
+	} catch (error) {
+		console.error("Error fetching order history:", error)
+		res.status(500).json({ message: "Server error while fetching order history!" })
+	}
+})
+
 /* @route   POST /api/order
  * @desc    Create a new order.
  * @access  Private */
@@ -311,31 +337,6 @@ apiRouter.post("/order", verifyToken, async (req, res) => {
 		console.error("Error placing order:", error)
 		res.status(500).json({ message: "Server error while placing order!" })
 	}
-})
-
-/* @route   GET /api/order
- * @desc    Get order history for the logged-in user.
- * @access  Private */
-apiRouter.get("/order", verifyToken, async (req, res) => {
-	console.log("Fetching order history for a user!")
-	try {
-		const userId = req.user.id
-		const orders = await Order.find({ userId: userId }).sort({ orderDate: -1 }) // Get newest orders first
-		console.log(`Found ${orders.length} orders for user ${userId}!`)
-		res.status(200).json(orders)
-	} catch (error) {
-		console.error("Error fetching order history:", error)
-		res.status(500).json({ message: "Server error while fetching order history!" })
-	}
-})
-
-/* @route   GET /api/logout
- * @desc    Acknowledge user logout. The client is responsible for clearing the token.
- * @access  Public */
-app.get("/api/logout", (req, res) => {
-	// This endpoint is now primarily for acknowledgment.
-	// The actual logout process (clearing the token) is handled client-side.
-	res.status(200).json({ message: "You have been successfully logged out!" })
 })
 
 // --- Admin Routes ---
