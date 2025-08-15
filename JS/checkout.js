@@ -2,9 +2,13 @@
 // Renders the order summary section on checkout page
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
+	if (!container) {
+		console.error("Error: Could not find the '#summary-items' element.")
+		return
+	}
+
 	const subtotalDisplay = document.getElementById("summary-subtotal")
 	const totalDisplay = document.getElementById("summary-grand-total")
-
 	container.innerHTML = ""
 	let total = 0
 
@@ -182,9 +186,9 @@ document.addEventListener("coreDataLoaded", () => {
 				window.location.href = "login.html"
 			})
 		}
-		// Check cart is not empty
+		// Shopping cart is empty
 		if (Object.keys(cart).length === 0 && token) {
-			showModal("Your shopping cart is empty!", "Please add your first item to procees to checkout! You will now be redirected  to the shop page.", () => {
+			showModal("Your shopping cart is empty!", "Please add your first item to procees to checkout! You will now be redirected to the shop page.", () => {
 				window.location.href = "shop.html"
 			})
 		}
