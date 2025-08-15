@@ -36,13 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
 			})
 			const result = await response.json()
 			if (response.ok && result.token) {
-				// *** Store the token in localStorage ***
+				// Store token "authToken" in localStorage
 				localStorage.setItem("authToken", result.token)
 				showModal("Login Successful!", result.message, () => {
 					window.location.href = "index.html"
 				})
 			} else {
-				showModal("Login Failed!", result.message || "An unknown error occurred.")
+				showModal("Login Failed!", result.message || "An unknown error occurred!")
 			}
 		} catch (error) {
 			console.error("Login Error:", error)
@@ -119,12 +119,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// --- Authentication Check ---
-	const checkLoginStatus = () => {
+	const checkLoginStatus = async () => {
 		const token = localStorage.getItem("authToken")
 		if (token) {
-			// Here you could add a call to /api/check-auth to verify the token with the server
-			// For now, we'll trust the token's existence.
-			updateUIToLoggedInState()
+			try {
+				// Validates token "authToken" in localStorage with server
+				const response = await fetch(`${config.apiBaseUrl}/check-auth`, {
+					headers: { Authorization: `Bearer ${token}` },
+				})
+				if (response.ok) {
+					updateUIToLoggedInState() // Token is valid, show "Logout"
+				} else {
+					localStorage.removeItem("authToken") // Token is invalid, remove from localStorage
+					updateUIToLoggedOutState()
+				}
+			} catch (error) {
+				console.error("Authentication check failed:", error)
+				updateUIToLoggedOutState()
+			}
 		} else {
 			updateUIToLoggedOutState()
 		}
