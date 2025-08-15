@@ -169,7 +169,7 @@ async function placeOrder() {
 	placeOrderBtn.textContent = "Placing Order..."
 
 	try {
-		const response = await fetch(`${config.apiBaseUrl}/orders`, {
+		const response = await fetch(`${config.apiBaseUrl}/order`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
