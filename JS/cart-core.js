@@ -76,12 +76,13 @@ function updateCartPreview() {
 		const div = document.createElement("div")
 		div.className = "cart-item"
 		div.innerHTML = `
+<button class="button-remove" onclick="changeQty(${index}, -${qty})">×</button>
 		<img src="${item.img}" alt="${item.name}" class="cart-item-img">
 		<div class="cart-item-details">
 			<span class="cart-item-name">${item.name}</span>
 			<div class="cart-item-qty-controls">
-				<button onclick="changeQty(${index}, -1)">-</button>
-				<span class="cart-item-qty">x ${qty}</span>
+				<button onclick="changeQty(${index}, -1)" ${qty <= 1 ? "disabled" : ""}>-</button>
+				<span class="cart-item-qty">${qty}</span>
 				<button onclick="changeQty(${index}, 1)">+</button>
 			</div>
 		</div>
