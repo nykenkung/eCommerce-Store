@@ -15,12 +15,11 @@ function changeQty(index, delta) {
 	if (cart[index] <= 0) {
 		delete cart[index]
 	}
-
 	recalculateTotalItems()
 	saveCartToCookie()
 	updateCartCount()
 	updateCartPreview()
-	renderProducts() // Re-render the shop page to reflect the change
+	renderProducts() // Re-render function shop.js
 }
 
 function renderProducts(filteredList = productList) {
