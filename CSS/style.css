@@ -872,12 +872,6 @@ ul.payment-tabs li.tab-link:first-child.active {
 	max-width: 1200px;
 	margin: 0 auto; /* Center the content */
 }
-.no-orders-message {
-	text-align: center;
-	font-size: 18px;
-	color: #6c84a2;
-	padding: 50px 0;
-}
 .order-card {
 	background-color: #fff;
 	border: 1px solid #e9ecef;

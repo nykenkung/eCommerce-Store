@@ -25,7 +25,7 @@ function renderFullCart() {
 	const cartKeys = Object.keys(cart)
 
 	if (cartKeys.length === 0) {
-		container.innerHTML = "<p style='text-align:center; padding: 40px 0;'>Your cart is empty.</p>"
+		container.innerHTML = "<p style='text-align:center; font-size: 18px; color: #6c84a2; padding: 50px 0'>Your cart is empty. <a href='shop.html' style='text-decoration: none'>Click here to start shopping!</a></p>"
 		if (summarySection) summarySection.style.display = "none"
 		return
 	}

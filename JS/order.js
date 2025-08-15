@@ -39,7 +39,7 @@ async function renderOrderHistory() {
 		const orderHistory = await response.json()
 
 		if (!Array.isArray(orderHistory) || orderHistory.length === 0) {
-			container.innerHTML = "<p class='no-orders-message'>You have no past orders. <a href='shop.html'>Start shopping!</a></p>"
+			container.innerHTML = "<p style='text-align:center; font-size: 18px; color: #6c84a2; padding: 50px 0;'>You have no past orders. <a href='shop.html' style='text-decoration: none'>Click here to start shopping!</a></p>"
 			return
 		}
 
