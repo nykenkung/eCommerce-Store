@@ -52,13 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
 									"Content-Type": "application/json",
 									Authorization: `Bearer ${result.token}`,
 								},
+								// Send  entire guest cart to the server to merge
 								body: JSON.stringify({ cart: guestCart }),
 							})
 						}
 						// Clear the cookie after syncing
 						setCookie("shoppingCart", "", -1)
-					} catch (e) {
-						console.error("Error parsing or syncing guest cart:", e)
+					} catch (error) {
+						console.error("Error parsing or syncing guest cart:", error)
 					}
 				}
 
@@ -103,15 +104,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const handleLogout = (event) => {
 		event.preventDefault()
-		showModal("Confirm Logout?", "Are you sure you want to log out?", () => {
-			// *** Remove the token from localStorage ***
-			localStorage.removeItem("authToken")
-			// Update UI immediately
-			updateUIToLoggedOutState()
-			// Show confirmation and then reload
-			showModal("Logout Successful", "You have been successfully logged out.", () => {
-				window.location.reload()
-			})
+		showModal("Confirm Logout?", "Are you sure you want to log out?", async () => {
+			try {
+				// Optionally to completely logout on server side
+				await fetch(`${config.apiBaseUrl}/logout`, {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+					},
+				})
+			} catch (error) {
+				console.error("Error calling logout API:", error)
+				// Even if the API call fails, proceed with client-side logout
+			} finally {
+				// Remove token "authToken" from localStorage
+				localStorage.removeItem("authToken")
+				// Update UI immediately
+				updateUIToLoggedOutState()
+				showModal("Logout Successful", "You have been successfully logged out.", () => {
+					window.location.reload()
+				})
+			}
 		})
 	}
 
@@ -173,8 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Close modal on outside click
 	if (modal) {
-		window.addEventListener("click", (e) => {
-			if (e.target === modal) {
+		window.addEventListener("click", (event) => {
+			if (event.target === modal) {
 				modal.classList.remove("active")
 			}
 		})

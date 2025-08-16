@@ -5,100 +5,6 @@
 		<title>Login/Register - 3140 Active Wear</title>
 		<link rel="stylesheet" href="CSS/style.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
-		<style>
-			main {
-				display: flex;
-				justify-content: center;
-				padding: 10px;
-			}
-			.form-container {
-				background: white;
-				padding: 40px 50px;
-				border-radius: 15px;
-				box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-				width: 100%;
-				max-width: 450px;
-				min-height: 400px;
-			}
-			.tabs {
-				display: flex;
-				margin-bottom: 30px;
-				justify-content: center;
-				gap: 40px;
-			}
-			.tab-btn {
-				cursor: pointer;
-				font-weight: 700;
-				font-size: 20px;
-				color: #6c84a2;
-				border-bottom: 2px solid transparent;
-				padding-bottom: 6px;
-				transition: all 0.3s ease;
-			}
-			.tab-btn.active {
-				color: #194069;
-				border-bottom-color: #194069;
-			}
-			form {
-				display: none;
-			}
-			form.active {
-				display: block;
-			}
-			.form-row {
-				display: flex;
-				gap: 10px;
-				margin-bottom: 20px;
-			}
-			input[type="text"],
-			input[type="email"],
-			input[type="password"] {
-				width: 100%;
-				padding: 12px 15px;
-				font-size: 16px;
-				border: 1.5px solid #ccc;
-				border-radius: 6px;
-				outline: none;
-				transition: border-color 0.3s ease;
-			}
-			input:focus {
-				border-color: #194069;
-			}
-			#password-recovery-section {
-				display: none;
-				font-size: 18px;
-				text-align: center;
-			}
-			#password-recovery-section h3 {
-				font-size: 26px;
-				margin-bottom: 15px;
-			}
-			#password-recovery-section input {
-				width: 100%;
-				padding: 10px 15px;
-				font-size: 16px;
-				border: 1.5px solid #ccc;
-				border-radius: 6px;
-				outline: none;
-				margin-top: 15px;
-				margin-bottom: 20px;
-			}
-			#forgot-password-link {
-				text-align: center;
-			}
-			.password-wrapper {
-				width: 100%;
-				position: relative;
-			}
-			.password-wrapper i.toggle-password {
-				position: absolute;
-				right: 15px;
-				top: 50%;
-				transform: translateY(-50%);
-				cursor: pointer;
-				color: #999;
-			}
-		</style>
 	</head>
 	<body>
 		<section id="header">
@@ -205,59 +111,9 @@
 				<button id="modal-ok-button" type="button">OK</button>
 			</div>
 		</div>
-		<script>
-			document.addEventListener("DOMContentLoaded", () => {
-				const loginTab = document.getElementById("login-tab")
-				const registerTab = document.getElementById("register-tab")
-				const loginForm = document.getElementById("login-form")
-				const registerForm = document.getElementById("register-form")
-				const forgotPasswordLink = document.getElementById("forgot-password")
-				const passwordRecoverySection = document.getElementById("password-recovery-section")
-				loginTab.addEventListener("click", () => {
-					loginTab.classList.add("active")
-					registerTab.classList.remove("active")
-					loginForm.classList.add("active")
-					registerForm.classList.remove("active")
-				})
-				registerTab.addEventListener("click", () => {
-					registerTab.classList.add("active")
-					loginTab.classList.remove("active")
-					registerForm.classList.add("active")
-					loginForm.classList.remove("active")
-				})
-				forgotPasswordLink.addEventListener("click", (e) => {
-					e.preventDefault()
-					loginTab.style.display = "none"
-					registerTab.style.display = "none"
-					loginForm.style.display = "none"
-					registerForm.style.display = "none"
-					passwordRecoverySection.style.display = "block"
-				})
-			})
-
-			document.querySelectorAll(".toggle-password").forEach((icon) => {
-				icon.addEventListener("click", () => {
-					const input = document.querySelector(icon.getAttribute("toggle"))
-					const isPassword = input.type === "password"
-					input.type = isPassword ? "text" : "password"
-					icon.classList.toggle("fa-eye")
-					icon.classList.toggle("fa-eye-slash")
-				})
-			})
-			document.querySelectorAll("input").forEach((input) => {
-				input.addEventListener("input", () => {
-					if (input.checkValidity()) {
-						input.classList.add("valid")
-						input.classList.remove("invalid")
-					} else {
-						input.classList.add("invalid")
-						input.classList.remove("valid")
-					}
-				})
-			})
-		</script>
-		<script src="JS/config.js" defer></script>
+		<script src="JS/api-config.js" defer></script>
 		<script src="JS/app.js" defer></script>
-		<script src="JS/cart-core.js" defer></script>
+		<script src="JS/cart-preview.js" defer></script>
+		<script src="JS/login.js" defer></script>
 	</body>
 </html>
