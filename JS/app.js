@@ -16,14 +16,14 @@ function showModal(title, message, onOk) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	// --- DOM Element References ---
+	// DOM Element References
 	const loginForm = document.getElementById("login-form")
 	const registerForm = document.getElementById("register-form")
 	const recoveryButton = document.getElementById("send-recovery-email")
 	const loginLogoutLink = document.getElementById("login-logout-link")
 	const modal = document.getElementById("modal")
 
-	// --- Event Handlers ---
+	// Event Handlers
 	const handleLogin = async (event) => {
 		event.preventDefault()
 		const formData = new FormData(loginForm)
@@ -36,8 +36,32 @@ document.addEventListener("DOMContentLoaded", () => {
 			})
 			const result = await response.json()
 			if (response.ok && result.token) {
-				// Store token "authToken" in localStorage
+				// Store token "authToken" in local storage
 				localStorage.setItem("authToken", result.token)
+
+				// Merge shopping after login
+				const guestCartCookie = getCookie("shoppingCart")
+				if (guestCartCookie) {
+					try {
+						const guestCart = JSON.parse(guestCartCookie)
+						// If the guest cart has items, send them to the server
+						if (Object.keys(guestCart).length > 0) {
+							await fetch(`${config.apiBaseUrl}/cart`, {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+									Authorization: `Bearer ${result.token}`,
+								},
+								body: JSON.stringify({ cart: guestCart }),
+							})
+						}
+						// Clear the cookie after syncing
+						setCookie("shoppingCart", "", -1)
+					} catch (e) {
+						console.error("Error parsing or syncing guest cart:", e)
+					}
+				}
+
 				showModal("Login Successful!", result.message, () => {
 					window.location.href = "index.html"
 				})
@@ -142,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	// --- Initialize Page ---
+	// Initialize Page
 	if (loginForm) loginForm.addEventListener("submit", handleLogin)
 	if (registerForm) registerForm.addEventListener("submit", handleRegister)
 	if (recoveryButton) recoveryButton.addEventListener("click", handlePasswordRecovery)
@@ -155,6 +179,5 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		})
 	}
-
 	checkLoginStatus()
 })

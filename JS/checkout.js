@@ -1,5 +1,5 @@
-// --- Functions for the Checkout Page ---
-// Renders the order summary section on checkout page
+// Functions for Check Uut Page (checkout.html)
+// Renders the order summary section
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
 	if (!container) {
@@ -176,7 +176,7 @@ function setupCheckoutPageListeners() {
 	})
 }
 
-// Initialize Checkout Page
+// Initialize Check Out Page
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("checkout-page")) {
 		// Check user login status

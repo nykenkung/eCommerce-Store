@@ -1,13 +1,11 @@
-// --- Global Variables ---
 let productList = []
 const cart = {}
 let totalItems = 0
 
-// --- Custom Event for Data Loading ---
-// This event will notify other scripts when the product list is ready.
+// Notify other scripts when product list is ready
 const onCoreDataLoaded = new CustomEvent("coreDataLoaded")
 
-// --- Cookie Functions ---
+// Cookie Functions
 function setCookie(name, value, days) {
 	let expires = ""
 	if (days) {
@@ -29,7 +27,7 @@ function getCookie(name) {
 	return null
 }
 
-// --- Core Cart Data Management ---
+// Cart Data Management
 function saveCartToCookie() {
 	setCookie("shoppingCart", JSON.stringify(cart), 7)
 }
@@ -40,16 +38,61 @@ function loadCartFromCookie() {
 		const parsedCart = JSON.parse(savedCart)
 		Object.assign(cart, parsedCart)
 	}
-	recalculateTotalItems()
+}
+
+async function loadCartFromServer() {
+	const token = localStorage.getItem("authToken")
+	if (!token) return // Should not happen if called correctly
+
+	try {
+		const response = await fetch(`${config.apiBaseUrl}/cart`, {
+			headers: { Authorization: `Bearer ${token}` },
+		})
+		if (response.ok) {
+			const serverCart = await response.json()
+			Object.keys(cart).forEach((key) => delete cart[key]) // Clear local cart
+			Object.assign(cart, serverCart) // Assign server cart to local object
+		} else {
+			console.error("Failed to load cart from server.")
+		}
+	} catch (error) {
+		console.error("Error fetching cart from server:", error)
+	}
+}
+
+async function saveCartToServer() {
+	const token = localStorage.getItem("authToken")
+	if (!token) return
+
+	try {
+		await fetch(`${config.apiBaseUrl}/cart`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({ cart }),
+		})
+	} catch (error) {
+		console.error("Error saving cart to server:", error)
+	}
+}
+
+// Saving cart to server if log in
+function saveCart() {
+	const token = localStorage.getItem("authToken")
+	if (token) {
+		saveCartToServer()
+	} else {
+		saveCartToCookie()
+	}
 }
 
 function recalculateTotalItems() {
-	totalItems = 0
-	// Use Object.values for a more modern approach to sum quantities
 	totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0)
 }
 
-// --- Universal UI Update Functions ---
+// UI Update Functions on every pages
 function updateCartCount() {
 	const cartCountEl = document.getElementById("cart-count")
 	if (cartCountEl) {
@@ -92,35 +135,51 @@ function updateCartPreview() {
 	totalDisplay.textContent = total.toFixed(2)
 }
 
-function changeQty(index, delta) {
-	if (!cart[index]) return // Safety check
+function changeQty(index, change) {
+	// If item not exist in the cart, set current quantity to 0
+	const currentQty = cart[index] || 0
+	const newQty = currentQty + change
 
-	cart[index] += delta
-	if (cart[index] <= 0) {
+	if (newQty > 0) {
+		cart[index] = newQty
+	} else {
 		delete cart[index]
 	}
+
 	recalculateTotalItems()
-	saveCartToCookie()
+	saveCart()
 	updateCartCount()
 	updateCartPreview()
+
+	// If on the cart page, re-render full cart view
+	if (typeof renderFullCart === "function") {
+		renderFullCart()
+	}
+	// If on the shop page, re-render product buttons
+	if (typeof renderProducts === "function") {
+		updateProductViews()
+	}
 }
 
-// --- Main Initialization Sequence ---
+// Main Initialization Sequence
 document.addEventListener("DOMContentLoaded", () => {
 	fetch("products.json")
 		.then((response) => {
-			if (!response.ok) throw new Error("Network response was not ok")
+			if (!response.ok) throw new Error("Network response occurs error!")
 			return response.json()
 		})
-		.then((data) => {
+		.then(async (data) => {
 			productList = data
-			loadCartFromCookie()
+			const token = localStorage.getItem("authToken")
 
-			// Run universal updates for the header cart
+			if (token) {
+				await loadCartFromServer()
+			} else {
+				loadCartFromCookie()
+			}
+			recalculateTotalItems()
 			updateCartCount()
 			updateCartPreview()
-
-			// Notify other scripts that the core data is ready
 			document.dispatchEvent(onCoreDataLoaded)
 		})
 		.catch((error) => {
