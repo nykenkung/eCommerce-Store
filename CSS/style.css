@@ -109,6 +109,7 @@ button:hover {
 .modal.active {
 	opacity: 1;
 	visibility: visible;
+	z-index: 2;
 }
 .modal-content {
 	background-color: white;
@@ -641,7 +642,7 @@ footer.section-p1 .col p {
 }
 
 /* --- Login Styling --- */
-main {
+#login-main {
 	display: flex;
 	justify-content: center;
 	padding: 10px;
