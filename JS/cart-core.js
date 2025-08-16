@@ -53,7 +53,7 @@ async function loadCartFromServer() {
 			Object.keys(cart).forEach((key) => delete cart[key]) // Clear local cart
 			Object.assign(cart, serverCart) // Assign server cart to local object
 		} else {
-			console.error("Failed to load cart from server.")
+			console.error("Failed to load cart from server!")
 		}
 	} catch (error) {
 		console.error("Error fetching cart from server:", error)

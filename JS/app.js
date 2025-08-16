@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	// --- UI Update Functions ---
+	// Update UI Functions
 	const updateUIToLoggedInState = () => {
 		if (loginLogoutLink) {
 			loginLogoutLink.textContent = "Logout"
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	// --- Authentication Check ---
+	// Authentication Check
 	const checkLoginStatus = async () => {
 		const token = localStorage.getItem("authToken")
 		if (token) {
