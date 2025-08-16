@@ -198,7 +198,7 @@ img {
 	top: 70px;
 	right: 0;
 	width: 350px;
-	height: 100%;
+	height: 80vh;
 	overflow-y: auto;
 	background: #fff;
 	border-left: 1px solid #ccc;
@@ -999,41 +999,9 @@ ul.payment-tabs li.tab-link:first-child.active {
 	margin-top: 20px;
 }
 
-/* --- Order Summary Styling --- */
-.order-summary .summary-item {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 15px;
-}
-.order-summary .summary-item img {
-	width: 60px;
-	border-radius: 6px;
-	margin-right: 15px;
-}
-.order-summary .summary-item div {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-}
-.order-summary .summary-row {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 12px;
-	font-size: 16px;
-}
-.order-summary .summary-row.total {
-	font-size: 20px;
-	margin-top: 10px;
-}
-.order-summary hr {
-	margin: 15px 0;
-	border: 0;
-	border-top: 1px solid #e0e0e0;
-}
-
 /* --- Order History Page Styling --- */
 #order-history-page {
+	width: 70%;
 	max-width: 1200px;
 	margin: 0 auto; /* Center the content */
 }
@@ -1102,4 +1070,37 @@ ul.payment-tabs li.tab-link:first-child.active {
 	font-weight: 600;
 	min-width: 80px; /* Ensures alignment */
 	text-align: right;
+}
+
+/* --- Order Summary Styling --- */
+.order-summary .summary-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+.order-summary .summary-item img {
+	width: 60px;
+	border-radius: 6px;
+	margin-right: 15px;
+}
+.order-summary .summary-item div {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+.order-summary .summary-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+	font-size: 16px;
+}
+.order-summary .summary-row.total {
+	font-size: 20px;
+	margin-top: 10px;
+}
+.order-summary hr {
+	margin: 15px 0;
+	border: 0;
+	border-top: 1px solid #e0e0e0;
 }
