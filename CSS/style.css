@@ -4,6 +4,14 @@
 	font-family: "Garamond", sans-serif;
 	color: #194069;
 }
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+main {
+	flex: 1;
+}
 
 h1 {
 	font-size: 50px;
@@ -31,9 +39,6 @@ P {
 	font-size: 16px;
 	color: #465b52;
 	margin: 15px 0 20x 0;
-}
-.section-p1 {
-	padding: 40px 80px;
 }
 
 input.valid,
@@ -462,6 +467,13 @@ img {
 	background-color: white;
 }
 
+#feature {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
 #feature .fe-box {
 	width: 180px;
 	text-align: center;
@@ -485,12 +497,6 @@ img {
 #feature .fe-box img {
 	width: 100%;
 	margin-bottom: 2px;
-}
-#feature {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	flex-wrap: wrap;
 }
 
 #newsletter {
@@ -549,53 +555,46 @@ img {
 	margin-top: -60px;
 }
 
-body {
+.info {
+	display: flex;
+	padding: 20px;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+.info .col .logo {
+	max-width: 180px;
+	margin-top: -60px; /* moves logo up */
+	margin-left: -20px;
+}
+.info .col {
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+	align-items: flex-start;
+	margin-bottom: 30px;
 }
-main {
-	flex: 1;
+.info h4 {
+	font-size: 18px;
 }
+.info p {
+	margin: 0 0 8px 0;
+}
+.info a {
+	text-decoration: none;
+	margin: 0 0 8px 0;
+}
+.info .col a,
+.info .col p {
+	font-size: 16px;
+	line-height: 1.6;
+}
+
 footer {
 	display: flex;
 	flex-wrap: wrap;
 	padding: 20px;
 	background: #eee;
 	justify-content: center;
-}
-footer .col .logo {
-	max-width: 180px;
-	margin-top: -60px; /* moves logo up */
-	margin-left: -20px;
-}
-footer .col {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	margin-bottom: 30px;
-}
-footer h4 {
-	font-size: 14px;
-}
-footer p {
-	font-size: 13px;
-	margin: 0 0 8px 0;
-}
-footer a {
-	font-size: 13px;
-	text-decoration: none;
-	color: #465b52;
-	margin: 0 0 8px 0;
-}
-footer.section-p1 .col h4 {
-	font-size: 18px;
-	margin-bottom: 12px;
-}
-footer.section-p1 .col a,
-footer.section-p1 .col p {
-	font-size: 16px;
-	line-height: 1.6;
 }
 
 #shop-section .category-nav {
