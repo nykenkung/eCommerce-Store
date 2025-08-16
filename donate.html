@@ -155,7 +155,7 @@
 				</div>
 			</div>
 		</section>
-		<footer style="padding: 20px; background: #eee; justify-content: center">
+		<footer>
 			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
 		</footer>
 		<div id="modal" class="modal" role="dialog" aria-modal="true" tabindex="-1">
@@ -165,17 +165,9 @@
 				<button id="modal-ok-button" type="button">OK</button>
 			</div>
 		</div>
-		<script>
-			document.getElementById("donation-form").addEventListener("submit", function (e) {
-				e.preventDefault()
-				const purpose = this.purpose.value
-				const message = purpose === "Charity" ? "Thank you for donating to charity! Your item has been submitted." : "Thank you! Your donation for store credit is under review."
-				alert(message)
-				this.reset()
-			})
-		</script>
 		<script src="JS/api-config.js" defer></script>
 		<script src="JS/app.js" defer></script>
 		<script src="JS/cart-preview.js" defer></script>
+		<script src="JS/donate.js" defer></script>
 	</body>
 </html>

@@ -527,10 +527,20 @@ img {
 	margin-top: -60px;
 }
 
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+main {
+	flex: 1;
+}
 footer {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	padding: 20px;
+	background: #eee;
+	justify-content: center;
 }
 footer .col .logo {
 	max-width: 180px;
