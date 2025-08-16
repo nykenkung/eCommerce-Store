@@ -440,6 +440,28 @@ img {
 	right: 20px;
 }
 
+/* Hero Dots Styling */
+.hero-dots {
+	position: absolute;
+	bottom: 30px; /* Position at the bottom */
+	left: 50%;
+	transform: translateX(-50%); /* Center horizontally */
+	display: flex;
+	gap: 10px;
+}
+.dot {
+	width: 12px;
+	height: 12px;
+	background-color: #ccc;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+.dot:hover,
+.dot.active {
+	background-color: white;
+}
+
 #feature .fe-box {
 	width: 180px;
 	text-align: center;
