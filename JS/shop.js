@@ -1,27 +1,4 @@
-// --- Functions for the Shop Page ---
-function addToCart(index) {
-	cart[index] = (cart[index] || 0) + 1 // Add or increment item
-	recalculateTotalItems()
-	saveCartToCookie()
-	updateCartCount()
-	updateCartPreview()
-	updateProductViews() // Update the specific product card view
-}
-
-function changeQty(index, delta) {
-	if (!cart[index]) return // Safety check
-
-	cart[index] += delta
-	if (cart[index] <= 0) {
-		delete cart[index]
-	}
-	recalculateTotalItems()
-	saveCartToCookie()
-	updateCartCount()
-	updateCartPreview()
-	renderProducts() // Re-render function shop.js
-}
-
+// Functions for Shop Page (shop.html
 function renderProducts(filteredList = productList) {
 	const grid = document.getElementById("product-grid")
 	if (!grid) return
@@ -38,7 +15,7 @@ function renderProducts(filteredList = productList) {
 				<span class="discount">${item.discount}</span>
 				<span class="final-price">$${item.price}</span>
 			</p>
-			<button class="add-to-cart" onclick="addToCart(${index})">Add to Cart</button>
+			<button class="add-to-cart" onclick="changeQty(${index}, 1)">Add to Cart</button>
 			<div class="quantity-controls" id="qty-controls-${index}" style="display:none;">
 				<button onclick="changeQty(${index}, -1)">−</button>
 				<span id="qty-${index}">1</span>
@@ -92,7 +69,7 @@ function setupShopPageListeners() {
 	})
 }
 
-// --- Initialize Shop Page ---
+// Initialize Shop Page
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("product-grid")) {
 		renderProducts()

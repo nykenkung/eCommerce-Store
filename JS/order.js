@@ -1,5 +1,5 @@
-// --- Functions for the Order History Page (order.html) ---
-// Fetches and renders the order history for the logged-in user.
+// Functions for Order History Page (order.html)
+// Fetches and renders the order history for logged in user
 async function renderOrderHistory() {
 	const container = document.getElementById("order-list-container")
 	if (!container) {
@@ -22,14 +22,14 @@ async function renderOrderHistory() {
 			const errorResult = await response.json()
 			// Token is invalid/expired
 			if (response.status === 401 || response.status === 400) {
-				throw new Error("Expired or invalid login session, please login to view your order history.")
+				throw new Error("Please login to view your order history!")
 			}
 			throw new Error(errorResult.message || "Failed to fetch orders!")
 		}
 
 		const orderHistory = await response.json()
 		if (!Array.isArray(orderHistory) || orderHistory.length === 0) {
-			container.innerHTML = "<p style='text-align:center; font-size: 18px; color: #6c84a2; padding: 50px 0;'>You have no past orders.</p>"
+			container.innerHTML = "<p style='text-align:center; font-size: 18px; color: #6c84a2; padding: 50px 0;'>You have no past orders. <a href='shop.html' style='text-decoration: none'>Click here</a> to start shopping!</p>"
 			return
 		}
 
@@ -89,7 +89,7 @@ async function renderOrderHistory() {
 		})
 	} catch (error) {
 		console.error("Error fetching order history:", error)
-		container.innerHTML = `<p style='text-align: center; margin: 20px'>Could not load order history! ${error.message}</p>`
+		container.innerHTML = `<p style='text-align: center; margin: 20px'>Could not load order history. ${error.message}</p>`
 	}
 }
 
