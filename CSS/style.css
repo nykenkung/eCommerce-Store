@@ -597,6 +597,100 @@ footer {
 	justify-content: center;
 }
 
+/* --- Login Styling --- */
+#login-main {
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+}
+#login-main .form-container {
+	background: white;
+	padding: 40px 50px;
+	border-radius: 15px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+	width: 100%;
+	max-width: 450px;
+	min-height: 400px;
+}
+#login-main .tabs {
+	display: flex;
+	margin-bottom: 30px;
+	justify-content: center;
+	gap: 40px;
+}
+#login-main .tab-btn {
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 20px;
+	color: #6c84a2;
+	border-bottom: 2px solid transparent;
+	padding-bottom: 6px;
+	transition: all 0.3s ease;
+}
+#login-main .tab-btn.active {
+	color: #194069;
+	border-bottom-color: #194069;
+}
+#login-main form {
+	display: none;
+}
+#login-main form.active {
+	display: block;
+}
+#login-main .form-row {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+#login-main input[type="text"],
+#login-main input[type="email"],
+#login-main input[type="password"] {
+	width: 100%;
+	padding: 12px 15px;
+	font-size: 16px;
+	border: 1.5px solid #ccc;
+	border-radius: 6px;
+	outline: none;
+	transition: border-color 0.3s ease;
+}
+#login-main input:focus {
+	border-color: #194069;
+}
+#login-main #password-recovery-section {
+	display: none;
+	font-size: 18px;
+	text-align: center;
+}
+#login-main #password-recovery-section h3 {
+	font-size: 26px;
+	margin-bottom: 15px;
+}
+#login-main #password-recovery-section input {
+	width: 100%;
+	padding: 10px 15px;
+	font-size: 16px;
+	border: 1.5px solid #ccc;
+	border-radius: 6px;
+	outline: none;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+#login-main #forgot-password-link {
+	text-align: center;
+}
+#login-main .password-wrapper {
+	width: 100%;
+	position: relative;
+}
+#login-main .password-wrapper i.toggle-password {
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: #999;
+}
+
 #shop-section .category-nav {
 	display: flex;
 	justify-content: center;
@@ -672,103 +766,9 @@ footer {
 	border-radius: 50%;
 }
 
-/* --- Login Styling --- */
-#login-main {
-	display: flex;
-	justify-content: center;
-	padding: 10px;
-}
-.form-container {
-	background: white;
-	padding: 40px 50px;
-	border-radius: 15px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-	width: 100%;
-	max-width: 450px;
-	min-height: 400px;
-}
-.tabs {
-	display: flex;
-	margin-bottom: 30px;
-	justify-content: center;
-	gap: 40px;
-}
-.tab-btn {
-	cursor: pointer;
-	font-weight: 700;
-	font-size: 20px;
-	color: #6c84a2;
-	border-bottom: 2px solid transparent;
-	padding-bottom: 6px;
-	transition: all 0.3s ease;
-}
-.tab-btn.active {
-	color: #194069;
-	border-bottom-color: #194069;
-}
-form {
-	display: none;
-}
-form.active {
-	display: block;
-}
-.form-row {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-}
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-	width: 100%;
-	padding: 12px 15px;
-	font-size: 16px;
-	border: 1.5px solid #ccc;
-	border-radius: 6px;
-	outline: none;
-	transition: border-color 0.3s ease;
-}
-input:focus {
-	border-color: #194069;
-}
-#password-recovery-section {
-	display: none;
-	font-size: 18px;
-	text-align: center;
-}
-#password-recovery-section h3 {
-	font-size: 26px;
-	margin-bottom: 15px;
-}
-#password-recovery-section input {
-	width: 100%;
-	padding: 10px 15px;
-	font-size: 16px;
-	border: 1.5px solid #ccc;
-	border-radius: 6px;
-	outline: none;
-	margin-top: 15px;
-	margin-bottom: 20px;
-}
-#forgot-password-link {
-	text-align: center;
-}
-.password-wrapper {
-	width: 100%;
-	position: relative;
-}
-.password-wrapper i.toggle-password {
-	position: absolute;
-	right: 15px;
-	top: 50%;
-	transform: translateY(-50%);
-	cursor: pointer;
-	color: #999;
-}
-
 /* --- Cart Page Styling --- */
 #cart-page {
-	overflow-x: auto; /* Ensures table is responsive on small screens */
+	padding: 40px 80px;
 }
 #cart-page table {
 	width: 100%;
@@ -891,6 +891,7 @@ input:focus {
 	gap: 40px;
 	margin-top: 30px;
 	border-radius: 15px;
+	padding: 40px 80px;
 }
 #checkout-page .checkout-form {
 	width: 60%;
@@ -949,7 +950,6 @@ input:focus {
 	width: auto;
 }
 
-/* --- UPDATED PAYMENT TABS --- */
 .payment-container {
 	border: 1px solid #e0e0e0;
 	border-radius: 8px;
