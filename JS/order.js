@@ -12,7 +12,6 @@ async function renderOrderHistory() {
 	const token = localStorage.getItem("authToken")
 	try {
 		const response = await fetch(`${config.apiBaseUrl}/order`, {
-			method: "GET",
 			headers: {
 				Authorization: `Bearer ${token}`, // Authenticate the request with the JWT
 			},

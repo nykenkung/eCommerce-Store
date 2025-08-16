@@ -1,4 +1,4 @@
-// Functions for Check Uut Page (checkout.html)
+// Functions for Check Out Page (checkout.html)
 // Renders the order summary section
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
@@ -107,7 +107,7 @@ async function placeOrder() {
 					city: document.getElementById("mail-city").value,
 					state: document.getElementById("mail-state").value,
 					zipCode: document.getElementById("mail-zip-code").value,
-			  },
+				},
 	}
 
 	const orderPayload = {
