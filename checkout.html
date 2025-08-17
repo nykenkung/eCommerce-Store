@@ -5,6 +5,36 @@
 		<title>Checkout - 3140 Active Wear</title>
 		<link rel="stylesheet" href="CSS/style.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
+
+		<!-- Payment SDK Scripts -->
+		<script src="https://www.paypal.com/sdk/js?client-id=AYk6lFOBFe_nP98YJ7UvlGj-mS8lp32oXRIysMN9cuSMvFXsbbyavABiiqAfNmD1vFPdbymMSsLvRyud&currency=USD&intent=capture"></script>
+		<script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+		<script>
+			// Affirm configuration
+			_affirm_config = {
+				public_api_key: "YOUR_AFFIRM_PUBLIC_API_KEY",
+				script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js", // Use production URL for live
+			}
+			;(function (l, g, m, e, a, f, b) {
+				var d,
+					c = l[a] || (l[a] = {}),
+					h = document.createElement(f),
+					n = document.getElementsByTagName(f)[0],
+					k = function (a, b, c) {
+						return function () {
+							a[b]._.push([c, arguments])
+						}
+					}
+				c[e] = k(c, e, "set")
+				d = c[e]
+				c[g] = k(c, g, "require")
+				c[f] = k(c, f, "load")
+				for (var b = 0; b < m.length; b++) d._.push([m[b], []])
+				h.async = !0
+				h.src = b
+				n.parentNode.insertBefore(h, n)
+			})(window, "affirm", "checkout ui", _affirm_config.public_api_key, "_affirm", _affirm_config.script, "script")
+		</script>
 	</head>
 	<body>
 		<section id="header">
@@ -202,45 +232,73 @@
 							<ul class="payment-tabs">
 								<li class="tab-link active" data-tab="credit-card">
 									<i class="fa fa-credit-card"></i>
-									Credit Card
+									<span>Credit Card</span>
 								</li>
 								<li class="tab-link" data-tab="paypal">
 									<i class="fab fa-paypal"></i>
-									PayPal
+									<span>PayPal</span>
 								</li>
 								<li class="tab-link" data-tab="google-pay">
 									<i class="fab fa-google-pay"></i>
-									Google Pay
+									<span>Google Pay</span>
 								</li>
 								<li class="tab-link" data-tab="apple-pay">
 									<i class="fab fa-apple-pay"></i>
-									Apple Pay
+									<span>Apple Pay</span>
 								</li>
-								<li class="tab-link" data-tab="affirm">Affirm</li>
+								<li class="tab-link" data-tab="affirm">
+									<i class="fas fa-calendar-alt"></i>
+									<span>Affirm</span>
+								</li>
 							</ul>
+
+							<!-- Credit Card Tab -->
 							<div id="credit-card" class="tab-content active">
+								<div class="credit-card-icons">
+									<i class="fab fa-cc-visa" title="Visa"></i>
+									<i class="fab fa-cc-mastercard" title="Mastercard"></i>
+									<i class="fab fa-cc-amex" title="American Express"></i>
+									<i class="fab fa-cc-discover" title="Discover"></i>
+								</div>
 								<div class="form-group">
-									<input type="text" id="card-number" placeholder="Card Number" />
+									<input type="text" id="card-number" placeholder="Card Number" maxlength="19" />
 								</div>
 								<div class="form-group">
 									<input type="text" id="card-name" placeholder="Name on Card" />
 								</div>
 								<div class="form-group">
-									<input type="text" id="card-expiry" placeholder="MM / YY" />
-									<input type="text" id="card-cvc" placeholder="CVC" />
+									<input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" />
+									<input type="text" id="card-cvc" placeholder="CVC" maxlength="4" />
+								</div>
+								<div class="security-notice">
+									<i class="fas fa-lock"></i>
+									<span>Your payment information is encrypted and secure</span>
 								</div>
 							</div>
+
+							<!-- PayPal Tab -->
 							<div id="paypal" class="tab-content">
-								<p>You will be redirected to PayPal to complete your payment.</p>
+								<div id="paypal-button-container"></div>
+								<div class="payment-note">Secure payment with PayPal. You'll be redirected to complete your purchase.</div>
 							</div>
+
+							<!-- Google Pay Tab -->
 							<div id="google-pay" class="tab-content">
-								<p>Follow the prompts from Google Pay to complete your purchase.</p>
+								<div id="google-pay-button-container"></div>
+								<div class="payment-note">Pay securely with Google Pay using your saved payment methods.</div>
 							</div>
+
+							<!-- Apple Pay Tab -->
 							<div id="apple-pay" class="tab-content">
-								<p>Follow the prompts from Apple Pay to complete your purchase.</p>
+								<div id="apple-pay-button-container"></div>
+								<div class="payment-note">Pay securely with Touch ID or Face ID using Apple Pay.</div>
 							</div>
+
+							<!-- Affirm Tab -->
 							<div id="affirm" class="tab-content">
-								<p>You will be redirected to Affirm to set up your payment plan.</p>
+								<div id="affirm-button-container"></div>
+								<div id="affirm-promo-container"></div>
+								<div class="payment-note">Pay over time with flexible payment plans. No hidden fees.</div>
 							</div>
 						</div>
 					</form>
@@ -268,7 +326,7 @@
 			</div>
 		</main>
 		<footer>
-			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
+			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) — Built with ❤️ by student developers for education.</p>
 		</footer>
 		<div id="modal" class="modal" role="dialog" aria-modal="true" tabindex="-1">
 			<div class="modal-content">
@@ -277,6 +335,47 @@
 				<button id="modal-ok-button" type="button">OK</button>
 			</div>
 		</div>
+
+		<script>
+			// Google Pay callback
+			function onGooglePayLoaded() {
+				console.log("Google Pay SDK loaded")
+			}
+
+			// Credit card input formatting
+			document.addEventListener("DOMContentLoaded", function () {
+				// Format card number input
+				const cardNumberInput = document.getElementById("card-number")
+				if (cardNumberInput) {
+					cardNumberInput.addEventListener("input", function (e) {
+						let value = e.target.value.replace(/\D/g, "")
+						value = value.replace(/(\d{4})(?=\d)/g, "$1 ")
+						e.target.value = value
+					})
+				}
+
+				// Format expiry date input
+				const cardExpiryInput = document.getElementById("card-expiry")
+				if (cardExpiryInput) {
+					cardExpiryInput.addEventListener("input", function (e) {
+						let value = e.target.value.replace(/\D/g, "")
+						if (value.length >= 2) {
+							value = value.substring(0, 2) + " / " + value.substring(2, 4)
+						}
+						e.target.value = value
+					})
+				}
+
+				// Format CVC input (numbers only)
+				const cardCvcInput = document.getElementById("card-cvc")
+				if (cardCvcInput) {
+					cardCvcInput.addEventListener("input", function (e) {
+						e.target.value = e.target.value.replace(/\D/g, "")
+					})
+				}
+			})
+		</script>
+
 		<script src="JS/api-config.js" defer></script>
 		<script src="JS/app.js" defer></script>
 		<script src="JS/cart-preview.js" defer></script>
