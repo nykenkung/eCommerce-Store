@@ -11,7 +11,7 @@ const config = {
 const PAYMENT_CONFIG = {
 	googlePay: {
 		environment: "TEST",	// Use "PRODUCTION" for live transactions
-		merchantId: "12345678901234567890",
+		merchantId: "BCR2DN4TZCLPNAKX",
 		merchantName: "3140 Active Wear",
 	},
 	applePay: {

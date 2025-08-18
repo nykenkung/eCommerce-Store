@@ -450,7 +450,10 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 		if (response.ok) {
 			// Clear cart after successful order
 			Object.keys(cart).forEach((key) => delete cart[key])
-			saveCartToCookie()
+			saveCart();
+if (typeof updateCartPreview === 'function') {
+        updateCartPreview();
+    }
 			showModal("Order Successful!", `Your order has been placed successfully using ${paymentMethod}! You will now be redirected to your order history.`, () => {
 				window.location.href = "order.html"
 			})
@@ -483,10 +486,11 @@ async function placeOrder() {
 
 	if (!validateShippingForm()) return
 
-	// For demo purposes, we'll simulate credit card processing
+	const cardNumberInput = document.getElementById("card-number");
+	const cardNumberValue = cardNumberInput.value.replace(/\s/g, '');
 	showModal("Credit Card Payment", "In a real implementation, this would process your credit card through a secure payment processor.", () => {
 		processPaymentSuccess("credit-card", {
-			cardLast4: cardNumber.slice(-4),
+			cardLast4: cardNumberValue.slice(-4), // Use the correct variable here
 			cardType: "Credit Card",
 		})
 	})
