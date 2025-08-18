@@ -39,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				// Store token "authToken" in local storage
 				localStorage.setItem("authToken", result.token)
 
+				// Save the email to a cookie for 30 days
+				setCookie("savedUserEmail", data.email, 30)
+
 				// Merge shopping after login
 				const guestCartCookie = getCookie("shoppingCart")
 				if (guestCartCookie) {
