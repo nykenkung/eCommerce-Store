@@ -48,13 +48,25 @@ const User = mongoose.model("User", userSchema)
 // Order Schema
 const orderSchema = new mongoose.Schema({
 	userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-	items: { type: Object, required: true },
+	items: { type: Array, required: true },
 	total: { type: String, required: true },
 	shippingDetails: { type: Object, required: true },
 	orderNumber: { type: String, required: true, unique: true },
 	orderDate: { type: Date, default: Date.now },
 })
 const Order = mongoose.model("Order", orderSchema)
+
+// Product Schema
+const productSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    category: { type: String, required: true },
+    img: { type: String, required: true },        // URL to the product image
+    price: { type: Number, required: true },      // The final price
+    original: { type: Number },                   // Original price before discount
+    discount: { type: String },                   // e.g., "-70%"
+    stock: { type: Number, default: 0 }           // To track inventory
+}, { timestamps: true });
+const Product = mongoose.model("Product", productSchema);
 
 // --- Authentication Middleware ---
 
@@ -256,6 +268,36 @@ app.get("/api/logout", (req, res) => {
 	res.status(200).json({ message: "You have been successfully logged out!" })
 })
 
+/* @route   GET /api/product
+ * @desc    Get all products, with optional filtering by category.
+ * @access  Public */
+apiRouter.get("/product", async (req, res) => {
+    try {
+        const query = req.query.category ? { category: req.query.category } : {};
+        const products = await Product.find(query);
+        res.status(200).json(products);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ message: "Server error while fetching products." });
+    }
+});
+
+/* @route   GET /api/product/:id
+ * @desc    Get a single product by its ID.
+ * @access  Public */
+apiRouter.get("/product/:id", async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found!" });
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        console.error("Error fetching single product:", error);
+        res.status(500).json({ message: "Server error while fetching product." });
+    }
+});
+
 /* @route   GET /api/cart
  * @desc    Get the user's shopping cart from the database.
  * @access  Private */
@@ -340,10 +382,10 @@ apiRouter.post("/order", verifyToken, async (req, res) => {
 })
 
 // --- Admin Routes ---
-/* @route   GET /api/admin-dbs
+/* @route   GET /api/admin-db
  * @desc    Get all documents from both Users and Orders collections.
  * @access  Administrator only */
-apiRouter.get("/admin-dbs", verifyToken, verifyAdmin, async (req, res) => {
+apiRouter.get("/admin-db", verifyToken, verifyAdmin, async (req, res) => {
 	console.log("Admin request to fetch all database documents!")
 	try {
 		const users = await User.find()
