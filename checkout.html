@@ -261,16 +261,16 @@
 								<i class="fab fa-cc-amex" title="American Express"></i>
 								<i class="fab fa-cc-discover" title="Discover"></i>
 							</div>
-							<form id="checkout-card-element">
+							<form id="checkout-card-element" novalidate>
 								<div class="form-group">
-									<input type="text" id="card-number" placeholder="Card Number" maxlength="19" />
+									<input type="text" id="card-number" placeholder="Card Number" maxlength="19" required />
 								</div>
 								<div class="form-group">
-									<input type="text" id="card-name" placeholder="Name on Card" />
+									<input type="text" id="card-name" placeholder="Name on Card" required />
 								</div>
 								<div class="form-group">
-									<input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" />
-									<input type="text" id="card-cvc" placeholder="CVC" maxlength="4" />
+									<input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" required />
+									<input type="text" id="card-cvc" placeholder="CVC" maxlength="4" required />
 								</div>
 							</form>
 							<div class="security-notice">

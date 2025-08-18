@@ -428,9 +428,34 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 		paymentMethod: paymentMethod,
 		paymentData: paymentData,
 	}
+	// Create a detailed and validated list of items for the order
+	const detailedItems = Object.keys(cart)
+		.map((id) => {
+			const item = productList[id]
+			const quantity = cart[id]
+
+			// VALIDATION: Ensure the product exists in productList before adding it
+			if (item && item.name) {
+				return {
+					productId: id,
+					name: item.name,
+					price: item.price,
+					quantity: quantity,
+					img: item.img,
+				}
+			}
+			return null // Return null for any item that can't be found
+		})
+		.filter((item) => item !== null) // Filter out any null items
+
+	// If, after filtering, there are no valid items, stop the order.
+	if (detailedItems.length === 0) {
+		showModal("Order Creation Failed", "Could not verify the items in your cart. Please clear your cart and try again.")
+		return
+	}
 
 	const orderPayload = {
-		items: cart,
+		items: detailedItems, // Validated list of items
 		total: document.getElementById("summary-grand-total").textContent,
 		shippingDetails: shippingDetails,
 	}
@@ -450,10 +475,10 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 		if (response.ok) {
 			// Clear cart after successful order
 			Object.keys(cart).forEach((key) => delete cart[key])
-			saveCart();
-if (typeof updateCartPreview === 'function') {
-        updateCartPreview();
-    }
+			saveCart()
+			if (typeof updateCartPreview === "function") {
+				updateCartPreview()
+			}
 			showModal("Order Successful!", `Your order has been placed successfully using ${paymentMethod}! You will now be redirected to your order history.`, () => {
 				window.location.href = "order.html"
 			})
@@ -486,8 +511,8 @@ async function placeOrder() {
 
 	if (!validateShippingForm()) return
 
-	const cardNumberInput = document.getElementById("card-number");
-	const cardNumberValue = cardNumberInput.value.replace(/\s/g, '');
+	const cardNumberInput = document.getElementById("card-number")
+	const cardNumberValue = cardNumberInput.value.replace(/\s/g, "")
 	showModal("Credit Card Payment", "In a real implementation, this would process your credit card through a secure payment processor.", () => {
 		processPaymentSuccess("credit-card", {
 			cardLast4: cardNumberValue.slice(-4), // Use the correct variable here

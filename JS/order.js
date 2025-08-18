@@ -43,23 +43,25 @@ async function renderOrderHistory() {
 				day: "numeric",
 			})
 
-			// Build HTML for order items
+			// Build HTML for order items by looping through the new items array
 			let itemsHtml = ""
-			if (order.items && typeof order.items === "object" && productList.length > 0) {
-				for (const [index, qty] of Object.entries(order.items)) {
-					const product = productList[index]
-					if (product) {
-						itemsHtml += `
-                            <div class="order-item">
-                                <img src="${product.img}" alt="${product.name}">
-                                <div class="item-details">
-                                    <span class="item-name">${product.name}</span>
-                                    <span class="item-qty">Quantity: ${qty}</span>
-                                </div>
-                                <span class="item-price">$${(product.price * qty).toFixed(2)}</span>
-                            </div>`
-					}
-				}
+			if (Array.isArray(order.items)) {
+				order.items.forEach((item) => {
+					// Use the price and quantity stored in the item object itself
+					const price = parseFloat(item.price)
+					const quantity = parseInt(item.quantity, 10)
+					const subtotal = (price * quantity).toFixed(2)
+
+					itemsHtml += `
+                        <div class="order-item">
+                            <img src="${item.img}" alt="${item.name}">
+                            <div class="item-details">
+                                <span class="item-name">${item.name}</span>
+                                <span class="item-qty">Quantity: ${quantity}</span>
+                            </div>
+                            <span class="item-price">$${subtotal}</span>
+                        </div>`
+				})
 			}
 
 			// Build HTML for order card
@@ -101,13 +103,10 @@ document.addEventListener("coreDataLoaded", () => {
 			showModal("Authentication Required", "Please log in to view your order history! You will now be redirected to the login page.", () => {
 				window.location.href = "login.html"
 			})
+			return // Stop execution if not logged in
 		}
-		// Order history is empty
-		if (productList.length === 0 && token) {
-			showModal("Your order history is empty!", "Please add your first item to procees to checkout! You will now be redirected to the shop page.", () => {
-				window.location.href = "shop.html"
-			})
-		}
+
+		// The render function will handle showing an empty history message, so the extra check is not needed here.
 		renderOrderHistory()
 	}
 })
