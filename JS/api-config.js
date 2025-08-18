@@ -9,10 +9,6 @@ const config = {
 }
 
 const PAYMENT_CONFIG = {
-	paypal: {
-		// Replace with your PayPal Sandbox or Production Client ID
-		clientId: "AYk6lFOBFe_nP98YJ7UvlGj-mS8lp32oXRIysMN9cuSMvFXsbbyavABiiqAfNmD1vFPdbymMSsLvRyud",
-	},
 	googlePay: {
 		environment: "TEST",	// Use "PRODUCTION" for live transactions
 		merchantId: "BCR2DN4TZCLPNAKX",
@@ -23,5 +19,9 @@ const PAYMENT_CONFIG = {
 		merchantDisplayName: "3140 Active Wear",
 		// Backend endpoint validate Apple Pay merchant with Apple's servers
 		// merchantValidationUrl: POST /apple-merchant implement endpoint in server.js file
+	},
+	paypal: {
+		// Replace with your PayPal Sandbox or Production Client ID
+		clientId: "AYk6lFOBFe_nP98YJ7UvlGj-mS8lp32oXRIysMN9cuSMvFXsbbyavABiiqAfNmD1vFPdbymMSsLvRyud",
 	},
 }
