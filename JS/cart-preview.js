@@ -159,6 +159,10 @@ function changeQty(index, change) {
 	if (typeof renderProducts === "function") {
 		updateProductViews()
 	}
+	// If on the checkout page, re-render the order summary
+	if (typeof renderOrderSummary === "function") {
+		renderOrderSummary()
+	}
 }
 
 // Main Initialization Sequence

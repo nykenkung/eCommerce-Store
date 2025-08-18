@@ -357,16 +357,27 @@ function renderOrderSummary() {
 	if (!token) {
 		placeOrderBtn.disabled = true
 		placeOrderBtn.style.backgroundColor = "#ccc"
-		placeOrderBtn.textContent = "Please Login"
+		placeOrderBtn.textContent = "Please Login To Proceed Checkout"
 		return
 	}
-	if (Object.keys(cart).length === 0) container.innerHTML = "<p style='text-align:center; font-size: 18px; padding: 5px'>Your cart is empty!</p>"
-	if (Object.keys(cart).length === 0 && token) {
+	if (Object.keys(cart).length === 0) {
+		container.innerHTML = "<p style='text-align:center; font-size: 18px; padding: 5px'>Your cart is empty!</p>"
+
+		// Even if logged in, disable button if cart is empty
 		placeOrderBtn.disabled = true
 		placeOrderBtn.style.backgroundColor = "#ccc"
-		placeOrderBtn.textContent = "Please Login First to Checkout"
+		placeOrderBtn.textContent = "Cart is Empty"
+		// Set totals to 0 when cart is empty
+		if (subtotalDisplay) subtotalDisplay.textContent = "$0.00"
+		if (totalDisplay) totalDisplay.textContent = "$0.00"
+		updatePaymentButtons(0) // Update payment buttons with zero total
 		return
 	}
+
+	// If cart is not empty, ensure the button is enabled
+	placeOrderBtn.disabled = false
+	placeOrderBtn.style.backgroundColor = "" // Revert to original style
+	placeOrderBtn.textContent = "Place Order"
 
 	Object.keys(cart).forEach((index) => {
 		const item = productList[index]
@@ -375,15 +386,21 @@ function renderOrderSummary() {
 		const subtotal = qty * item.price
 		total += subtotal
 
+		// Use the same structure and classes as cart-preview for identical styling
 		const div = document.createElement("div")
-		div.className = "summary-item"
+		div.className = "summary-item" // Use cart-item class
 		div.innerHTML = `
-            <img src="${item.img}" alt="${item.name}">
-            <div>
-                <span>${item.name}</span>
-                <span>Qty: ${qty}</span>
+            <button class="button-remove" onclick="changeQty(${index}, -${qty})">×</button>
+            <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+            <div class="cart-item-details">
+                <span class="cart-item-name">${item.name}</span>
+                <div class="cart-item-qty-controls">
+                    <button onclick="changeQty(${index}, -1)" ${qty <= 1 ? "disabled" : ""}>-</button>
+                    <span class="cart-item-qty">${qty}</span>
+                    <button onclick="changeQty(${index}, 1)">+</button>
+                </div>
             </div>
-            <strong>$${subtotal.toFixed(2)}</strong>`
+            <strong class="cart-item-price">$${subtotal.toFixed(2)}</strong>`
 		container.appendChild(div)
 	})
 
