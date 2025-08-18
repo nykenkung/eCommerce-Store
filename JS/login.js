@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	const registerForm = document.getElementById("register-form")
 	const forgotPasswordLink = document.getElementById("forgot-password")
 	const passwordRecoverySection = document.getElementById("password-recovery-section")
+
+	// Autofill email from cookie if it exists
+	const savedEmail = getCookie("savedUserEmail")
+	if (savedEmail) {
+		document.getElementById("login-email").value = savedEmail
+	}
+
 	loginTab.addEventListener("click", () => {
 		loginTab.classList.add("active")
 		registerTab.classList.remove("active")

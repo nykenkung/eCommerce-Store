@@ -1,4 +1,48 @@
 // Functions for Check Out Page (checkout.html)
+// List of form field IDs to save to the cookie
+const fieldsToSave = ["first-name", "last-name", "email", "phone", "address", "city", "state", "zip-code", "sameAsShipping", "mail-address", "mail-city", "mail-state", "mail-zip-code", "card-number", "card-name", "card-expiry", "card-cvc"]
+
+// Saves the content of the checkout form to a cookie.
+function saveCheckoutFormToCookie() {
+	const formData = {}
+	fieldsToSave.forEach((id) => {
+		const element = document.getElementById(id)
+		if (element) {
+			// Handle checkboxes vs. regular input fields
+			formData[id] = element.type === "checkbox" ? element.checked : element.value
+		}
+	})
+	// The setCookie function is available globally from cart-preview.js
+	setCookie("checkoutFormData", JSON.stringify(formData), 7) // Save for 7 days
+}
+
+// Loads and populates the checkout form from the cookie.
+function loadCheckoutFormFromCookie() {
+	// The getCookie function is available globally from cart-preview.js
+	const savedData = getCookie("checkoutFormData")
+	if (savedData) {
+		const formData = JSON.parse(savedData)
+		fieldsToSave.forEach((id) => {
+			const element = document.getElementById(id)
+			if (element && formData[id] !== undefined) {
+				if (element.type === "checkbox") {
+					element.checked = formData[id]
+				} else {
+					element.value = formData[id]
+				}
+			}
+		})
+
+		// After loading, manually trigger the change event for the checkbox
+		// to ensure the billing address visibility is correctly updated.
+		const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
+		if (sameAsShippingCheckbox) {
+			const event = new Event("change")
+			sameAsShippingCheckbox.dispatchEvent(event)
+		}
+	}
+}
+
 let currentPaymentMethod = "credit-card"
 let paypalButtonsInstance = null
 let googlePayButtonsInstance = null
@@ -607,11 +651,21 @@ function setupCheckoutPageListeners() {
 			}
 		})
 	})
+	// Add event listeners to automatically save form data on change
+	fieldsToSave.forEach((id) => {
+		const element = document.getElementById(id)
+		if (element) {
+			element.addEventListener("input", saveCheckoutFormToCookie)
+		}
+	})
 }
 
 // Initialize Check Out Page
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("checkout-page")) {
+		// Load form data from cookie first
+		loadCheckoutFormFromCookie()
+
 		// Check user login status
 		const token = localStorage.getItem("authToken")
 		if (!token) {
