@@ -31,7 +31,7 @@ mongoose
 
 // --- Mongoose Schemas and Models ---
 
-// User Schema
+// "Users" Schema
 const userSchema = new mongoose.Schema(
 	{
 		firstName: { type: String, required: true },
@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema(
 )
 const User = mongoose.model("User", userSchema)
 
-// Order Schema
+// "Orders" Schema
 const orderSchema = new mongoose.Schema({
 	userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 	items: { type: Array, required: true },
@@ -56,7 +56,7 @@ const orderSchema = new mongoose.Schema({
 })
 const Order = mongoose.model("Order", orderSchema)
 
-// Product Schema
+// "Products" Schema
 const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     category: { type: String, required: true },
@@ -269,7 +269,7 @@ app.get("/api/logout", (req, res) => {
 })
 
 /* @route   GET /api/product
- * @desc    Get all products, with optional filtering by category.
+ * @desc    Get all products with optional filtering by category
  * @access  Public */
 apiRouter.get("/product", async (req, res) => {
     try {
