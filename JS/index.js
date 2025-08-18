@@ -12,16 +12,7 @@ function closeBanner() {
 
 // Slideshow
 let currentHeroIndex = 0
-const heroImages = [	"clothing/hero.png",
-			"clothing/hero1.jpg",
-			"clothing/hero2.jpg",
-			"clothing/hero3.jpg",
-			"clothing/hero4.jpg",
-			"clothing/hero5.jpg",
-			"clothing/hero6.jpg",
-			"clothing/hero7.jpg",
-			"clothing/hero8.jpg",
-			"clothing/hero9.jpg" ]
+const heroImages = ["clothing/hero.png", "clothing/hero1.jpg", "clothing/hero2.jpg", "clothing/hero3.jpg", "clothing/hero4.jpg", "clothing/hero5.jpg", "clothing/hero6.jpg", "clothing/hero7.jpg", "clothing/hero8.jpg", "clothing/hero9.jpg"]
 const heroDotsContainer = document.getElementById("hero-dots")
 
 // Manual arrow clicks

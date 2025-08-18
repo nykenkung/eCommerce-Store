@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -9,6 +9,7 @@
 		<!-- Payment SDK Scripts -->
 		<script src="https://www.paypal.com/sdk/js?client-id=AYk6lFOBFe_nP98YJ7UvlGj-mS8lp32oXRIysMN9cuSMvFXsbbyavABiiqAfNmD1vFPdbymMSsLvRyud&currency=USD&intent=capture"></script>
 		<script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+		<script crossorigin src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
 		<script>
 			// Affirm configuration
 			_affirm_config = {
@@ -80,10 +81,10 @@
 		<main id="checkout-page">
 			<div class="checkout-container">
 				<div class="checkout-form">
-					<form id="checkout-form-element" novalidate>
-						<h3>Please enter your information to place your order!</h3>
+					<h3>Please enter your information to place your order!</h3>
 
-						<h3>Contact Information</h3>
+					<h3>Contact Information</h3>
+					<form id="checkout-form-element" novalidate>
 						<div class="form-group">
 							<input type="text" id="first-name" placeholder="First Name" required />
 							<input type="text" id="last-name" placeholder="Last Name" required />
@@ -157,109 +158,110 @@
 							</select>
 							<input type="text" id="zip-code" placeholder="ZIP Code" required />
 						</div>
+					</form>
 
-						<h3>Billing Address</h3>
-						<div class="form-group-checkbox">
-							<input type="checkbox" id="sameAsShipping" checked />
-							<label for="sameAsShipping">Same as shipping address</label>
+					<h3>Billing Address</h3>
+					<div class="form-group-checkbox">
+						<input type="checkbox" id="sameAsShipping" checked />
+						<label for="sameAsShipping">Same as shipping address</label>
+					</div>
+					<div id="billingAddressFields" style="display: none">
+						<div class="form-group">
+							<input type="text" id="mail-address" placeholder="Street Address" />
 						</div>
-						<div id="billingAddressFields" style="display: none">
-							<div class="form-group">
-								<input type="text" id="mail-address" placeholder="Street Address" />
-							</div>
-							<div class="form-group-3">
-								<input type="text" id="mail-city" placeholder="City" />
-								<select id="mail-state">
-									<option value="">State</option>
-									<option value="AL">AL</option>
-									<option value="AK">AK</option>
-									<option value="AZ">AZ</option>
-									<option value="AR">AR</option>
-									<option value="CA">CA</option>
-									<option value="CO">CO</option>
-									<option value="CT">CT</option>
-									<option value="DE">DE</option>
-									<option value="DC">DC</option>
-									<option value="FL">FL</option>
-									<option value="GA">GA</option>
-									<option value="HI">HI</option>
-									<option value="ID">ID</option>
-									<option value="IL">IL</option>
-									<option value="IN">IN</option>
-									<option value="IA">IA</option>
-									<option value="KS">KS</option>
-									<option value="KY">KY</option>
-									<option value="LA">LA</option>
-									<option value="ME">ME</option>
-									<option value="MD">MD</option>
-									<option value="MA">MA</option>
-									<option value="MI">MI</option>
-									<option value="MN">MN</option>
-									<option value="MS">MS</option>
-									<option value="MO">MO</option>
-									<option value="MT">MT</option>
-									<option value="NE">NE</option>
-									<option value="NV">NV</option>
-									<option value="NH">NH</option>
-									<option value="NJ">NJ</option>
-									<option value="NM">NM</option>
-									<option value="NY">NY</option>
-									<option value="NC">NC</option>
-									<option value="ND">ND</option>
-									<option value="OH">OH</option>
-									<option value="OK">OK</option>
-									<option value="OR">OR</option>
-									<option value="PA">PA</option>
-									<option value="RI">RI</option>
-									<option value="SC">SC</option>
-									<option value="SD">SD</option>
-									<option value="TN">TN</option>
-									<option value="TX">TX</option>
-									<option value="UT">UT</option>
-									<option value="VT">VT</option>
-									<option value="VA">VA</option>
-									<option value="WA">WA</option>
-									<option value="WV">WV</option>
-									<option value="WI">WI</option>
-									<option value="WY">WY</option>
-								</select>
-								<input type="text" id="mail-zip-code" placeholder="ZIP Code" />
-							</div>
+						<div class="form-group-3">
+							<input type="text" id="mail-city" placeholder="City" />
+							<select id="mail-state">
+								<option value="">State</option>
+								<option value="AL">AL</option>
+								<option value="AK">AK</option>
+								<option value="AZ">AZ</option>
+								<option value="AR">AR</option>
+								<option value="CA">CA</option>
+								<option value="CO">CO</option>
+								<option value="CT">CT</option>
+								<option value="DE">DE</option>
+								<option value="DC">DC</option>
+								<option value="FL">FL</option>
+								<option value="GA">GA</option>
+								<option value="HI">HI</option>
+								<option value="ID">ID</option>
+								<option value="IL">IL</option>
+								<option value="IN">IN</option>
+								<option value="IA">IA</option>
+								<option value="KS">KS</option>
+								<option value="KY">KY</option>
+								<option value="LA">LA</option>
+								<option value="ME">ME</option>
+								<option value="MD">MD</option>
+								<option value="MA">MA</option>
+								<option value="MI">MI</option>
+								<option value="MN">MN</option>
+								<option value="MS">MS</option>
+								<option value="MO">MO</option>
+								<option value="MT">MT</option>
+								<option value="NE">NE</option>
+								<option value="NV">NV</option>
+								<option value="NH">NH</option>
+								<option value="NJ">NJ</option>
+								<option value="NM">NM</option>
+								<option value="NY">NY</option>
+								<option value="NC">NC</option>
+								<option value="ND">ND</option>
+								<option value="OH">OH</option>
+								<option value="OK">OK</option>
+								<option value="OR">OR</option>
+								<option value="PA">PA</option>
+								<option value="RI">RI</option>
+								<option value="SC">SC</option>
+								<option value="SD">SD</option>
+								<option value="TN">TN</option>
+								<option value="TX">TX</option>
+								<option value="UT">UT</option>
+								<option value="VT">VT</option>
+								<option value="VA">VA</option>
+								<option value="WA">WA</option>
+								<option value="WV">WV</option>
+								<option value="WI">WI</option>
+								<option value="WY">WY</option>
+							</select>
+							<input type="text" id="mail-zip-code" placeholder="ZIP Code" />
 						</div>
+					</div>
+					<h3>Payment</h3>
+					<div class="payment-container">
+						<ul class="payment-tabs">
+							<li class="tab-link active" data-tab="credit-card">
+								<i class="fa fa-credit-card"></i>
+								<span>Credit Card</span>
+							</li>
+							<li class="tab-link" data-tab="paypal">
+								<i class="fab fa-paypal"></i>
+								<span>PayPal</span>
+							</li>
+							<li class="tab-link" data-tab="google-pay">
+								<i class="fab fa-google-pay"></i>
+								<span>Google Pay</span>
+							</li>
+							<li class="tab-link" data-tab="apple-pay">
+								<i class="fab fa-apple-pay"></i>
+								<span>Apple Pay</span>
+							</li>
+							<li class="tab-link" data-tab="affirm">
+								<i class="fas fa-calendar-alt"></i>
+								<span>Affirm</span>
+							</li>
+						</ul>
 
-						<h3>Payment</h3>
-						<div class="payment-container">
-							<ul class="payment-tabs">
-								<li class="tab-link active" data-tab="credit-card">
-									<i class="fa fa-credit-card"></i>
-									<span>Credit Card</span>
-								</li>
-								<li class="tab-link" data-tab="paypal">
-									<i class="fab fa-paypal"></i>
-									<span>PayPal</span>
-								</li>
-								<li class="tab-link" data-tab="google-pay">
-									<i class="fab fa-google-pay"></i>
-									<span>Google Pay</span>
-								</li>
-								<li class="tab-link" data-tab="apple-pay">
-									<i class="fab fa-apple-pay"></i>
-									<span>Apple Pay</span>
-								</li>
-								<li class="tab-link" data-tab="affirm">
-									<i class="fas fa-calendar-alt"></i>
-									<span>Affirm</span>
-								</li>
-							</ul>
-
-							<!-- Credit Card Tab -->
-							<div id="credit-card" class="tab-content active">
-								<div class="credit-card-icons">
-									<i class="fab fa-cc-visa" title="Visa"></i>
-									<i class="fab fa-cc-mastercard" title="Mastercard"></i>
-									<i class="fab fa-cc-amex" title="American Express"></i>
-									<i class="fab fa-cc-discover" title="Discover"></i>
-								</div>
+						<!-- Credit Card Tab -->
+						<div id="credit-card" class="tab-content active">
+							<div class="credit-card-icons">
+								<i class="fab fa-cc-visa" title="Visa"></i>
+								<i class="fab fa-cc-mastercard" title="Mastercard"></i>
+								<i class="fab fa-cc-amex" title="American Express"></i>
+								<i class="fab fa-cc-discover" title="Discover"></i>
+							</div>
+							<form id="checkout-card-element">
 								<div class="form-group">
 									<input type="text" id="card-number" placeholder="Card Number" maxlength="19" />
 								</div>
@@ -270,38 +272,38 @@
 									<input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" />
 									<input type="text" id="card-cvc" placeholder="CVC" maxlength="4" />
 								</div>
-								<div class="security-notice">
-									<i class="fas fa-lock"></i>
-									<span>Your payment information is encrypted and secure</span>
-								</div>
-							</div>
-
-							<!-- PayPal Tab -->
-							<div id="paypal" class="tab-content">
-								<div id="paypal-button-container"></div>
-								<div class="payment-note">Secure payment with PayPal. You'll be redirected to complete your purchase.</div>
-							</div>
-
-							<!-- Google Pay Tab -->
-							<div id="google-pay" class="tab-content">
-								<div id="google-pay-button-container"></div>
-								<div class="payment-note">Pay securely with Google Pay using your saved payment methods.</div>
-							</div>
-
-							<!-- Apple Pay Tab -->
-							<div id="apple-pay" class="tab-content">
-								<div id="apple-pay-button-container"></div>
-								<div class="payment-note">Pay securely with Touch ID or Face ID using Apple Pay.</div>
-							</div>
-
-							<!-- Affirm Tab -->
-							<div id="affirm" class="tab-content">
-								<div id="affirm-button-container"></div>
-								<div id="affirm-promo-container"></div>
-								<div class="payment-note">Pay over time with flexible payment plans. No hidden fees.</div>
+							</form>
+							<div class="security-notice">
+								<i class="fas fa-lock"></i>
+								<span>Your payment information is encrypted and secure</span>
 							</div>
 						</div>
-					</form>
+
+						<!-- PayPal Tab -->
+						<div id="paypal" class="tab-content">
+							<div id="paypal-button-container"></div>
+							<div class="payment-note">Secure payment with PayPal. You'll be redirected to complete your purchase.</div>
+						</div>
+
+						<!-- Google Pay Tab -->
+						<div id="google-pay" class="tab-content">
+							<div id="google-pay-button-container"></div>
+							<div class="payment-note">Pay securely with Google Pay using your saved payment methods.</div>
+						</div>
+
+						<!-- Apple Pay Tab -->
+						<div id="apple-pay" class="tab-content">
+							<div id="apple-pay-button-container"></div>
+							<div class="payment-note">Pay securely with Touch ID or Face ID using Apple Pay.</div>
+						</div>
+
+						<!-- Affirm Tab -->
+						<div id="affirm" class="tab-content">
+							<div id="affirm-button-container"></div>
+							<div id="affirm-promo-container"></div>
+							<div class="payment-note">Pay over time with flexible payment plans. No hidden fees.</div>
+						</div>
+					</div>
 					<button class="place-order-btn" onclick="placeOrder()">Place Order</button>
 				</div>
 				<div class="order-summary">
