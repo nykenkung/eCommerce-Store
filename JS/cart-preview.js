@@ -167,7 +167,7 @@ function changeQty(index, change) {
 
 // Main Initialization Sequence
 document.addEventListener("DOMContentLoaded", () => {
-	fetch("products.json")
+	fetch(`${config.product}`)
 		.then((response) => {
 			if (!response.ok) throw new Error("Network response occurs error!")
 			return response.json()
