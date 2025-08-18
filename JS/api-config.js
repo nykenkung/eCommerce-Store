@@ -10,12 +10,12 @@ const config = {
 
 const PAYMENT_CONFIG = {
 	googlePay: {
-		environment: "TEST", // Use "PRODUCTION" for live transactions
-		merchantId: "12345678901234567890", // Replace with your Google Pay merchant ID
+		environment: "TEST",	// Use "PRODUCTION" for live transactions
+		merchantId: "12345678901234567890",
 		merchantName: "3140 Active Wear",
 	},
 	applePay: {
-		merchantIdentifier: "merchant.com.example.applepaydemo", // Replace with your registered merchant identifier
+		merchantIdentifier: "merchant.com.example.applepaydemo",
 		merchantDisplayName: "3140 Active Wear",
 		// Backend endpoint validate Apple Pay merchant with Apple's servers
 		// merchantValidationUrl: POST /apple-merchant implement endpoint in server.js file
