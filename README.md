@@ -57,6 +57,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── checkout.html            # Checkout page
 ├── order.html				 # Order history page	
 ├── products.json            # All products data in JSON format
+├── favicon.ico				 # Graphic icon associated with website to avoid 404 error messaage
 ├── README.md                # This readme file
 │
 ├── .env                     # Important envirnment variables, you shall keep your own and do not commit 
@@ -74,18 +75,20 @@ We will upload a figma for a layout once we know the direction we want to go.
 │
 ├──────┬── /JS               # JavaScript folder
 │      │
+│      ├────── api-config.js # Configuration file for Paypal, Google Pay, Apple Pay payment merchant setting, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
 │      ├────── app.js        # Front-end JavaScript on load of every pages
 │      ├────── cart-core.js	 # Load on every page for header preview shopping cart and initial DOMContentLoaded event for fetching product lists in "products.json"
-│      ├────── shop.js       # Contains functions for searching and filtering
-│      ├────── cart.js       # Contains functions for rendering carts table
-│      ├────── checkout.js	 # Contains functions for checkout process
-│      ├────── order.js		 # Contains functions for rendering histories table
-│      └────── config.js     # Configuration file to store back-end apiBaseUrl (Default apiBaseUrl: "https://127.0.0.1:4000")
+│      ├────── index.js		 # Loaded by index.html. Contains functions for searching and filtering
+│      ├────── login.js      # Loaded by login.html. Contains functions for searching and filtering
+│      ├────── donate.js	 # Loaded by donate.html. Contains functions for donation submission
+│      ├────── shop.js       # Loaded by shop.html. Contains functions for fetching products list
+│      ├────── cart.js       # Loaded by cart.html. Contains functions for fetching user shopping carts
+│      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for payment merchant validation and checkout process 
+│      └────── order.js		 # Contains functions for fetching order history
 │
 ├──────┬── /server           # Node.js back-end server folder
 │      │
 │      └────── server.js     # Entry point of Node.js back-end server
-│      └────── chat.js       # Live-chat Node.js back-end JavaScript
 │
 └──────┬── /Introductions                              # Members introduction folders
 	   │
@@ -133,23 +136,26 @@ npm init -y
 }
 ```
 ### 6) Install development and all required dependencies in directory of "***package.json***" located
-Development dependencies:
+Development dependencies installed with ```npm install --save-dev```
 - **concurrently**: Runs multiple commands **simultaneously** (Usage: ```concurrently "server/server.js" "server/chat.js"```)
 - **nodemon**: Restart automatically when files changed (Usage: ```nodemon server/server.js```)
-- **eslint**: JavaScript static code analysis tool (Usage: ```npx eslint```)
+- **eslint**: JavaScript static code analysis tool (Install: ```npx eslint --init``, usage: ```npx eslint```)
   
-Required dependencies:
+Required dependencies installed with 
 - **express**: Express web server framework for Node.js
 - **mongoose**: Connect to MongoDB server and model MongoDB object
 - **bcryptjs**: **Hash and encrypt** passwords
 - **cors**: **Middleware** to handle cross-origin requests
 - **jsonwebtoken**: Create and verify **JSON Web Tokens** for **web authentication**
+- **axios**: Promise-based HTTP client that simplifies making HTTP requests
 - **dotenv**: Loads environment variables from ***.env*** file
 - ~~**cookie-parser**: Middleware to parse cookies attached by client requests~~ (Switched from Cookies method to JSON Web Token for only token credential is used for web authentication.)
 ```
 npm install
-(Optional) npm install --save-dev concurrently eslint nodemon & npx eslint --init
-(Or manually) npm install express mongoose bcryptjs cors jsonwebtoken dotenv & npm install --save-dev concurrently eslint nodemon & npx eslint --init
+(Optional)
+npm install --save-dev concurrently eslint nodemon
+npx eslint --init
+npm install express mongoose bcryptjs cors jsonwebtoken axios dotenv
 ```
 ### 7) To start the powerful static code analysis tool ***ESLint*** to check all JavaScript files on all folders and subfolders
 ```
@@ -183,7 +189,7 @@ Then it will automatically open the browser and start with ```https://127.0.0.1:
 ### 13) Once your Node.js back-end server and MongoDB server are connnected, you may test on these API requests on back-end server (e.g. using Chrome extension ***<a href="https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm">Talend API Tester</a>***) 
 - GET /api/check-auth
 
-Verify user login status by checking for the presence of JSON Web Token stored in **Local Storage**, must attach a valid login token to reach API
+Used by client side ****JS/app.js***. Verify user login status by checking for the presence of JSON Web Token stored in **Local Storage**, must attach a valid login token to reach API
 ```
 https://127.0.0.1:3000/api/check-auth
 ```
@@ -202,6 +208,7 @@ https://127.0.0.1:3000/api/users
 ```
 - POST /api/register
 
+Used by client side ****JS/app.js***. Seach anc create MongoDB database schema ***"users", "orders", and "products"***.  
 Handle new user registration by validate input, check email availability, hash password and save new user to MongoDB database.
 ```
 https://127.0.0.1:3000/api/register
@@ -216,7 +223,7 @@ curl -k -X POST -H "Content-Type: application/json" https://127.0.0.1:3000/regis
 ```
 - POST /api/login
 
-Manage user login by search user email, compare password with stored hash upon successful authentication.
+Used by client side ***JS/app.js***. Manage user login by search user email, compare password with stored hash upon successful authentication.
 ```
 https://127.0.0.1:3000/api/login
 ```
@@ -230,39 +237,63 @@ Log out and clear the stored login JSON Web Token.
 ```
 https://127.0.0.1:3000/api/logout
 ```
+- GET /api/product
+
+Used by client side ***JS/cart-preview.js***. Fetch the product list from back-end server and MongoDB schema "***products***".
+```
+https://127.0.0.1:3000/api/product
+```
+- GET /api/product/:id
+
+Used by client side ***JS/cart-preview.js***. Fetch the product list by item identity from back-end server and MongoDB schema "***products***".
+```
+https://127.0.0.1:3000/api/product/:id
+```
 - GET /api/cart
 
-Fetch all shopping cart from current user.
+Used by client side ***JS/cart-preview.js***. Fetch the shopping cart from current user.
 ```
 https://127.0.0.1:3000/api/cart
 ```
 - POST /api/cart
 
-Update your shipping cart on database.
+Used by client side ***app.js*** and ***JS/cart-preview.js***. Update user shopping cart on database.
 ```
 https://127.0.0.1:3000/api/cart
 ```
 - GET /apt/order
 
-Fetch all order history from current user.
+Used by client side ***JS/order.js***. Fetch the order history from current user.
 ```
 https://127.0.0.1:3000/api/order
 ```
 - POST /api/order
 
-Update your shipping cart on database.
+Used by client side ***JS/checkout.js***. Update your shipping cart on database.
 ```
 https://127.0.0.1:3000/api/order
 ```
+- POST /api/apple-merchant
+
+Used by client side ***JS/checkout.js***. Apple Pay merchant validation with Apple server.
+```
+https://127.0.0.1:3000/api/apple-merchant
+```
+- POST /api/apple-payment
+
+Wildly used for server side Apple Pay merchant payment process.
+```
+https://127.0.0.1:3000/api/apple-payment
+```
 - GET /api/admin-dbs
 
-Fetch all users and order with hashed password from MongoDB database (Need to login as Administrator first)
+**For Administrator login and development only**: Fetch all users and order with hashed password from MongoDB database
 ```
 https://127.0.0.1:3000/api/admin-dbs
 ```
 - GET /api/admin-reset
 
-Drop all MongoDB database and create an admin account with email: a@a, password: aaaa (Need to login as Administrator first)
+**For Administrator login and development only**: Drop all MongoDB database and create an admin account with ***email: a@a, password: aaaa***
 ```
 https://127.0.0.1:3000/admin-reset
 ```
@@ -291,8 +322,16 @@ Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
 ### 19) After register on ***Render.com***, go to Manage=>Environment to configure Environment Variables to set up JSON Web Token private key keep by own 
 ```
-JWT_SECRET=0123456789
+ORIGIN_URL="https://cunymeganlubin.github.io/E-commerceProject"
+JWT_SECRET=12345678901234567890
 MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
+```
+For using Apple Pay (use your Apple Developer account and merchant ID, follow instruction at <a href="https://applepaydemo.apple.com/apple-pay-js-api">https://applepaydemo.apple.com/apple-pay-js-api</a>
+```
+APPLE_MERCHANT_ID="merchant.com.example.applepaydemo"
+APPLE_MERCHANT_NAME="3140 Active Wear"
+APPLE_CRT_PATH="./CERT/apple-crt.pem"
+APPLE_KEY_PATH="./CERT/apple-key.pem"
 ```
 ### 20) To deploy on ***Render.com***, login and go to Setting, input ```npm install``` for Build Command, ```npm start``` for Start Command. Click Monitor=>Logs to monitor to back-end logs
 
