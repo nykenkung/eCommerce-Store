@@ -353,7 +353,7 @@ apiBaseUrl: "https://127.0.0.1:3000"
 ```
 Change to new back-end address:
 ```
-apiBaseUrl: "https://eCommerce-Store-xxx.onrender.com"
+apiBaseUrl: "https://e-commerceproject-xxxx.onrender.com/api"
 ```
 ### 22) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
 
