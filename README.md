@@ -78,8 +78,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      ├────── api-config.js # Configuration file for Paypal, Google Pay, Apple Pay payment merchant setting, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
 │      ├────── app.js        # Front-end JavaScript on load of every pages
 │      ├────── cart-core.js	 # Load on every page for header preview shopping cart and initial DOMContentLoaded event for fetching product lists in "products.json"
-│      ├────── index.js		 # Loaded by index.html. Contains functions for searching and filtering
-│      ├────── login.js      # Loaded by login.html. Contains functions for searching and filtering
+│      ├────── index.js		 # Loaded by index.html. Contains functions for slide show
+│      ├────── login.js      # Loaded by login.html. Contains functions for register and login
 │      ├────── donate.js	 # Loaded by donate.html. Contains functions for donation submission
 │      ├────── shop.js       # Loaded by shop.html. Contains functions for fetching products list
 │      ├────── cart.js       # Loaded by cart.html. Contains functions for fetching user shopping carts
