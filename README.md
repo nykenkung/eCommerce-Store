@@ -5,24 +5,18 @@
 ██╔══╝╚═╝██║     ██║   ██║██║╚██╔╝██║██║╚██╔╝██║██╔══╝  ██╔══██╗██║     ██╔══╝
 ███████╗ ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║███████╗██║  ██║╚██████╗███████╗
 ╚══════╝  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝╚══════╝
-           ██████╗ ██████╗  ██████╗      ██╗███████╗ ██████╗████████╗
-           ██╔══██╗██╔══██╗██╔═══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
-           ██████╔╝██████╔╝██║   ██║     ██║█████╗  ██║        ██║
-           ██╔═══╝ ██╔══██╗██║   ██║██   ██║██╔══╝  ██║        ██║
-           ██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║
-           ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
 </pre>
-<h1 align="center"># E-commerceProject<br>3140 ACTIVE WEAR</h1>
+<h1 align="center"># eCommerce Store<br>3140 ACTIVE WEAR</h1>
 
-### Click the link to start: <a href="https://cunymeganlubin.github.io/E-commerceProject" target="_blank">https://cunymeganlubin.github.io/E-commerceProject</a>
+### Click the link to start: <a href="https://nykenkung.github.io/eCommerce-Store" target="_blank">https://nykenkung.github.io/eCommerce-Store</a>
 **Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express back-end server**  
 **MongoDB Atlas**: https://cloud.mongodb.com  
 **Render.com**: https://dashboard.render.com
 
 ### Project Team Members
-**Usman Naveed** (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Usman/index.html" target="_blank">Introduction</a>  
-**Megan Lubin** (<a href="https://github.com/CunyMeganLubin" target="_blank">Github</a>) - Developer - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Megan/Megan_Lubin_Introduction.html" target="_blank">Introduction</a>  
-**Suen Ming Kung** (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Full-Stack Developer - <a href="https://cunymeganlubin.github.io/E-commerceProject/Introductions/Suen/Suen_Ming_Kung_Introduction.html" target="_blank">Introduction</a>  
+**Ken Kung** (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Full-Stack Developer - <a href="https://nykenkung.github.io/eCommerce-Store/Introductions/Ken/Ken_Introduction.html" target="_blank">Introduction</a>  
+**Usman Naveed** (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://nykenkung.github.io/eCommerce-Store/Introductions/Usman/index.html" target="_blank">Introduction</a>  
+**Megan Lubin** (<a href="https://github.com/CunyMeganLubin" target="_blank">Github</a>) - Developer - <a href="https://nykenkung.github.io/eCommerce-Store/Introductions/Megan/Megan_Lubin_Introduction.html" target="_blank">Introduction</a>  
 
 This project is an e-commerce web application that features:
 
@@ -92,12 +86,12 @@ We will upload a figma for a layout once we know the direction we want to go.
 │
 └──────┬── /Introductions                              # Members introduction folders
 	   │
+       ├───┬── /Ken                                    # Ken's files folder
+       │   └────── Ken_Introduction.html    		   # Ken's introduction page
        ├───┬── /Usman                                  # Usman's files folder
        │   └────── index.html                          # Usman's introduction page
-       ├───┬── /Megan                                  # Megan's files folder
-       │   └────── Megan_Lubin_Introduction.html       # Megan's introduction page
-       └───┬── /Suen                                   # Suen Ming's files folder
-           └────── Suen_Ming_Kung_Introduction.html    # Suen Ming's introduction page
+       └───┬── /Megan                                  # Megan's files folder
+           └────── Megan_Lubin_Introduction.html       # Megan's introduction page
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below softwares:
@@ -110,11 +104,11 @@ We will upload a figma for a layout once we know the direction we want to go.
 
 ### 1) Git Clone project repository to local directory
 ```
-git clone https://github.com/CunyMeganLubin/E-commerceProject.git
+git clone https://github.com/nykenkung/eCommerce-Store.git
 ```
 ### 2) Locate to the workplace directory
 ```
-cd /d C:\GitHub\E-commerceProject
+cd /d C:\GitHub\eCommerce-Store
 ```
 ### 3)  Generate the SSL certificate key files for local HTTPS (Make sure ***openssl.exe*** installed directory set to ***PATH*** variable)
 ```
@@ -175,7 +169,7 @@ net start MongoDB
 ```
 ### 10) Connect to database by MongoDB Shell (mongosh)
 ```
-mongosh mongodb://127.0.0.1:27017/E-commerceProject
+mongosh mongodb://127.0.0.1:27017/eCommerce-Store
 ```
 ### 11) To launch back-end server by Node.js, ***Nodemon*** for monitoring change or ***ESLint*** analysis tool
 ```npm start``` is equivalent to ```node server/server.js```  
@@ -310,11 +304,11 @@ https://127.0.0.1:3000/admin-reset
 ### 17) Secondly, the ***MongoDB Atlas*** online account is also requested, a free account can run one cluster at anytime. You will get your MongoDB cloud URL at ***MongoDB Atlas*** account, select Overview=>Database=>Clusters, click Connect=>Driver to see the example of source code included "***MONGO_URI***", put the URL into "***.env***" file
 Default locacl MongoDB address:
 ```
-MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject"
+MONGO_URI="mongodb://127.0.0.1:27017/eCommerce-Store"
 ```
 Change to new MongoDB address:
 ```
-MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
+MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/eCommerce-Store"
 ```
 ### 18) Thirdly, to set up who can access to your MongoDB cluster, go to your ***MongoDB Atlas*** account and select Overview=>Secuity=>Network Access to add IP Address you can copy from your ***Render.com*** dashboard in order to allow back-end server access to MongoDB database
 ```
@@ -322,9 +316,9 @@ Add new IP Address: xxx.xxx.xxx.xxx/xxx
 ```
 ### 19) After register on ***Render.com***, go to Manage=>Environment to configure Environment Variables to set up JSON Web Token private key keep by own 
 ```
-ORIGIN_URL="https://cunymeganlubin.github.io/E-commerceProject"
+ORIGIN_URL="https://nykenkung.github.io/eCommerce-Store"
 JWT_SECRET=12345678901234567890
-MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/E-commerceProject"
+MONGO_URI="mongodb+srv://<db_user>:<db_password>@cluster0.xxxxx.mongodb.net/eCommerce-Store"
 ```
 For using Apple Pay (use your Apple Developer account and merchant ID, follow instruction at <a href="https://applepaydemo.apple.com/apple-pay-js-api">https://applepaydemo.apple.com/apple-pay-js-api</a>
 ```
@@ -342,7 +336,7 @@ apiBaseUrl: "https://127.0.0.1:3000"
 ```
 Change to new back-end address:
 ```
-apiBaseUrl: "https://e-commerceproject-xxx.onrender.com"
+apiBaseUrl: "https://eCommerce-Store-xxx.onrender.com"
 ```
 ### 22) To view the MongoDB database collections created by web application, go to ***MongoDB Atlas*** account, select Overview=>Browse collections and select your cluster
 
