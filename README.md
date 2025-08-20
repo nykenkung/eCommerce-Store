@@ -257,7 +257,7 @@ https://127.0.0.1:3000/api/cart
 ```
 - POST /api/cart
 
-Used by client side ***app.js*** and ***JS/cart-preview.js***. Update user shopping cart on database.
+Used by client side ***JS/app.js*** and ***JS/cart-preview.js***. Update user shopping cart on database.
 ```
 https://127.0.0.1:3000/api/cart
 ```
