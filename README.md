@@ -95,7 +95,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      ├────── shop.js       # Loaded by shop.html. Contains functions for fetching products list
 │      ├────── cart.js       # Loaded by cart.html. Contains functions for fetching user shopping carts
 │      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for payment merchant validation and checkout process 
-│      └────── order.js		 # Contains functions for fetching order history
+│      └────── order.js		 # Loaded by order.html. Contains functions for fetching order history
 │
 ├──────┬── /server           # Node.js back-end server folder
 │      │
