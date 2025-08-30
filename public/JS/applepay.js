@@ -33,7 +33,7 @@ function initializeApplePay(total) {
 			countryCode: "US",
 			currencyCode: "USD",
 			total: {
-				label: "3140 Active Wear", // Merchant Display Name
+				label: APPLE_PAY_CONFIG.merchantName, // Use config for Merchant Name
 				amount: total.toFixed(2),
 			},
 			supportedNetworks: ["visa", "masterCard", "amex", "discover"],
