@@ -1,8 +1,8 @@
 // Functions for Check Out Page (checkout.html)
 // List of form field IDs to save to the cookie
-const fieldsToSave = ["first-name", "last-name", "email", "phone", "address", "city", "state", "zip-code", "sameAsShipping", "mail-address", "mail-city", "mail-state", "mail-zip-code", "card-number", "card-name", "card-expiry", "card-cvc"]
+const fieldsToSave = ["first-name", "last-name", "email", "phone", "address", "city", "state", "zip-code", "sameAsShipping", "mail-address", "mail-city", "mail-state", "mail-zip-code", "card-number", "card-name", "card-expiry", "card-cvv"]
 
-// Saves the content of the checkout form to a cookie.
+// Saves the content of the checkout form to a cookie
 function saveCheckoutFormToCookie() {
 	const formData = {}
 	fieldsToSave.forEach((id) => {
@@ -16,7 +16,7 @@ function saveCheckoutFormToCookie() {
 	setCookie("checkoutFormData", JSON.stringify(formData), 7) // Save for 7 days
 }
 
-// Loads and populates the checkout form from the cookie.
+// Loads and populates the checkout form from the cookie
 function loadCheckoutFormFromCookie() {
 	// The getCookie function is available globally from cart-preview.js
 	const savedData = getCookie("checkoutFormData")
@@ -33,8 +33,7 @@ function loadCheckoutFormFromCookie() {
 			}
 		})
 
-		// After loading, manually trigger the change event for the checkbox
-		// to ensure the billing address visibility is correctly updated.
+		// After loading, manually trigger the change event for the checkbox to ensure the billing address visibility is correctly updated
 		const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
 		if (sameAsShippingCheckbox) {
 			const event = new Event("change")
@@ -43,20 +42,51 @@ function loadCheckoutFormFromCookie() {
 	}
 }
 
-// Always run validation on input for real-time feedback
-document.querySelectorAll("input[required], select[required], #card-number, #card-name, #card-expiry, #card-cvc").forEach((input) => {
-	input.addEventListener("input", () => {
-		if (input.checkValidity()) {
-			input.classList.add("valid")
-			input.classList.remove("invalid")
-		} else {
-			input.classList.add("invalid")
-			input.classList.remove("valid")
+function setupPhoneAutoFormat() {
+	const phoneInput = document.getElementById("phone")
+	if (!phoneInput) return
+	phoneInput.addEventListener("input", (e) => {
+		// Keep only digits
+		let digits = e.target.value.replace(/\D/g, "")
+
+		// Limit to 10 digits
+		if (digits.length > 10) digits = digits.slice(0, 10)
+
+		let formatted = digits
+		if (digits.length > 6) {
+			formatted = digits.replace(/(\d{3})(\d{3})(\d{1,4})/, "$1-$2-$3")
+		} else if (digits.length > 3) {
+			formatted = digits.replace(/(\d{3})(\d{1,3})/, "$1-$2")
 		}
+
+		e.target.value = formatted
 	})
+}
+
+// Central function to style a field based on its validity
+function styleValidity(element) {
+	if (element.checkValidity()) {
+		element.classList.add("valid")
+		element.classList.remove("invalid")
+	} else {
+		element.classList.add("invalid")
+		element.classList.remove("valid")
+	}
+}
+
+// Function to validate all fields
+function validateAllFields() {
+	document.querySelectorAll("#checkout-form-element input[required], #checkout-form-element select[required]").forEach((input) => {
+		styleValidity(input)
+	})
+}
+
+// Run validation on input for real-time feedback
+document.querySelectorAll("#checkout-form-element input[required], #checkout-form-element select[required]").forEach((input) => {
+	input.addEventListener("input", () => styleValidity(input))
 })
 
-// Renders the order summary section
+// Render order summary section
 function renderOrderSummary() {
 	const container = document.getElementById("summary-items")
 	if (!container) {
@@ -170,7 +200,7 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 		paymentMethod: paymentMethod,
 		paymentData: paymentData,
 	}
-	// Create a detailed and validated list of items for the order
+	// Create detailed and validated list of items for the order
 	const detailedItems = Object.keys(cart)
 		.map((id) => {
 			const item = productList[id]
@@ -190,7 +220,6 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 		})
 		.filter((item) => item !== null) // Filter out any null items
 
-	// If, after filtering, there are no valid items, stop the order.
 	if (detailedItems.length === 0) {
 		showModal("Order Creation Failed", "Could not verify the items in your cart. Please clear your cart and try again.")
 		return
@@ -235,21 +264,18 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 
 // Function validate
 function validateShippingForm() {
-	document.querySelectorAll("input[required], select[required], #card-number, #card-name, #card-expiry, #card-cvc").forEach((input) => {
-		if (!input.checkValidity()) {
-			input.classList.add("invalid")
-			input.classList.remove("valid")
-		} else {
-			input.classList.add("valid")
-			input.classList.remove("invalid")
-		}
-	})
+	// Re-run validation styling for all fields before showing a modal
+	validateAllFields()
+	// Also validate credit card fields if that's the current method
+	if (typeof validateAllCardFields === "function") {
+		validateAllCardFields()
+	}
+
 	if (!document.getElementById("checkout-form-element").checkValidity()) {
 		showModal("Missing Information!", "Please fill out all required contact and shipping fields before proceeding with payment!")
 		return false
-	} else if (currentPaymentMethod !== "credit-card") return true
-	else if (!document.getElementById("checkout-card-element").checkValidity()) {
-		showModal("Missing Payment Information!", "Please fill out all credit card fields!")
+	} else if (currentPaymentMethod === "credit-card" && !document.getElementById("checkout-card-element").checkValidity()) {
+		showModal("Missing Payment Information!", "Please fill out all required credit card fields!")
 		return false
 	}
 	return true
@@ -259,6 +285,8 @@ let currentPaymentMethod = "credit-card"
 
 // Set up event listeners
 function setupCheckoutPageListeners() {
+	setupPhoneAutoFormat()
+
 	const sameAsShippingCheckbox = document.getElementById("sameAsShipping")
 	const billingAddressFields = document.getElementById("billingAddressFields")
 	if (sameAsShippingCheckbox && billingAddressFields) {
@@ -305,6 +333,14 @@ document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("checkout-page")) {
 		// Load form data from cookie first
 		loadCheckoutFormFromCookie()
+
+		// Validate all contact/shipping fields on initial load
+		validateAllFields()
+
+		// MODIFIED: Validate all card fields on initial load
+		if (typeof validateAllCardFields === "function") {
+			validateAllCardFields()
+		}
 
 		// Check user login status
 		const token = localStorage.getItem("authToken")

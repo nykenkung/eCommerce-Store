@@ -67,7 +67,7 @@
 							<input type="email" id="email" placeholder="Email" required />
 						</div>
 						<div class="form-group">
-							<input type="tel" id="phone" placeholder="Phone" />
+							<input type="tel" id="phone" placeholder="Phone" pattern="\d{3}-\d{3}-\d{4}" maxlength="12" required />
 						</div>
 
 						<h3>Shipping Address</h3>
@@ -130,7 +130,7 @@
 								<option value="WI">WI</option>
 								<option value="WY">WY</option>
 							</select>
-							<input type="text" id="zip-code" placeholder="ZIP Code" required />
+							<input type="text" id="zip-code" placeholder="ZIP Code" pattern="^\d{5}$" maxlength="5" required />
 						</div>
 					</form>
 
@@ -199,7 +199,7 @@
 								<option value="WI">WI</option>
 								<option value="WY">WY</option>
 							</select>
-							<input type="text" id="mail-zip-code" placeholder="ZIP Code" />
+							<input type="text" id="mail-zip-code" placeholder="ZIP Code" pattern="^\d{5}$" maxlength="5" required />
 						</div>
 					</div>
 					<h3>Payment</h3>
@@ -237,14 +237,14 @@
 							</div>
 							<form id="checkout-card-element" novalidate>
 								<div class="form-group">
-									<input type="text" id="card-number" placeholder="Card Number" maxlength="19" required />
+									<input type="text" id="card-number" placeholder="Card Number" pattern="^\d{13,19}$" maxlength="19" required />
 								</div>
 								<div class="form-group">
 									<input type="text" id="card-name" placeholder="Name on Card" required />
 								</div>
 								<div class="form-group">
-									<input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" required />
-									<input type="text" id="card-cvc" placeholder="CVC" maxlength="4" required />
+									<input type="text" id="card-expiry" placeholder="MM / YY" pattern="^(0[1-9]|1[0-2]) / \d{2}$" maxlength="7" required />
+									<input type="text" id="card-cvv" placeholder="CVV" pattern="^\d{3,4}$" maxlength="4" required />
 								</div>
 							</form>
 							<div class="security-notice">
