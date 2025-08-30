@@ -300,7 +300,7 @@ apiRouter.get("/product/:id", async (req, res) => {
 		res.status(200).json(product)
 	} catch (error) {
 		console.error("Error fetching single product:", error)
-		res.status(500).json({ message: "Server error while fetching product." })
+		res.status(500).json({ message: "Server error while fetching product!" })
 	}
 })
 
@@ -316,7 +316,7 @@ app.get("/api/cart", verifyToken, async (req, res) => {
 		res.status(200).json(user.cart || {})
 	} catch (error) {
 		console.error("Cart fetch error:", error)
-		res.status(500).json({ message: "Server error while fetching cart." })
+		res.status(500).json({ message: "Server error while fetching cart!" })
 	}
 })
 
@@ -327,14 +327,14 @@ app.post("/api/cart", verifyToken, async (req, res) => {
 	try {
 		const { cart } = req.body // Expects the entire cart object
 		if (typeof cart !== "object") {
-			return res.status(400).json({ message: "Invalid cart format." })
+			return res.status(400).json({ message: "Invalid cart format!" })
 		}
 		// Find the user and update their cart.
 		await User.findByIdAndUpdate(req.user.id, { cart: cart })
 		res.status(200).json({ message: "Cart updated successfully!" })
 	} catch (error) {
 		console.error("Cart update error:", error)
-		res.status(500).json({ message: "Server error while updating cart." })
+		res.status(500).json({ message: "Server error while updating cart!" })
 	}
 })
 
@@ -364,7 +364,7 @@ apiRouter.post("/order", verifyToken, async (req, res) => {
 		const userId = req.user.id // Get user ID from the verified token
 
 		if (!items || !total || !shippingDetails) {
-			return res.status(400).json({ message: "Missing order data." })
+			return res.status(400).json({ message: "Missing order data!" })
 		}
 
 		// Create a unique order number (e.g., based on timestamp and a random string)
