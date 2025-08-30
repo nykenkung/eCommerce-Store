@@ -1,13 +1,13 @@
 {
 	"name": "E-commerceProject",
 	"scripts": {
-		"start": "node server/server.js",
-		"dev": "nodemon server/server.js",
+		"start": "node server.js",
+		"dev": "nodemon server.js",
 		"lint": "npx eslint"
 	},
 	"devDependencies": {
-		"concurrently": "^9.2.0",
-		"eslint": "^9.33.0",
+		"concurrently": "^9.2.1",
+		"eslint": "^9.34.0",
 		"nodemon": "^3.1.10"
 	},
 	"dependencies": {
@@ -17,6 +17,6 @@
 		"dotenv": "^17.2.1",
 		"express": "^5.1.0",
 		"jsonwebtoken": "^9.0.2",
-		"mongoose": "^8.17.2"
+		"mongoose": "^8.18.0"
 	}
 }

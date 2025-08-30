@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Product - 3140 Active Wear</title>
+		<link rel="stylesheet" href="CSS/style.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
+	</head>
+	<body>
+		<section id="header">
+			<a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250" /></a>
+			<div>
+				<ul id="navbar">
+					<li><a href="index.html">Home</a></li>
+					<li><a class="active" href="shop.html">Shop</a></li>
+					<li><a href="donate.html">Donate</a></li>
+					<li class="dropdown">
+						<a>Contact ▼</a>
+						<ul class="dropdown-content">
+							<li><a href="contact.html">Contact us</a></li>
+							<li><a href="about.html">About us</a></li>
+						</ul>
+					</li>
+					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
+					<li>
+						<div class="cart-container">
+							<a href="cart.html" id="cart-icon">
+								<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+								<span id="cart-count">0</span>
+							</a>
+							<div id="cart-preview" class="cart-preview">
+								<a href="cart.html" class="button-link white">My Shopping Cart</a>
+								<div id="cart-items"></div>
+								<div class="cart-total">
+									<strong>Total:</strong>
+									$
+									<span id="cart-total">0.00</span>
+								</div>
+								<div style="margin-top: 20px; text-align: center">
+									<a href="checkout.html" class="button-link">Proceed to Checkout</a>
+									<a href="order.html" class="button-link white">My Order History</a>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<div id="shop-section">
+			<div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; border-bottom: 1px solid #eee">
+				<nav class="category-nav" style="padding: 0; border: none">
+					<a href="#">VIEW ALL</a>
+					<a href="#">FROM 70% OFF</a>
+					<a href="#">T-SHIRTS</a>
+					<a href="#">SWEATERS</a>
+					<a href="#">CARDIGANS</a>
+					<a href="#">OUTERWEAR</a>
+					<a href="#">HOODIES</a>
+					<a href="#">PANTS</a>
+				</nav>
+
+				<div>
+					<input type="text" id="search-bar" placeholder="Search items..." style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; width: 100%; min-width: 500px" />
+				</div>
+			</div>
+			<main class="product-grid" id="product-grid">
+				<!-- Products will be injected by JavaScript -->
+			</main>
+		</div>
+		<footer>
+			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
+		</footer>
+		<div id="modal" class="modal" role="dialog" aria-modal="true" tabindex="-1">
+			<div class="modal-content">
+				<h3 id="modal-title"></h3>
+				<p id="modal-message"></p>
+				<button id="modal-ok-button" type="button">OK</button>
+			</div>
+		</div>
+		<script src="JS/api-config.js" defer></script>
+		<script src="JS/app.js" defer></script>
+		<script src="JS/cart-preview.js" defer></script>
+		<script src="JS/shop.js" defer></script>
+	</body>
+</html>

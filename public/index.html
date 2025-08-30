@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Welcome to 3140 Active Wear</title>
+		<link rel="stylesheet" href="CSS/style.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
+	</head>
+	<body>
+		<div id="welcome-banner">
+			<div class="banner-content">
+				<strong style="font-size: 18px">🎉 Welcome to 3140 ACTIVE WEAR! 🎉</strong>
+				<span style="font-size: 15px; margin-left: 20px">Please login for exclusive promotion! Don't forget to sign in to claim your promotional offer!</span>
+			</div>
+			<div style="display: flex; align-items: center">
+				<input type="checkbox" id="no-show-again" style="margin-right: 5px" />
+				<label for="no-show-again" style="font-size: 14px; margin-right: 15px">Don't show again</label>
+				<button onclick="closeBanner()">OK</button>
+			</div>
+		</div>
+		<section id="header">
+			<a href="index.html"><img src="Icons/logo.png" class="logo" alt="Site Logo" width="100%" height="250" /></a>
+			<div>
+				<ul id="navbar">
+					<li><a class="active" href="index.html">Home</a></li>
+					<li><a href="shop.html">Shop</a></li>
+					<li><a href="donate.html">Donate</a></li>
+					<li class="dropdown">
+						<a>Contact ▼</a>
+						<ul class="dropdown-content">
+							<li><a href="contact.html">Contact us</a></li>
+							<li><a href="about.html">About us</a></li>
+						</ul>
+					</li>
+					<li><a href="login.html" id="login-logout-link">Login/Register</a></li>
+					<li>
+						<div class="cart-container">
+							<a href="cart.html" id="cart-icon">
+								<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+								<span id="cart-count">0</span>
+							</a>
+							<div id="cart-preview" class="cart-preview">
+								<a href="cart.html" class="button-link white">My Shopping Cart</a>
+								<div id="cart-items"></div>
+								<div class="cart-total">
+									<strong>Total:</strong>
+									$
+									<span id="cart-total">0.00</span>
+								</div>
+								<div style="margin-top: 20px; text-align: center">
+									<a href="checkout.html" class="button-link">Proceed to Checkout</a>
+									<a href="order.html" class="button-link white">My Order History</a>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="hero">
+			<div class="hero-arrow left" onclick="handleArrowClick(-1)">&#10094;</div>
+			<div class="hero-arrow right" onclick="handleArrowClick(1)">&#10095;</div>
+			<div class="hero-dots" id="hero-dots"></div>
+
+			<h1 class="hero-heading">Affordable Essentials for Everyday Athletes.</h1>
+			<div class="hero-text">
+				<p style="text-indent: 20px">aaaaaaaaaaaaaaaaaaaWe provide affordable, high-quality essentials for everyday athletes who show up, push hard, and strive to stay active every day. Our mission is to support your performance that fits your lifestyle and your budget.</p>
+				<br />
+				<div style="text-align: center">
+					<a href="shop.html" class="button-link">Shop Now</a>
+				</div>
+			</div>
+		</section>
+
+		<section id="feature">
+			<div class="fe-box">
+				<img src="Icons/features/2.png" alt="Free Shipping" />
+				<h5>Free Shipping</h5>
+			</div>
+			<div class="fe-box">
+				<img src="Icons/features/1.png" alt="Community" />
+				<h5>Community</h5>
+			</div>
+			<div class="fe-box">
+				<img src="Icons/features/3.png" alt="Promo" />
+				<h5>Promotional Discounts</h5>
+			</div>
+			<div class="fe-box">
+				<img src="Icons/features/4.png" alt="Satisfaction" />
+				<h5>Satisfaction Guaranteed</h5>
+			</div>
+			<div class="fe-box">
+				<img src="Icons/features/5.png" alt="Support" />
+				<h5>Live 24/7 Support</h5>
+			</div>
+			<div class="fe-box">
+				<img src="Icons/features/6.png" alt="About" />
+				<h5>About Us</h5>
+			</div>
+		</section>
+
+		<section id="newsletter">
+			<div class="newstext">
+				<h4>Sign Up For Newsletters</h4>
+				<p>
+					Get E-mail updates about our latest drops and
+					<span>special offers.</span>
+				</p>
+			</div>
+			<div class="form">
+				<input type="text" placeholder="Enter your email to sign up our newsletters!" />
+				<button class="normal">Sign Up</button>
+			</div>
+		</section>
+
+		<div class="info">
+			<div class="col" style="text-align: center">
+				<img src="Icons/logo.png" alt="3140 Active Wear Logo" class="logo" />
+				<div class="Follow">
+					<h4>
+						Follow
+						<br />
+						Brooklyn College
+						<br />
+						Social Media
+					</h4>
+					<div class="icon">
+						<a href="https://bsky.app/profile/brooklyncollege.bsky.social"><i class="fa-brands fa-bluesky"></i></a>
+						<a href="https://www.facebook.com/brooklyncollege" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+						<a href="https://www.instagram.com/bklyncollege411" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+						<a href="https://www.linkedin.com/company/brooklyn-college" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+						<br />
+						<a href="https://www.threads.net/@bklyncollege411" target="_blank"><i class="fa-brands fa-threads"></i></a>
+						<a href="https://www.tiktok.com/@bklyncollege411" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+						<a href="https://x.com/bklyncollege411" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+						<a href="https://www.youtube.com/user/BrooklynCollegeCUNY" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<h4>Contact</h4>
+				<p>
+					<strong>Brooklyn College</strong>
+				</p>
+				<p>
+					<strong>Address:</strong>
+					2900 Bedford Avenue
+					<br />
+					Brooklyn, NY 11210
+				</p>
+				<p>
+					<strong>Phone:</strong>
+					(718) 951-5000
+				</p>
+				<p>
+					<strong>Hours:</strong>
+					6:10pm - 7:55pm, Mon - Thurs
+				</p>
+			</div>
+			<div class="col">
+				<h4>About</h4>
+				<a href="about.html">About Us</a>
+				<a href="donate.html">Shipping Information</a>
+				<a href="donate.html">Privacy Policy</a>
+				<a href="contact.html">Contact Us</a>
+				<a href="donate.html">Terms & Conditions</a>
+			</div>
+			<div class="col">
+				<h4>My Account</h4>
+				<a href="login.html">Sign In</a>
+				<a href="cart.html">View Cart</a>
+				<a href="contact.html">Help</a>
+			</div>
+			<div class="col">
+				<h4>Secure Payment Options</h4>
+				<img src="Icons/features/payment.png" alt="Payment Methods" class="payment-img" />
+			</div>
+		</div>
+		<footer>
+			<p style="margin: 0">&copy; 2025 CISC 3140 ACTIVE WEAR (E-commerceProject) – Built with ❤️ by student developers for education.</p>
+		</footer>
+		<div id="modal" class="modal" role="dialog" aria-modal="true" tabindex="-1">
+			<div class="modal-content">
+				<h3 id="modal-title"></h3>
+				<p id="modal-message"></p>
+				<button id="modal-ok-button" type="button">OK</button>
+			</div>
+		</div>
+		<script src="JS/api-config.js" defer></script>
+		<script src="JS/app.js" defer></script>
+		<script src="JS/cart-preview.js" defer></script>
+		<script src="JS/index.js" defer></script>
+	</body>
+</html>
