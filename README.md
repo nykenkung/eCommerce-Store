@@ -26,6 +26,7 @@
 <h1 align="center"># eCommerce Store<br>3140 ACTIVE WEAR</h1>
 
 ### Click the link to start: <a href="https://nykenkung.github.io/eCommerce-Store/public" target="_blank">https://nykenkung.github.io/eCommerce-Store/public</a>
+### Alternate link: <a href="https://e-commerceproject-x4gr.onrender.com" target="_blank">https://e-commerceproject-x4gr.onrender.com</a>
 **Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express back-end server**  
 **MongoDB Atlas**: https://cloud.mongodb.com  
 **Render.com**: https://dashboard.render.com
