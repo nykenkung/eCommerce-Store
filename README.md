@@ -90,7 +90,12 @@ We will upload a figma for a layout once we know the direction we want to go.
        │      ├────── donate.js      # Loaded by donate.html. Contains functions for donation submission
        │      ├────── shop.js        # Loaded by shop.html. Contains functions for fetching products list
        │      ├────── cart.js        # Loaded by cart.html. Contains functions for fetching user shopping carts
-       │      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for payment merchant validation and checkout process 
+       │      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for checkout process
+       │      ├────── creditcard.js  # Loaded by checkout.html. Contains functions for credit card validation
+       │      ├────── paypal.js      # Loaded by checkout.html. Contains functions for Paypal validation
+       │      ├────── googlepay.js   # Loaded by checkout.html. Contains functions for GooglePay validation
+       │      ├────── applepay.js    # Loaded by checkout.html. Contains functions for ApplePay validation
+       │      ├────── affirm.js      # Loaded by checkout.html. Contains functions for Affirm validation
        │      └────── order.js		 # Loaded by order.html. Contains functions for fetching order history
        │
        ├───────── /Icons             # Logo designs folder
