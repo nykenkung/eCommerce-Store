@@ -59,6 +59,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 ├── .env                      # Important envirnment variables, you shall keep your own and do not commit 
 ├── .env.example			  # Shall change to ".env" to store your own envirnment variables like MongoDB server URL (Default MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject")
 ├── .gitignore				  # Avoid to commit sensitive configuration, unnecessary files and folders you would not commit
+├── .nojekyll				  # Skip Jekyll build for Github to deploy as static HTML+CSS+JS pages
 ├── package.json              # Node.js package configuration file ready for deploy and start (Usage: npm install & npm start)
 ├── eslint.config.mjs         # ESLint code analysis tool configuration file (Usage: npx eslint --init & npx eslint)
 ├── README.md                 # This readme file	
