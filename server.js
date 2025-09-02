@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000
 // --- Middleware ---
 const corsOptions = {
 	origin: (origin, callback) => {
-		// For development, allow all origins. In production, you should restrict this.
+		// For development, allow all origins
 		callback(null, true)
 	},
 	// origin: process.env.ORIGIN_URL, // Use this for production
@@ -354,26 +354,44 @@ apiRouter.post("/order", verifyToken, async (req, res) => {
 		if (!items || !total || !shippingDetails || !paymentDetails) {
 			return res.status(400).json({ message: "Missing order data!" })
 		}
-		// Update profile if user save card for future use
-		if (paymentDetails.method === "Credit Card" && paymentDetails.saveCard) {
-			try {
-				await User.findByIdAndUpdate(userId, {
-					$set: {
-						cardInfo: {
-							cardNumber: paymentDetails.cardNumber,
-							cardName: paymentDetails.cardName,
-							cardExpiry: paymentDetails.cardExpiry,
-							cardCvv: paymentDetails.cardCvv,
+		// Update or clear card info by user
+		if (paymentDetails.method === "Credit Card") {
+			if (paymentDetails.saveCard) {
+				// Save card to database
+				try {
+					await User.findByIdAndUpdate(userId, {
+						$set: {
+							cardInfo: {
+								cardNumber: paymentDetails.cardNumber,
+								cardName: paymentDetails.cardName,
+								cardExpiry: paymentDetails.cardExpiry,
+								cardCvv: paymentDetails.cardCvv,
+							},
 						},
-					},
-				})
-				console.log(`Saved card info for user ${userId}`)
-			} catch (updateError) {
-				console.error("Error saving card info:", updateError)
-				// This is a non-critical error, so we don't stop the order process
+					})
+					console.log(`Saved card info for user ${userId}`)
+				} catch (updateError) {
+					console.error("Error saving card info:", updateError)
+				}
+			} else {
+				// Clear saved card from database
+				try {
+					await User.findByIdAndUpdate(userId, {
+						$set: {
+							cardInfo: {
+								cardNumber: "",
+								cardName: "",
+								cardExpiry: "",
+								cardCvv: "",
+							},
+						},
+					})
+					console.log(`Cleared saved card info for user ${userId}`)
+				} catch (updateError) {
+					console.error("Error clearing card info:", updateError)
+				}
 			}
 		}
-
 		// Create a unique order number (e.g., based on timestamp and a random string)
 		const orderNumber = `${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`
 

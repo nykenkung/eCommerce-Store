@@ -351,8 +351,6 @@ async function loadSavedCardInfo() {
 				if (cardNameInput) cardNameInput.value = cardInfo.cardName
 				if (cardExpiryInput) cardExpiryInput.value = cardInfo.cardExpiry
 				if (cardCvvInput) cardCvvInput.value = cardInfo.cardCvv
-				// Hide the "Save card" option as a card is already saved
-				if (saveCardContainer) saveCardContainer.innerHTML = "Now using your saved card!"
 				if (typeof validateAllCardFields === "function") validateAllCardFields()
 			}
 		} else if (response.status !== 404) console.error("Could not fetch saved card info! Status:", response.status)
