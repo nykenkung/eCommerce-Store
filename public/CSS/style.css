@@ -134,12 +134,12 @@ button:hover {
 /* Navigation bar */
 #navbar li {
 	list-style-type: none;
-	padding: 0 20px;
+	padding: 0 15px;
 	position: relative;
 }
 #navbar li a {
 	text-decoration: none;
-	font-size: 23px;
+	font-size: 18px;
 	font-weight: 600;
 	color: #6c84a2;
 	transition: color 0.3s ease, border-color 0.3s ease;
@@ -170,7 +170,7 @@ button:hover {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px 80px;
+	padding: 20px 40px;
 	background: #e8e7e3;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
@@ -344,16 +344,21 @@ img {
 	background: linear-gradient(to right, #f9e8e2, #f0f8ff);
 	color: #194069;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	padding: 5px 40px;
+	padding: 5px 20px;
 	font-family: "Garamond", sans-serif;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	transform: translateY(-100%); /* Initially hidden above the screen */
 	transition: transform 1s ease-out; /* Smooth slide animation */
+	white-space: nowrap;
 }
 #welcome-banner.active {
 	transform: translateY(0); /* Slides it down into view */
+}
+#welcome-banner .banner-content {
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 /* Specific styling for the button inside the banner */
 #welcome-banner button {
@@ -372,6 +377,33 @@ img {
 	background-color: #f7f7f7; /* Slightly grey on hover */
 	color: #194069; /* Darker text on hover */
 	border-color: #ccc;
+}
+.scrolling-text-container {
+	flex-grow: 1; /* Allow it to take available space */
+	overflow: hidden; /* Hide the text when it's outside the container */
+	white-space: nowrap; /* Prevent the text from wrapping */
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#scrolling-promo-text {
+	display: inline-block;
+	/* Animation: 12s total duration, linear speed, stays at the end state */
+	animation: scroll-with-pauses 12s linear forwards;
+}
+@keyframes scroll-with-pauses {
+	0% {
+		transform: translateX(100%);
+	} /* Start off-screen right */
+	4% {
+		transform: translateX(100%);
+	} /* Pause for 0.5s (4% of 12s) */
+	96% {
+		transform: translateX(-100%);
+	} /* Scroll to off-screen left */
+	100% {
+		transform: translateX(-100%);
+	} /* Pause at the end for 0.5s */
 }
 
 #hero {

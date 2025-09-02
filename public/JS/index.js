@@ -68,13 +68,18 @@ function createHeroDots() {
 // On page load
 window.addEventListener("DOMContentLoaded", () => {
 	const banner = document.getElementById("welcome-banner")
+	const scrollingText = document.getElementById("scrolling-promo-text")
+
 	if (localStorage.getItem("hideWelcomeBanner") !== "true") {
 		setTimeout(() => {
 			banner.classList.add("active")
 		}, 200) // 0.2 second delay before slide down
-		bannerCloseTimer = setTimeout(() => {
-			closeBanner()
-		}, 5000) // Disappear after 5 second
+		// Listen for the scrolling text animation to end, then close the banner.
+		if (scrollingText) {
+			scrollingText.addEventListener("animationend", () => {
+				closeBanner()
+			})
+		}
 	}
 
 	// Preload next image
