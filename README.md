@@ -52,48 +52,48 @@ We will upload a figma for a layout once we know the direction we want to go.
 
 <h3 align="center">Repository Structure:</h3>
 <pre>
-/eCommerce-Store             # Static HTML and configuration files
+/eCommerce-Store              # Root folder of project repository
 │
-├── products.json            # All products data in JSON format for local fetch or export to MongoDB server (Usage: mongoimport --jsonArray  --uri "mongodb://127.0.0.1:27017/eCommerce-Store" --file "products.json" --collection products)
-├── server.js                # Entry point of Node.js back-end server
-├── .env                     # Important envirnment variables, you shall keep your own and do not commit 
-├── .env.example			 # Shall change to ".env" to store your own envirnment variables like MongoDB server URL (Default MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject")
-├── .gitignore				 # Avoid to commit sensitive configuration, unnecessary files and folders you would not commit
-├── package.json             # Node.js package configuration file ready for deploy and start (Usage: npm install & npm start)
-├── eslint.config.mjs        # ESLint code analysis tool configuration file (Usage: npx eslint --init & npx eslint)
-├── README.md                # This readme file	
-├── server.key				 # (Prepare your own) Private key file for HTTPS secure connections (Build: openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.cert)
-├── server.cert              # (Prepare your own) Certificate file contains server public key and informations
+├── products.json             # All products data in JSON format for local fetch or export to MongoDB server (Usage: mongoimport --jsonArray  --uri "mongodb://127.0.0.1:27017/eCommerce-Store" --file "products.json" --collection products)
+├── server.js                 # Entry point of Node.js back-end server
+├── .env                      # Important envirnment variables, you shall keep your own and do not commit 
+├── .env.example			  # Shall change to ".env" to store your own envirnment variables like MongoDB server URL (Default MONGO_URI="mongodb://127.0.0.1:27017/E-commerceProject")
+├── .gitignore				  # Avoid to commit sensitive configuration, unnecessary files and folders you would not commit
+├── package.json              # Node.js package configuration file ready for deploy and start (Usage: npm install & npm start)
+├── eslint.config.mjs         # ESLint code analysis tool configuration file (Usage: npx eslint --init & npx eslint)
+├── README.md                 # This readme file	
+├── server.key				  # (Prepare your own) Private key file for HTTPS secure connections (Build: openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.cert)
+├── server.cert               # (Prepare your own) Certificate file contains server public key and informations
 │
-├──────┬── / Public			 # Public domain folder
-│      ├────── favicon.ico	 # Graphic icon associated with website to avoid 404 error messaage
-│      ├────── index.html    # Landing front page
-│      ├────── shop.html     # Product detail page
-│      ├────── donate.html   # Donate clothing page
-│      ├────── contact.html  # Contact us page
-│      ├────── about.html    # About us page
-│      ├────── login.html    # Login/register/password recovery page
-│      ├────── cart.html     # Shopping cart page
-│      ├────── checkout.html # Checkout page
-│      └────── order.html	 # Order history page
-│
-├──────┬── /CSS              # CSS folder
-│      └─────── style.css    # Global CSS file
-│
-├──────┬── /JS               # JavaScript folder
-│      ├────── api-config.js # Configuration file for Paypal, Google Pay, Apple Pay payment merchant setting, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
-│      ├────── app.js        # Front-end JavaScript on load of every pages
-│      ├────── cart-core.js	 # Load on every page for header preview shopping cart and initial DOMContentLoaded event for fetching product lists in "products.json"
-│      ├────── index.js		 # Loaded by index.html. Contains functions for slide show
-│      ├────── login.js      # Loaded by login.html. Contains functions for register and login
-│      ├────── donate.js	 # Loaded by donate.html. Contains functions for donation submission
-│      ├────── shop.js       # Loaded by shop.html. Contains functions for fetching products list
-│      ├────── cart.js       # Loaded by cart.html. Contains functions for fetching user shopping carts
-│      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for payment merchant validation and checkout process 
-│      └────── order.js		 # Loaded by order.html. Contains functions for fetching order history
-│
-├───────── / Icons              # Logo designs folder
-└───────── / clothing           # Product images folder
+└──────┬── / Public			  # Public domain folder
+       ├────── favicon.ico	  # Graphic icon associated with website to avoid 404 error messaage
+       ├────── index.html     # Landing front page
+       ├────── shop.html      # Product detail page
+       ├────── donate.html    # Donate clothing page
+       ├────── contact.html   # Contact us page
+       ├────── about.html     # About us page
+       ├────── login.html     # Login/register/password recovery page
+       ├────── cart.html      # Shopping cart page
+       ├────── checkout.html  # Checkout page
+       ├────── order.html	  # Order history page
+       │
+       ├──────┬── /CSS               # CSS folder
+       │      └────── style.css      # Global CSS file
+       │
+       ├──────┬── /JS                # JavaScript folder
+       │      ├────── api-config.js  # Configuration file for Paypal, Google Pay, Apple Pay payment merchant setting, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
+       │      ├────── app.js         # Front-end JavaScript on load of every pages
+       │      ├────── cart-core.js	 # Load on every page for header preview shopping cart and initial DOMContentLoaded event for fetching product lists in "products.json"
+       │      ├────── index.js		 # Loaded by index.html. Contains functions for slide show
+       │      ├────── login.js       # Loaded by login.html. Contains functions for register and login
+       │      ├────── donate.js      # Loaded by donate.html. Contains functions for donation submission
+       │      ├────── shop.js        # Loaded by shop.html. Contains functions for fetching products list
+       │      ├────── cart.js        # Loaded by cart.html. Contains functions for fetching user shopping carts
+       │      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for payment merchant validation and checkout process 
+       │      └────── order.js		 # Loaded by order.html. Contains functions for fetching order history
+       │
+       ├───────── /Icons             # Logo designs folder
+       └───────── /clothing          # Product images folder
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below softwares:
