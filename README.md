@@ -96,8 +96,8 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      ├────── checkout.js	 # Loaded by checkout.html. Contains functions for payment merchant validation and checkout process 
 │      └────── order.js		 # Loaded by order.html. Contains functions for fetching order history
 │
-├────── / Icons              # Logo designs folder
-└────── / clothing           # Product images folder
+├───────── / Icons              # Logo designs folder
+└───────── / clothing           # Product images folder
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below softwares:
