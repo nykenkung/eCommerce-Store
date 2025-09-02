@@ -1183,7 +1183,8 @@ ul.payment-tabs li.tab-link:first-child.active {
 
 /* --- Order History Page Styling --- */
 #order-history-page {
-	width: 50%;
+	padding: 20px 80px;
+	width: 80%;
 	max-width: 1200px;
 	margin: 0 auto; /* Center the content */
 }

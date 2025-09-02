@@ -1,14 +1,21 @@
 // Functions for Shopping Cart Page (cart.html)
 function renderFullCart() {
 	const container = document.getElementById("cart-page-items-container")
-	if (!container) return // Only run below on cart page
+	if (!container) return
 
+	container.innerHTML = "<p style='text-align: center; margin: 20px'>Loading your shopping cart...</p>"
+
+	const summarySection = document.getElementById("cart-summary-section")
 	const subtotalDisplay = document.getElementById("cart-subtotal")
 	const totalDisplay = document.getElementById("cart-grand-total")
-	const summarySection = document.getElementById("cart-summary-section")
 
+	const token = localStorage.getItem("authToken")
+	if (!token) {
+		container.innerHTML = `<p style='text-align: center; font-size: 18px'>Could not load your shopping cart. <a href='login.html' style='text-decoration: none'>Click here</a> to log in and view your shopping cart!</p>`
+		if (summarySection) summarySection.style.display = "none"
+		return
+	}
 	const cartKeys = Object.keys(cart)
-
 	if (cartKeys.length === 0) {
 		container.innerHTML = "<p style='text-align: center; font-size: 18px'>Your cart is empty. <a href='shop.html' style='text-decoration: none'>Click here</a> to start shopping!</p>"
 		if (summarySection) summarySection.style.display = "none"

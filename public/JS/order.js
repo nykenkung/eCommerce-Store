@@ -2,13 +2,9 @@
 // Fetches and renders the order history for logged in user
 async function renderOrderHistory() {
 	const container = document.getElementById("order-list-container")
-	if (!container) {
-		console.error("Error: Could not find the '#order-list-container' element.")
-		return
-	}
+	if (!container) return
 
 	container.innerHTML = "<p style='text-align: center; margin: 20px'>Loading your order history...</p>"
-
 	const token = localStorage.getItem("authToken")
 	try {
 		const response = await fetch(`${apiBaseUrl}/order`, {
