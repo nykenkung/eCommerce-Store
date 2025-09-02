@@ -1,6 +1,6 @@
 // Functions for Check Out Page (checkout.html)
 // List of form field IDs to save to the cookie
-const fieldsToSave = ["first-name", "last-name", "email", "phone", "address", "city", "state", "zip-code", "sameAsShipping", "mail-address", "mail-city", "mail-state", "mail-zip-code", "card-number", "card-name", "card-expiry", "card-cvv"]
+const fieldsToSave = ["first-name", "last-name", "email", "phone", "address", "city", "state", "zip-code", "sameAsShipping", "mail-address", "mail-city", "mail-state", "mail-zip-code"]
 
 // Saves the content of the checkout form to a cookie
 function saveCheckoutFormToCookie() {
@@ -197,8 +197,6 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 					state: document.getElementById("mail-state").value,
 					zipCode: document.getElementById("mail-zip-code").value,
 			  },
-		paymentMethod: paymentMethod,
-		paymentData: paymentData,
 	}
 	// Create detailed and validated list of items for the order
 	const detailedItems = Object.keys(cart)
@@ -221,14 +219,15 @@ async function processPaymentSuccess(paymentMethod, paymentData) {
 		.filter((item) => item !== null) // Filter out any null items
 
 	if (detailedItems.length === 0) {
-		showModal("Order Creation Failed", "Could not verify the items in your cart. Please clear your cart and try again.")
+		showModal("Order Creation Failed!", "Could not verify the items in your cart. Please clear your cart and try again.")
 		return
 	}
 
 	const orderPayload = {
-		items: detailedItems, // Validated list of items
+		items: detailedItems,
 		total: document.getElementById("summary-grand-total").textContent,
 		shippingDetails: shippingDetails,
+		paymentDetails: paymentData, // Add the raw payment details directly to the payload
 	}
 
 	try {
@@ -328,19 +327,45 @@ function setupCheckoutPageListeners() {
 	})
 }
 
+// Fetches and populates saved credit card information for a logged-in user
+async function loadSavedCardInfo() {
+	const token = localStorage.getItem("authToken")
+	if (!token) return // Exit if user is not logged in
+	try {
+		// Assumes an endpoint exists to get saved payment info
+		const response = await fetch(`${apiBaseUrl}/card`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+		if (response.ok) {
+			const cardInfo = await response.json()
+			// Check if the returned object has card data
+			if (cardInfo && cardInfo.cardNumber) {
+				const cardNumberInput = document.getElementById("card-number")
+				const cardNameInput = document.getElementById("card-name")
+				const cardExpiryInput = document.getElementById("card-expiry")
+				const cardCvvInput = document.getElementById("card-cvv")
+				const saveCardContainer = document.getElementById("save-card-info").parentElement
+				if (cardNumberInput) cardNumberInput.value = cardInfo.cardNumber
+				if (cardNameInput) cardNameInput.value = cardInfo.cardName
+				if (cardExpiryInput) cardExpiryInput.value = cardInfo.cardExpiry
+				if (cardCvvInput) cardCvvInput.value = cardInfo.cardCvv
+				// Hide the "Save card" option as a card is already saved
+				if (saveCardContainer) saveCardContainer.innerHTML = "Now using your saved card!"
+				if (typeof validateAllCardFields === "function") validateAllCardFields()
+			}
+		} else if (response.status !== 404) console.error("Could not fetch saved card info! Status:", response.status)
+	} catch (error) {
+		console.error("Error loading saved card information:", error)
+	}
+}
+
 // Initialize Check Out Page
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("checkout-page")) {
 		// Load form data from cookie first
 		loadCheckoutFormFromCookie()
-
-		// Validate all contact/shipping fields on initial load
-		validateAllFields()
-
-		// MODIFIED: Validate all card fields on initial load
-		if (typeof validateAllCardFields === "function") {
-			validateAllCardFields()
-		}
 
 		// Check user login status
 		const token = localStorage.getItem("authToken")
@@ -357,6 +382,7 @@ document.addEventListener("coreDataLoaded", () => {
 		}
 		renderOrderSummary()
 		setupCheckoutPageListeners()
+		loadSavedCardInfo()
 
 		// Initialize default payment method
 		const total = parseFloat(document.getElementById("summary-grand-total")?.textContent?.replace("$", "") || "0")

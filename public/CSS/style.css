@@ -921,26 +921,34 @@ footer {
 	font-family: inherit;
 	color: #465b52;
 }
-#checkout-page .form-group-3 #city {
+#checkout-page .form-group-3 #city,
+#checkout-page .form-group-3 #mail-city {
 	flex-basis: 50%;
 }
 #checkout-page .form-group-3 #state,
 #checkout-page .form-group-3 #mail-state {
 	flex-basis: 20%;
 }
-#checkout-page .form-group-3 #zip-code {
+#checkout-page .form-group-3 #zip-code,
+#checkout-page .form-group-3 #mail-zip-code {
 	flex-basis: 30%;
 }
 
 /* --- Mailing Address Checkbox --- */
 #checkout-page .form-group-checkbox {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	margin-bottom: 15px;
 }
 #checkout-page .form-group-checkbox input {
 	width: auto;
+}
+.checkout-form label {
+	display: block;
+	margin-bottom: 5px;
+	text-align: left;
 }
 
 .payment-container {

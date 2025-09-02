@@ -34,7 +34,6 @@ mongoose
 	.catch((error) => console.error("MongoDB connection error:", error))
 
 // --- Mongoose Schemas and Models ---
-
 // "Users" Schema
 const userSchema = new mongoose.Schema(
 	{
@@ -44,6 +43,12 @@ const userSchema = new mongoose.Schema(
 		password: { type: String, required: true },
 		isAdmin: { type: Boolean, default: false },
 		cart: { type: Object, default: {} },
+		cardInfo: {
+			cardNumber: String,
+			cardName: String,
+			cardExpiry: String,
+			cardCvv: String,
+		},
 	},
 	{ timestamps: true }
 )
@@ -57,6 +62,13 @@ const orderSchema = new mongoose.Schema({
 	shippingDetails: { type: Object, required: true },
 	orderNumber: { type: String, required: true, unique: true },
 	orderDate: { type: Date, default: Date.now },
+	paymentDetails: {
+		method: String,
+		cardNumber: String,
+		cardName: String,
+		cardExpiry: String,
+		cardCvv: String,
+	},
 })
 const Order = mongoose.model("Order", orderSchema)
 
@@ -78,8 +90,8 @@ const Product = mongoose.model("Product", productSchema)
 // --- Authentication Middleware ---
 
 /**
- * Middleware to verify JWT token from the Authorization header.
- * If valid, it attaches the user's data to the request object.
+ * Middleware to verify JWT token from the Authorization header
+ * If valid, it attaches the user's data to the request object
  */
 const verifyToken = (req, res, next) => {
 	console.log("Verifying token for a protected route!")
@@ -103,10 +115,7 @@ const verifyToken = (req, res, next) => {
 	}
 }
 
-/**
- * Middleware to verify if the user is an admin.
- * This should be used after verifyToken.
- */
+// Middleware to verify if the user is an admin after verifyToken
 const verifyAdmin = async (req, res, next) => {
 	console.log("Verifying admin privileges!")
 	try {
@@ -128,11 +137,11 @@ const verifyAdmin = async (req, res, next) => {
 const apiRouter = express.Router()
 
 /* @route   GET /api/check-auth
- * @desc    This route can be used to verify a token from the client-side.
+ * @desc    This route can be used to verify a token from the client-side
  * @access  Private (requires token) */
 apiRouter.get("/check-auth", verifyToken, (req, res) => {
 	console.log("Responding to authentication check request!")
-	// If verifyToken middleware passes, the token is valid.
+	// If verifyToken middleware passes, the token is valid
 	try {
 		if (req.user) {
 			// User authenticated
@@ -162,29 +171,8 @@ apiRouter.get("/check-auth", verifyToken, (req, res) => {
 	}
 })
 
-/* @route   GET /api/profile
- * @desc    Get the profile information for the logged-in user.
- * @access  Private */
-app.get("/api/profile", verifyToken, async (req, res) => {
-	try {
-		// Find the user by the ID from the token, but exclude the password.
-		const user = await User.findById(req.user.id).select("-password")
-		if (!user) {
-			return res.status(404).json({ message: "User not found!" })
-		}
-		res.status(200).json({
-			firstName: user.firstName,
-			lastName: user.lastName,
-			email: user.email,
-		})
-	} catch (error) {
-		console.error("Profile fetch error:", error)
-		res.status(500).json({ message: "Server error while fetching profile." })
-	}
-})
-
 /* @route   POST /api/register
- * @desc    Handle new user registration.
+ * @desc    Handle new user registration
  * @access  Public */
 apiRouter.post("/register", async (req, res) => {
 	console.log("Processing new user registration request!")
@@ -222,7 +210,7 @@ apiRouter.post("/register", async (req, res) => {
 })
 
 /* @route   POST /api/login
- * @desc    Handle user login and return a JWT.
+ * @desc    Handle user login and return JWT
  * @access  Public */
 apiRouter.post("/login", async (req, res) => {
 	console.log("Processing user login request!")
@@ -266,11 +254,11 @@ apiRouter.post("/login", async (req, res) => {
 })
 
 /* @route   GET /api/logout
- * @desc    Acknowledge user logout. The client is responsible for clearing the token.
+ * @desc    Acknowledge user logout. The client is responsible for clearing the token
  * @access  Public */
 app.get("/api/logout", (req, res) => {
-	// This endpoint is now primarily for acknowledgment.
-	// The actual logout process (clearing the token) is handled client-side.
+	// This endpoint is now primarily for acknowledgment
+	// The actual logout process (clearing the token) is handled client-side
 	res.status(200).json({ message: "You have been successfully logged out!" })
 })
 
@@ -289,7 +277,7 @@ apiRouter.get("/product", async (req, res) => {
 })
 
 /* @route   GET /api/product/:id
- * @desc    Get a single product by its ID.
+ * @desc    Get single product by ID
  * @access  Public */
 apiRouter.get("/product/:id", async (req, res) => {
 	try {
@@ -305,7 +293,7 @@ apiRouter.get("/product/:id", async (req, res) => {
 })
 
 /* @route   GET /api/cart
- * @desc    Get the user's shopping cart from the database.
+ * @desc    Get the user's shopping cart from the database
  * @access  Private */
 app.get("/api/cart", verifyToken, async (req, res) => {
 	try {
@@ -321,7 +309,7 @@ app.get("/api/cart", verifyToken, async (req, res) => {
 })
 
 /* @route   POST /api/cart
- * @desc    Update the user's shopping cart in the database.
+ * @desc    Update the user's shopping cart in the database
  * @access  Private */
 app.post("/api/cart", verifyToken, async (req, res) => {
 	try {
@@ -355,16 +343,35 @@ apiRouter.get("/order", verifyToken, async (req, res) => {
 })
 
 /* @route   POST /api/order
- * @desc    Create a new order.
+ * @desc    Create a new order
  * @access  Private */
 apiRouter.post("/order", verifyToken, async (req, res) => {
 	console.log("Processing new order creation request!")
 	try {
-		const { items, total, shippingDetails } = req.body
+		const { items, total, shippingDetails, paymentDetails } = req.body
 		const userId = req.user.id // Get user ID from the verified token
 
-		if (!items || !total || !shippingDetails) {
+		if (!items || !total || !shippingDetails || !paymentDetails) {
 			return res.status(400).json({ message: "Missing order data!" })
+		}
+		// Update profile if user save card for future use
+		if (paymentDetails.method === "Credit Card" && paymentDetails.saveCard) {
+			try {
+				await User.findByIdAndUpdate(userId, {
+					$set: {
+						cardInfo: {
+							cardNumber: paymentDetails.cardNumber,
+							cardName: paymentDetails.cardName,
+							cardExpiry: paymentDetails.cardExpiry,
+							cardCvv: paymentDetails.cardCvv,
+						},
+					},
+				})
+				console.log(`Saved card info for user ${userId}`)
+			} catch (updateError) {
+				console.error("Error saving card info:", updateError)
+				// This is a non-critical error, so we don't stop the order process
+			}
 		}
 
 		// Create a unique order number (e.g., based on timestamp and a random string)
@@ -376,6 +383,7 @@ apiRouter.post("/order", verifyToken, async (req, res) => {
 			total,
 			shippingDetails,
 			orderNumber,
+			paymentDetails: paymentDetails,
 		})
 
 		await newOrder.save()
@@ -384,6 +392,28 @@ apiRouter.post("/order", verifyToken, async (req, res) => {
 	} catch (error) {
 		console.error("Error placing order:", error)
 		res.status(500).json({ message: "Server error while placing order!" })
+	}
+})
+
+/* @route   GET /api/card
+ * @desc    Get saved payment information for the logged-in user.
+ * @access  Private */
+apiRouter.get("/card", verifyToken, async (req, res) => {
+	console.log("Fetching saved payment info for a user!")
+	try {
+		const user = await User.findById(req.user.id).select("cardInfo")
+		if (!user) {
+			return res.status(404).json({ message: "User not found!" })
+		}
+		if (user.cardInfo && user.cardInfo.cardNumber) {
+			res.status(200).json(user.cardInfo)
+		} else {
+			// No saved card found for the user
+			res.status(404).json({ message: "No saved payment information found!" })
+		}
+	} catch (error) {
+		console.error("Error fetching payment info:", error)
+		res.status(500).json({ message: "Server error while fetching payment information!" })
 	}
 })
 

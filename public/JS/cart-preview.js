@@ -1,3 +1,50 @@
+function createCartPreviewElement() {
+	const cartContainer = document.querySelector(".cart-container")
+	if (cartContainer) {
+		const previewDiv = document.createElement("div")
+		previewDiv.id = "cart-preview"
+		previewDiv.className = "cart-preview"
+		previewDiv.innerHTML = `
+            <div id="cart-user-info" style="text-align: center; margin-bottom: 15px; display: none"></div>
+            <a href="order.html" class="button-link white">My Order History</a>
+            <a href="cart.html" class="button-link white">My Shopping Cart</a>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total:</strong> $ <span id="cart-total">0.00</span>
+            </div>
+            <div style="margin-top: 20px; text-align: center">
+                <a href="checkout.html" class="button-link">Proceed to Checkout</a>
+            </div>
+        `
+		cartContainer.appendChild(previewDiv)
+	}
+}
+
+// Decode  JWT from localStorage to get user data
+function getUserFromToken() {
+	const token = localStorage.getItem("authToken")
+	if (!token) return null
+	try {
+		// Get the payload from the token and decode it
+		const payload = JSON.parse(atob(token.split(".")[1]))
+		return payload
+	} catch (error) {
+		console.error("Error decoding token:", error)
+		return null
+	}
+}
+
+// Update the cart preview to show user info if they are logged in
+function updateCartUserInfo() {
+	const userInfoContainer = document.getElementById("cart-user-info")
+	const user = getUserFromToken()
+	// If a user is found and the container exists, populate and show it
+	if (user && userInfoContainer) {
+		userInfoContainer.innerHTML = `<strong>Dear ${user.firstName} ${user.lastName}, Welcome Back!</strong><br><small>Your user name is: ${user.email}</small>`
+		userInfoContainer.style.display = "block"
+	}
+}
+
 let productList = []
 const cart = {}
 let totalItems = 0
@@ -167,7 +214,8 @@ function changeQty(index, change) {
 
 // Main Initialization Sequence
 document.addEventListener("DOMContentLoaded", () => {
-	fetch(`${product}`) // fetch("products.json") // Local file
+	createCartPreviewElement()
+	fetch(`${product}`)
 		.then((response) => {
 			if (!response.ok) throw new Error("Network response occurs error!")
 			return response.json()
@@ -184,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			recalculateTotalItems()
 			updateCartCount()
 			updateCartPreview()
+			updateCartUserInfo()
 			document.dispatchEvent(onCoreDataLoaded)
 		})
 		.catch((error) => {
