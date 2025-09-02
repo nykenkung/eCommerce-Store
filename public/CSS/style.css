@@ -488,9 +488,10 @@ img {
 #feature {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-around;
 	gap: 20px;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
+	padding: 40px 60px;
 }
 #feature .fe-box {
 	width: 180px;
