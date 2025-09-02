@@ -82,7 +82,7 @@ We will upload a figma for a layout once we know the direction we want to go.
        │      └────── style.css      # Global CSS file
        │
        ├──────┬── /JS                # JavaScript folder
-       │      ├────── api-config.js  # Configuration file for Paypal, Google Pay, Apple Pay payment merchant setting, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
+       │      ├────── api-config.js  # Configuration file for Paypal, GooglePay, ApplePay, Affirm payment merchant cilent-side settings, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
        │      ├────── app.js         # Front-end JavaScript on load of every pages
        │      ├────── cart-core.js	 # Load on every page for navigation bar cart preview and initial DOMContentLoaded event for fetching product lists
        │      ├────── index.js		 # Loaded by index.html. Contains functions for slide show
