@@ -481,13 +481,13 @@ const getLocalIp = () =>
 		.flat()
 		.find((iface) => iface.family === "IPv4" && !iface.internal)?.address || "127.0.0.1"
 
+const localIP = getLocalIp()
+
 try {
 	const httpsOptions = {
 		key: fs.readFileSync("server.key"),
 		cert: fs.readFileSync("server.cert"),
 	}
-	const localIP = getLocalIp()
-
 	https.createServer(httpsOptions, app).listen(PORT, () => {
 		console.log(`Backend Server is running on https://${localIP}:${PORT}`)
 		console.log(`Accepting requests from origin: ${process.env.ORIGIN_URL || "any"}`)
@@ -496,8 +496,8 @@ try {
 		console.log(`Frontend is available at https://${localIP}:${PORT}`)
 	})
 } catch (error) {
-	console.error("Failed to start HTTPS server. Ensure server.key and server.cert are present!", error.message)
-	console.log("Falling back to HTTP server!")
+	console.error("Failed to start HTTPS server because server.key and server.cert are not present!", error.message)
+	console.log("Switch to HTTP server!")
 	app.listen(PORT, () => {
 		console.log(`Backend Server is running on http://${localIP}:${PORT}`)
 		console.log(`Frontend is available at http://${localIP}:${PORT}`)
