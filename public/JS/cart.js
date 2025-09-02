@@ -10,7 +10,7 @@ function renderFullCart() {
 	const cartKeys = Object.keys(cart)
 
 	if (cartKeys.length === 0) {
-		container.innerHTML = "<p style='text-align:center; font-size: 18px; color: #6c84a2; padding: 50px 0'>Your cart is empty. <a href='shop.html' style='text-decoration: none'>Click here</a> to start shopping!</p>"
+		container.innerHTML = "<p style='text-align: center; font-size: 18px'>Your cart is empty. <a href='shop.html' style='text-decoration: none'>Click here</a> to start shopping!</p>"
 		if (summarySection) summarySection.style.display = "none"
 		return
 	}
@@ -54,6 +54,13 @@ function renderFullCart() {
 // --- Initialize Shopping Cart Page ---
 document.addEventListener("coreDataLoaded", () => {
 	if (document.getElementById("cart-page-items-container")) {
+		// Check user login status
+		const token = localStorage.getItem("authToken")
+		if (!token) {
+			showModal("Authentication Required", "Please log in to view your shopping cart! You will now be redirected to the login page.", () => {
+				window.location.href = "login.html"
+			})
+		}
 		renderFullCart()
 	}
 })

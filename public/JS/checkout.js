@@ -108,7 +108,7 @@ function renderOrderSummary() {
 		return
 	}
 	if (Object.keys(cart).length === 0) {
-		container.innerHTML = "<p style='text-align:center; font-size: 18px; padding: 5px'>Your cart is empty!</p>"
+		container.innerHTML = "<p style='text-align: center; font-size: 18px; padding: 5px'>Your cart is empty!</p>"
 
 		// Even if logged in, disable button if cart is empty
 		placeOrderBtn.disabled = true

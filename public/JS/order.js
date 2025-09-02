@@ -21,14 +21,14 @@ async function renderOrderHistory() {
 			const errorResult = await response.json()
 			// Token is invalid/expired
 			if (response.status === 401 || response.status === 400) {
-				throw new Error("Please login to view your order history!")
+				throw new Error("<a href='login.html' style='text-decoration: none'>Click here</a> to login to view your order history!")
 			}
 			throw new Error(errorResult.message || "Failed to fetch orders!")
 		}
 
 		const orderHistory = await response.json()
 		if (!Array.isArray(orderHistory) || orderHistory.length === 0) {
-			container.innerHTML = "<p style='text-align:center; font-size: 18px; color: #6c84a2; padding: 50px 0;'>You have no past orders. <a href='shop.html' style='text-decoration: none'>Click here</a> to start shopping!</p>"
+			container.innerHTML = "<p style='text-align: center; font-size: 18px'>You have no past orders. <a href='shop.html' style='text-decoration: none'>Click here</a> to start shopping!</p>"
 			return
 		}
 
@@ -85,12 +85,12 @@ async function renderOrderHistory() {
                     </div>
                 </div>
 
-                <div class="order-body">${itemsHtml || "<p style='text-align: center'>Item details not available!</p>"}</div>`
+                <div class="order-body">${itemsHtml || "<p style='text-align: center; font-size: 18px'>Item details not available!</p>"}</div>`
 			container.appendChild(orderCard)
 		})
 	} catch (error) {
 		console.error("Error fetching order history:", error)
-		container.innerHTML = `<p style='text-align: center; margin: 20px'>Could not load order history. ${error.message}</p>`
+		container.innerHTML = `<p style='text-align: center; font-size: 18px'>Could not load order history. ${error.message}</p>`
 	}
 }
 
@@ -103,9 +103,7 @@ document.addEventListener("coreDataLoaded", () => {
 			showModal("Authentication Required", "Please log in to view your order history! You will now be redirected to the login page.", () => {
 				window.location.href = "login.html"
 			})
-			return // Stop execution if not logged in
 		}
-
 		// The render function will handle showing an empty history message, so the extra check is not needed here.
 		renderOrderHistory()
 	}
