@@ -82,7 +82,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      └────── order.html	 # Order history page
 │
 ├──────┬── /CSS              # CSS folder
-│     └─────── style.css     # Global CSS file
+│      └─────── style.css    # Global CSS file
 │
 ├──────┬── /JS               # JavaScript folder
 │      ├────── api-config.js # Configuration file for Paypal, Google Pay, Apple Pay payment merchant setting, back-end API URL (Default apiBaseUrl: "https://127.0.0.1:3000/api")
@@ -97,7 +97,7 @@ We will upload a figma for a layout once we know the direction we want to go.
 │      └────── order.js		 # Loaded by order.html. Contains functions for fetching order history
 │
 ├────── / Icons              # Logo designs folder
-├────── / clothing           # Product images folder
+└────── / clothing           # Product images folder
 </pre>
 
 ### To run on local machine, first make sure that your computer has installed below softwares:
