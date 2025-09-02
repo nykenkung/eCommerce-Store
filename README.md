@@ -25,15 +25,10 @@
 </pre>
 <h1 align="center"># eCommerce Store<br>3140 ACTIVE WEAR</h1>
 
-### Click the link to start: <a href="https://nykenkung.github.io/eCommerce-Store" target="_blank">https://nykenkung.github.io/eCommerce-Store</a>
+### Click the link to start: <a href="https://nykenkung.github.io/eCommerce-Store/public" target="_blank">https://nykenkung.github.io/eCommerce-Store/public</a>
 **Using MongoDB Atlas as database and deploy on Render.com to run on Node.js + Express back-end server**  
 **MongoDB Atlas**: https://cloud.mongodb.com  
 **Render.com**: https://dashboard.render.com
-
-### Project Team Members
-**Ken Kung** (<a href="https://github.com/nykenkung" target="_blank">Github</a>) - Full-Stack Developer - <a href="https://nykenkung.github.io/eCommerce-Store/Introductions/Ken/Ken_Introduction.html" target="_blank">Introduction</a>  
-**Usman Naveed** (<a href="https://github.com/Usman072003" target="_blank">Github</a>) - Project Architect - <a href="https://nykenkung.github.io/eCommerce-Store/Introductions/Usman/index.html" target="_blank">Introduction</a>  
-**Megan Lubin** (<a href="https://github.com/CunyMeganLubin" target="_blank">Github</a>) - Developer - <a href="https://nykenkung.github.io/eCommerce-Store/Introductions/Megan/Megan_Lubin_Introduction.html" target="_blank">Introduction</a>  
 
 This project is an e-commerce web application that features:
 
